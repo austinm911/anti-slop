@@ -1,0 +1,67 @@
+id: no-return-local-alias-function
+
+invalid:
+  - |
+    function computeMac(payload: string): string {
+      const mac = computeArtifactMac(payload)
+      return mac
+    }
+  - |
+    const computeMac = (payload: string): string => {
+      const mac = computeArtifactMac(payload)
+      return mac
+    }
+  - |
+    const makeThing = function (input: string) {
+      const thing = buildThing(input)
+      return thing
+    }
+  - |
+    const column = {
+      id() {
+        const id = uuid("id")
+        return id
+      },
+    }
+  - |
+    class ThingService {
+      makeThing(input: string) {
+        const thing = buildThing(input)
+        return thing
+      }
+    }
+  - |
+    const fetchThing = async (id: string) => {
+      const thing = await loadThing(id)
+      return thing
+    }
+
+valid:
+  - |
+    function realBody(input: string): Thing {
+      const raw = buildThing(input)
+      validateThing(raw)
+      return raw
+    }
+  - |
+    function withType(input: string): Thing {
+      const thing: Thing = buildThing(input)
+      return thing
+    }
+  - |
+    function returnsAnother(input: string): Thing {
+      const thing = buildThing(input)
+      return fallbackThing
+    }
+  - |
+    function nestedBlock(input: string): Thing | undefined {
+      if (input.length > 0) {
+        const thing = buildThing(input)
+        return thing
+      }
+    }
+  - |
+    function mutableLocal(input: string): Thing {
+      let thing = buildThing(input)
+      return thing
+    }

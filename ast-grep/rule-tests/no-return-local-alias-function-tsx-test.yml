@@ -1,0 +1,26 @@
+id: no-return-local-alias-function-tsx
+
+invalid:
+  - |
+    const Card = () => {
+      const view = <article>Card</article>
+      return view
+    }
+  - |
+    function EmptyState() {
+      const content = <p>Nothing here</p>
+      return content
+    }
+
+valid:
+  - |
+    const Card = (): ReactNode => {
+      const view: ReactNode = <article>Card</article>
+      return view
+    }
+  - |
+    const Card = () => {
+      const view = <article>Card</article>
+      recordRender("Card")
+      return view
+    }

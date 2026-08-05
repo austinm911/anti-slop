@@ -1,0 +1,48 @@
+{
+  "name": "@austinm911/anti-slop",
+  "version": "0.1.0",
+  "description": "Reusable ast-grep and Oxlint rules for structural code quality",
+  "homepage": "https://github.com/austinm911/anti-slop#readme",
+  "bugs": "https://github.com/austinm911/anti-slop/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/austinm911/anti-slop.git"
+  },
+  "bin": {
+    "anti-slop": "./bin/anti-slop.mjs"
+  },
+  "files": [
+    "ast-grep",
+    "bin",
+    "docs/admission-standard.md",
+    "docs/rule-catalog.md",
+    "oxlint",
+    "LICENSE",
+    "README.md"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "check": "bun run format:check && bun run test && bun run rules:test && bun run registry:check && bun run pack:check",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "pack:check": "bun pm pack --dry-run",
+    "registry:check": "shadcn registry validate registry.json",
+    "rules:test": "bun bin/anti-slop.mjs test",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@ast-grep/cli": "0.45.0"
+  },
+  "devDependencies": {
+    "oxfmt": "0.61.0",
+    "shadcn": "4.16.1"
+  },
+  "trustedDependencies": [
+    "@ast-grep/cli"
+  ]
+}

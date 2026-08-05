@@ -1,0 +1,31 @@
+id: no-file-local-generic-record-guard
+
+invalid:
+  - |
+    function isRecord(value: unknown): value is Record<string, unknown> {
+      return typeof value === "object" && value !== null
+    }
+  - |
+    const isRecord = (value: unknown): value is Readonly<Record<string, unknown>> =>
+      value !== null && typeof value === "object" && !Array.isArray(value)
+  - |
+    const isRecord = function (value: unknown): boolean {
+      return value !== null && typeof value === "object"
+    }
+
+valid:
+  - |
+    import { isRecord } from "./decode"
+    const parsed = isRecord(input) ? input : undefined
+  - |
+    const isRecord = RecordSchema.is
+  - |
+    function isRecordId(value: unknown): value is string {
+      return typeof value === "string"
+    }
+  - |
+    class Parser {
+      isRecord(value: unknown): boolean {
+        return this.schema.is(value)
+      }
+    }
