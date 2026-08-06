@@ -65,3 +65,18 @@ valid:
       let thing = buildThing(input)
       return thing
     }
+  - |
+    function preservesInferredName() {
+      const callback = () => undefined
+      return callback
+    }
+  - |
+    function preservesClassName() {
+      const Thing = class {}
+      return Thing
+    }
+  - |
+    function preservesParenthesizedInferredName() {
+      const callback = (() => undefined)
+      return callback
+    }

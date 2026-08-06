@@ -1,7 +1,7 @@
-id: no-return-local-alias-function
+id: no-throw-local-alias-function
 language: TypeScript
 severity: error
-message: Return the initializer directly. This local is used only by the next return.
+message: Throw the initializer directly. This local is used only by the next throw.
 note: Keep a local when it adds a type boundary or when another statement uses it.
 ignores:
   - "**/archive/**"
@@ -18,7 +18,7 @@ rule:
         context: |
           function __candidate() {
             const $LOCAL = $VALUE
-            return $LOCAL
+            throw $LOCAL
           }
         selector: statement_block
     - inside:
@@ -45,10 +45,10 @@ constraints:
               - kind: class
             stopBy: end
 ---
-id: no-return-local-alias-function-tsx
+id: no-throw-local-alias-function-tsx
 language: Tsx
 severity: error
-message: Return the initializer directly. This local is used only by the next return.
+message: Throw the initializer directly. This local is used only by the next throw.
 note: Keep a local when it adds a type boundary or when another statement uses it.
 ignores:
   - "**/archive/**"
@@ -65,7 +65,7 @@ rule:
         context: |
           function __candidate() {
             const $LOCAL = $VALUE
-            return $LOCAL
+            throw $LOCAL
           }
         selector: statement_block
     - inside:

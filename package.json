@@ -1,7 +1,7 @@
 {
   "name": "@austinm911/anti-slop",
   "version": "0.1.0",
-  "description": "Reusable ast-grep and Oxlint rules for structural code quality",
+  "description": "GitHub source registry of structural ast-grep and Oxlint rules",
   "homepage": "https://github.com/austinm911/anti-slop#readme",
   "bugs": "https://github.com/austinm911/anti-slop/issues",
   "license": "MIT",
@@ -22,10 +22,6 @@
     "README.md"
   ],
   "type": "module",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "check": "bun run format:check && bun run test && bun run rules:test && bun run registry:check && bun run pack:check",
     "format": "oxfmt",

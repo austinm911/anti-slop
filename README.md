@@ -7,54 +7,61 @@ scope, control-flow, or fixer logic. A rule must pass the admission standard in
 [`docs/admission-standard.md`](docs/admission-standard.md) before it enters a
 preset.
 
-The first release contains two ast-grep rules:
+The recommended preset contains three ast-grep rules:
 
 - `no-return-local-alias-function` rejects a local that only forwards its
   initializer to the next return.
+- `no-throw-local-alias-function` rejects a local that only forwards its
+  initializer to the next throw.
 - `no-file-local-generic-record-guard` warns about another file-local
   `isRecord` helper instead of a boundary decoder or package-owned utility.
 
 The Oxlint lane is intentionally empty. No candidate has met the admission
 standard without duplicating a native Oxlint rule or producing excessive noise.
 
-## Install the package from GitHub
+## Install from the GitHub registry
+
+Install one rule directly from the public GitHub source registry:
 
 ```bash
-bun add --dev @austinm911/anti-slop@github:austinm911/anti-slop#v0.1.0
+bunx --bun shadcn@latest add austinm911/anti-slop/no-return-local-alias-function
 ```
 
-Scan a repository:
+The shadcn CLI requires a valid `components.json` and `tsconfig.json` in the
+consumer repository. `components.json` is project configuration for the CLI;
+using this registry does not require adopting shadcn UI components.
+
+The untagged address follows the latest commit on the repository's default
+branch. Pin a release when reproducibility matters:
 
 ```bash
-bunx anti-slop scan apps packages projects tools
+bunx --bun shadcn@latest add austinm911/anti-slop/no-return-local-alias-function#v0.1.0
 ```
 
-Test the packaged rules:
+Other installable items:
+
+```text
+austinm911/anti-slop/no-throw-local-alias-function
+austinm911/anti-slop/no-file-local-generic-record-guard
+austinm911/anti-slop/recommended
+austinm911/anti-slop/all
+austinm911/anti-slop/agent-guidance
+```
+
+Each rule item copies its YAML rule, tests, shared ast-grep configuration, and
+setup guide into the downstream repository. `recommended` installs the normal
+preset; `all` installs every admitted rule.
+
+Preview an install:
 
 ```bash
-bunx anti-slop test
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended --dry-run
 ```
 
-## Install through the GitHub registry
-
-Install the packaged recommended preset:
-
-```bash
-bunx shadcn@latest add austinm911/anti-slop/recommended#v0.1.0
-```
-
-Use `ast-grep-local` instead when the downstream repository must own and edit
-copies of the YAML rules:
-
-```bash
-bunx shadcn@latest add austinm911/anti-slop/ast-grep-local#v0.1.0
-```
-
-Preview any installation before it writes files:
-
-```bash
-bunx shadcn@latest add austinm911/anti-slop/recommended#v0.1.0 --dry-run
-```
+Registry installs are repository-owned source, not automatically updated.
+Re-run the same untagged address to fetch the latest default-branch version.
+Use `--dry-run` and `--diff <file>` to review changes, then `--overwrite` only
+when replacing the local copies is intended.
 
 ## Develop
 
