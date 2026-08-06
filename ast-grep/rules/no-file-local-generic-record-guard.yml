@@ -1,0 +1,63 @@
+id: no-file-local-generic-record-guard
+language: TypeScript
+severity: warning
+message: Do not add another file-local generic isRecord guard.
+note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
+  - "**/*.stories.ts"
+  - "**/*.bench.ts"
+rule:
+  any:
+    - all:
+        - kind: function_declaration
+        - has:
+            field: name
+            regex: ^isRecord$
+    - all:
+        - kind: variable_declarator
+        - has:
+            field: name
+            regex: ^isRecord$
+        - has:
+            field: value
+            any:
+              - kind: arrow_function
+              - kind: function_expression
+---
+id: no-file-local-generic-record-guard-tsx
+language: Tsx
+severity: warning
+message: Do not add another file-local generic isRecord guard.
+note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.tsx"
+  - "**/*.spec.tsx"
+  - "**/*.stories.tsx"
+  - "**/*.bench.tsx"
+rule:
+  any:
+    - all:
+        - kind: function_declaration
+        - has:
+            field: name
+            regex: ^isRecord$
+    - all:
+        - kind: variable_declarator
+        - has:
+            field: name
+            regex: ^isRecord$
+        - has:
+            field: value
+            any:
+              - kind: arrow_function
+              - kind: function_expression

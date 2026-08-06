@@ -1,0 +1,21 @@
+id: no-throw-local-alias-function-tsx
+
+invalid:
+  - |
+    const Boundary = (): never => {
+      const error = createRenderError(<Card />)
+      throw error
+    }
+
+valid:
+  - |
+    const Boundary = (): never => {
+      const error: Error = createRenderError(<Card />)
+      throw error
+    }
+  - |
+    const Boundary = (): never => {
+      const error = createRenderError(<Card />)
+      recordRenderError(error)
+      throw error
+    }

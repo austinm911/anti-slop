@@ -1,0 +1,250 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "anti-slop",
+  "homepage": "https://github.com/austinm911/anti-slop",
+  "items": [
+    {
+      "name": "no-return-local-alias-function",
+      "type": "registry:item",
+      "title": "No return local alias function",
+      "description": "Install the local-alias return rule, its tests, and the shared ast-grep setup.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-return-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-return-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "no-throw-local-alias-function",
+      "type": "registry:item",
+      "title": "No throw local alias function",
+      "description": "Install the local-alias throw rule, its tests, and the shared ast-grep setup.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-throw-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-throw-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "no-file-local-generic-record-guard",
+      "type": "registry:item",
+      "title": "No file-local generic record guard",
+      "description": "Install the file-local isRecord guard rule, its tests, and the shared ast-grep setup.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-file-local-generic-record-guard.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-file-local-generic-record-guard.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "recommended",
+      "type": "registry:item",
+      "title": "Anti-slop recommended rules",
+      "description": "Install the recommended anti-slop rules as repository-owned ast-grep source.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-return-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-return-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-throw-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-throw-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-file-local-generic-record-guard.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-file-local-generic-record-guard.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "all",
+      "type": "registry:item",
+      "title": "All anti-slop rules",
+      "description": "Install every admitted anti-slop rule as repository-owned ast-grep source.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-return-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-return-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-throw-local-alias-function.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-throw-local-alias-function.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-file-local-generic-record-guard.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-file-local-generic-record-guard.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "agent-guidance",
+      "type": "registry:item",
+      "title": "Anti-slop rule admission guidance",
+      "description": "Install the rule admission standard as downstream agent guidance.",
+      "files": [
+        {
+          "path": "docs/admission-standard.md",
+          "type": "registry:file",
+          "target": "~/docs/agents/anti-slop-rule-admission.md"
+        }
+      ]
+    }
+  ]
+}

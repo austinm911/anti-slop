@@ -1,0 +1,93 @@
+id: no-return-local-alias-function
+language: TypeScript
+severity: error
+message: Return the initializer directly. This local is used only by the next return.
+note: Keep a local when it adds a type boundary or when another statement uses it.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
+  - "**/*.stories.ts"
+  - "**/*.bench.ts"
+rule:
+  all:
+    - pattern:
+        context: |
+          function __candidate() {
+            const $LOCAL = $VALUE
+            return $LOCAL
+          }
+        selector: statement_block
+    - inside:
+        any:
+          - kind: function_declaration
+          - kind: function_expression
+          - kind: arrow_function
+          - kind: method_definition
+        field: body
+        stopBy: neighbor
+constraints:
+  VALUE:
+    all:
+      - not:
+          any:
+            - kind: arrow_function
+            - kind: function_expression
+            - kind: class
+      - not:
+          has:
+            any:
+              - kind: arrow_function
+              - kind: function_expression
+              - kind: class
+            stopBy: end
+---
+id: no-return-local-alias-function-tsx
+language: Tsx
+severity: error
+message: Return the initializer directly. This local is used only by the next return.
+note: Keep a local when it adds a type boundary or when another statement uses it.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.tsx"
+  - "**/*.spec.tsx"
+  - "**/*.stories.tsx"
+  - "**/*.bench.tsx"
+rule:
+  all:
+    - pattern:
+        context: |
+          function __candidate() {
+            const $LOCAL = $VALUE
+            return $LOCAL
+          }
+        selector: statement_block
+    - inside:
+        any:
+          - kind: function_declaration
+          - kind: function_expression
+          - kind: arrow_function
+          - kind: method_definition
+        field: body
+        stopBy: neighbor
+constraints:
+  VALUE:
+    all:
+      - not:
+          any:
+            - kind: arrow_function
+            - kind: function_expression
+            - kind: class
+      - not:
+          has:
+            any:
+              - kind: arrow_function
+              - kind: function_expression
+              - kind: class
+            stopBy: end

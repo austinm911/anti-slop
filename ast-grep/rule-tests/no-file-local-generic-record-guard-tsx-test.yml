@@ -1,0 +1,12 @@
+id: no-file-local-generic-record-guard-tsx
+
+invalid:
+  - |
+    const isRecord = (value: unknown): value is Record<string, unknown> =>
+      typeof value === "object" && value !== null
+    export const Viewer = () => <div />
+
+valid:
+  - |
+    import { isRecord } from "./decode"
+    export const Viewer = () => <div>{isRecord(input) ? "yes" : "no"}</div>

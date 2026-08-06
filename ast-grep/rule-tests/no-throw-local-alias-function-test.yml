@@ -1,0 +1,77 @@
+id: no-throw-local-alias-function
+
+invalid:
+  - |
+    function fail(message: string): never {
+      const error = new Error(message)
+      throw error
+    }
+  - |
+    const fail = (message: string): never => {
+      const error = createError(message)
+      throw error
+    }
+  - |
+    const fail = function (cause: unknown): never {
+      const error = normalizeError(cause)
+      throw error
+    }
+  - |
+    const service = {
+      fail() {
+        const error = createError("failed")
+        throw error
+      },
+    }
+  - |
+    class ThingService {
+      fail(message: string): never {
+        const error = createError(message)
+        throw error
+      }
+    }
+
+valid:
+  - |
+    function reportThenFail(message: string): never {
+      const error = new Error(message)
+      reportError(error)
+      throw error
+    }
+  - |
+    function withType(message: string): never {
+      const error: Error = createError(message)
+      throw error
+    }
+  - |
+    function throwsAnother(message: string): never {
+      const error = createError(message)
+      throw fallbackError
+    }
+  - |
+    function nestedBlock(message: string): void {
+      if (message.length > 0) {
+        const error = createError(message)
+        throw error
+      }
+    }
+  - |
+    function mutableLocal(message: string): never {
+      let error = createError(message)
+      throw error
+    }
+  - |
+    function preservesInferredName(): never {
+      const failure = function () {}
+      throw failure
+    }
+  - |
+    function preservesClassName(): never {
+      const Failure = class {}
+      throw Failure
+    }
+  - |
+    function preservesParenthesizedInferredName(): never {
+      const failure = (function () {})
+      throw failure
+    }
