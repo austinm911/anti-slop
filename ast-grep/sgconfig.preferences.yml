@@ -1,0 +1,5 @@
+ruleDirs:
+  - preferences
+
+testConfigs:
+  - testDir: preference-tests

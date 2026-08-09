@@ -6,13 +6,15 @@ to this repository; no package publication or registry deployment is required.
 ## Add or change a rule
 
 1. Follow [`docs/admission-standard.md`](docs/admission-standard.md).
-2. Put ast-grep rules in `ast-grep/rules` and tests in
-   `ast-grep/rule-tests`.
+2. Put ast-grep correctness rules in `ast-grep/rules` and tests in
+   `ast-grep/rule-tests`. Put an admitted native Oxlint restriction and its
+   executable test in `oxlint`. Put preferences in `ast-grep/preferences` and
+   tests in `ast-grep/preference-tests`.
 3. Include invalid examples, valid examples, and legitimate counterexamples.
 4. Audit the current Oxlint rule catalog and source before adding overlapping
    behavior.
 5. Record ownership, severity, rollout state, and initial scan evidence in
-   `docs/rule-catalog.md`.
+   `docs/rule-catalog.md`, or in `docs/preference-catalog.md` for a preference.
 6. Add or update the rule's individual item and affected bundles in
    `registry.json`.
 7. Run `bun run check`.

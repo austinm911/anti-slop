@@ -1,0 +1,22 @@
+{
+  "plugins": ["typescript"],
+  "categories": {
+    "correctness": "off",
+    "nursery": "off",
+    "pedantic": "off",
+    "perf": "off",
+    "restriction": "off",
+    "style": "off",
+    "suspicious": "off"
+  },
+  "rules": {
+    "typescript/no-restricted-types": [
+      "warn",
+      {
+        "types": {
+          "Record<string, unknown>": "Replace it with a strongly typed domain type. Parse the value as early as possible and as close as possible to the I/O boundary where it originated."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+id: no-mixed-jsdoc-line-prefix
+
+invalid:
+  # A lone `*` bullet inside an unprefixed block. The parser eats the bullet.
+  - |
+    /**
+      Cache modes:
+      * fast
+      * slow
+     */
+    export const modes = 1
+  # A prefixed block with one wrapped line that lost its prefix.
+  - |
+    /**
+     * Time to live in seconds. Controls how long query results are cached
+       after the query is removed.
+     */
+    export const ttl = 1
+  # Mixed prefixes across tag lines.
+  - |
+    /**
+      Adds two numbers.
+     * @param a first addend
+     */
+    export function add(a: number) {
+      return a
+    }
+
+valid:
+  # Fully unprefixed block with a dash list. Nothing is discarded.
+  - |
+    /**
+      Cache modes:
+      - fast
+      - slow
+     */
+    export const modes = 1
+  # Fully prefixed block with a markdown list. The second `*` survives.
+  - |
+    /**
+     * Cache modes:
+     * * fast
+     * * slow
+     */
+    export const modes = 1
+  # Fully prefixed block with tags.
+  - |
+    /**
+     * Adds two numbers.
+     * @param a first addend
+     * @returns the sum
+     */
+    export function add(a: number) {
+      return a
+    }
+  # Fully unprefixed block with tags.
+  - |
+    /**
+      Adds two numbers.
+      @param a first addend
+      @returns the sum
+     */
+    export function add(a: number) {
+      return a
+    }
+  # Single-line JSDoc has no content lines to disagree.
+  - |
+    /** The sum of both addends. */
+    export const sum = 1
+  # Mid-line asterisks are emphasis, not a prefix.
+  - |
+    /**
+      Uses *emphasis* and a * b arithmetic.
+     */
+    export const note = 1
+  # A block comment that is not JSDoc is out of scope.
+  - |
+    /*
+      Modes:
+      * fast
+     */
+    export const modes = 1
+  # Line comments are out of scope.
+  - |
+    // Modes:
+    // * fast
+    export const modes = 1
+  # Blank separator lines carry no prefix and must not count as content.
+  - |
+    /**
+      Adds two numbers.
+
+      Handles negative input.
+     */
+    export function add(a: number) {
+      return a
+    }

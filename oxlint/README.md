@@ -1,7 +1,10 @@
 # Oxlint rules
 
-No Oxlint rule is admitted in version 0.1.0.
+`anti-slop/no-record-string-unknown` configures Oxlint's native
+`typescript/no-restricted-types` rule to report normal and whitespace-formatted
+instances. Oxlint 1.77 does not normalize comments inside a restricted type.
+`ast-grep/rules/no-commented-record-string-unknown.yml` covers that local syntax
+shape without duplicating a native diagnostic.
 
-The current candidates either duplicate native Oxlint rules or require more
-context to avoid excessive false positives. Add the first plugin rule only
-after it passes `docs/admission-standard.md`.
+The rule has no fixer. A safe replacement requires the domain contract and the
+parser at the value's I/O boundary.

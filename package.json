@@ -17,6 +17,8 @@
     "bin",
     "docs/admission-standard.md",
     "docs/rule-catalog.md",
+    "docs/preference-catalog.md",
+    "omp",
     "oxlint",
     "LICENSE",
     "README.md"
@@ -32,7 +34,8 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@ast-grep/cli": "0.45.0"
+    "@ast-grep/cli": "0.45.0",
+    "oxlint": "1.77.0"
   },
   "devDependencies": {
     "oxfmt": "0.61.0",

@@ -1,0 +1,15 @@
+id: no-commented-record-string-unknown
+language: Tsx
+
+invalid:
+  - |
+    export function Panel(props: { data: Record<string /* key */, unknown> }) {
+      return <pre>{JSON.stringify(props.data)}</pre>
+    }
+
+valid:
+  - |
+    export interface PanelData { title: string }
+    export function Panel(props: { data: PanelData }) {
+      return <pre>{props.data.title}</pre>
+    }

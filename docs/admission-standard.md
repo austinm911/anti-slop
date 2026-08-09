@@ -17,6 +17,26 @@ Admit a rule only when all conditions are true.
 10. A repository scan records the initial match count and representative
     matches before the rule enters `recommended`.
 
+## Preferences
+
+A preference rule encodes a convention. It does not detect a defect, so it
+cannot meet condition 1 and it never enters a correctness preset.
+
+Keep preference rules in `ast-grep/preferences` with tests in
+`ast-grep/preference-tests`. Run them with `anti-slop scan --preferences`.
+
+Admit a preference rule only when all conditions are true.
+
+1. The convention has a stated cost that the rule removes. Record the cost.
+2. Both forms of the convention stay valid. The rule reports the mixture, the
+   drift, or the ambiguous case, not the form a maintainer chose.
+3. Conditions 2, 3, 4, 6, 7, and 9 of the correctness standard still apply.
+4. The severity is `hint`. A preference never blocks a build.
+5. The documentation names the formatter setting or native tool rule that
+   would own the check instead, if one exists.
+
+Reject a preference rule that only restates a formatter's job.
+
 ## Ownership decision
 
 Use ast-grep when a rule depends only on a local syntax shape or supplies a

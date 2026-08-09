@@ -106,11 +106,55 @@
       ]
     },
     {
+      "name": "no-record-string-unknown",
+      "type": "registry:item",
+      "title": "No Record string unknown",
+      "description": "Install the Record<string, unknown> restriction, its Oxlint and ast-grep tests, and downstream setup.",
+      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-commented-record-string-unknown.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-commented-record-string-unknown.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
+        },
+        {
+          "path": "oxlint/.oxlintrc.json",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/.oxlintrc.json"
+        },
+        {
+          "path": "oxlint/test.mjs",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/test.mjs"
+        },
+        {
+          "path": "docs/downstream.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
       "name": "recommended",
       "type": "registry:item",
       "title": "Anti-slop recommended rules",
-      "description": "Install the recommended anti-slop rules as repository-owned ast-grep source.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "description": "Install the recommended anti-slop ast-grep rules and Oxlint restrictions as repository-owned source.",
+      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
       "files": [
         {
           "path": "ast-grep/sgconfig.yml",
@@ -161,6 +205,31 @@
           "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
+        },
+        {
+          "path": "ast-grep/rules/no-commented-record-string-unknown.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-commented-record-string-unknown.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
+        },
+        {
+          "path": "oxlint/.oxlintrc.json",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/.oxlintrc.json"
+        },
+        {
+          "path": "oxlint/test.mjs",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/test.mjs"
         },
         {
           "path": "docs/downstream.md",
@@ -173,8 +242,8 @@
       "name": "all",
       "type": "registry:item",
       "title": "All anti-slop rules",
-      "description": "Install every admitted anti-slop rule as repository-owned ast-grep source.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "description": "Install every admitted anti-slop correctness rule as repository-owned source. Preferences ship separately in the `preferences` item.",
+      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
       "files": [
         {
           "path": "ast-grep/sgconfig.yml",
@@ -227,9 +296,115 @@
           "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
         },
         {
+          "path": "ast-grep/rules/no-commented-record-string-unknown.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rules/no-commented-record-string-unknown.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-test.yml"
+        },
+        {
+          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
+        },
+        {
+          "path": "oxlint/.oxlintrc.json",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/.oxlintrc.json"
+        },
+        {
+          "path": "oxlint/test.mjs",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/test.mjs"
+        },
+        {
           "path": "docs/downstream.md",
           "type": "registry:file",
           "target": "~/docs/anti-slop.md"
+        }
+      ]
+    },
+    {
+      "name": "no-mixed-jsdoc-line-prefix",
+      "type": "registry:item",
+      "title": "No mixed JSDoc line prefix",
+      "description": "Install the mixed JSDoc line prefix preference, its tests, and the preferences ast-grep setup.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.preferences.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.preferences.yml"
+        },
+        {
+          "path": "ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml"
+        },
+        {
+          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml"
+        },
+        {
+          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml"
+        },
+        {
+          "path": "docs/preference-catalog.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop-preferences.md"
+        }
+      ]
+    },
+    {
+      "name": "preferences",
+      "type": "registry:item",
+      "title": "Anti-slop preferences",
+      "description": "Install every admitted anti-slop preference. Preferences encode conventions and never block a build.",
+      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "files": [
+        {
+          "path": "ast-grep/sgconfig.preferences.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/sgconfig.preferences.yml"
+        },
+        {
+          "path": "ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml"
+        },
+        {
+          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml"
+        },
+        {
+          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml",
+          "type": "registry:file",
+          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml"
+        },
+        {
+          "path": "docs/preference-catalog.md",
+          "type": "registry:file",
+          "target": "~/docs/anti-slop-preferences.md"
+        }
+      ]
+    },
+    {
+      "name": "omp-ttsr",
+      "type": "registry:item",
+      "title": "Optional OMP TTSR guards",
+      "description": "Install optional OMP stream guards for anti-slop diagnostics before lint runs.",
+      "files": [
+        {
+          "path": "omp/rules/no-record-string-unknown.md",
+          "type": "registry:file",
+          "target": "~/.omp/rules/no-record-string-unknown.md"
         }
       ]
     },
@@ -243,6 +418,11 @@
           "path": "docs/admission-standard.md",
           "type": "registry:file",
           "target": "~/docs/agents/anti-slop-rule-admission.md"
+        },
+        {
+          "path": "docs/preference-catalog.md",
+          "type": "registry:file",
+          "target": "~/docs/agents/anti-slop-preferences.md"
         }
       ]
     }

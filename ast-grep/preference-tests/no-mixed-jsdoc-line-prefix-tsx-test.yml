@@ -1,0 +1,40 @@
+id: no-mixed-jsdoc-line-prefix-tsx
+
+invalid:
+  - |
+    /**
+      Cache modes:
+      * fast
+      * slow
+     */
+    export const modes = 1
+  - |
+    /**
+     * Renders the panel. Controls how long the panel stays mounted
+       after the route unmounts.
+     */
+    export function Panel() {
+      return <div />
+    }
+
+valid:
+  - |
+    /**
+      Cache modes:
+      - fast
+      - slow
+     */
+    export const modes = 1
+  - |
+    /**
+     * Renders the panel.
+     * @param title heading text
+     */
+    export function Panel({ title }: { title: string }) {
+      return <div>{title}</div>
+    }
+  - |
+    /** Renders nothing. */
+    export function Empty() {
+      return <div />
+    }

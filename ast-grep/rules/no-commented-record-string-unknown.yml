@@ -1,0 +1,10 @@
+id: no-commented-record-string-unknown
+language: TypeScript
+severity: warning
+message: Replace Record<string, unknown> with a strongly typed domain type. Parse the value as early as possible and as close as possible to the I/O boundary where it originated.
+note: Oxlint handles ordinary and whitespace-formatted instances. This rule covers only equivalent types that contain a comment.
+rule:
+  all:
+    - kind: generic_type
+    - regex: '(?s)^Record(?:\s|/\*.*?\*/|//[^\n]*(?:\n|$))*<(?:\s|/\*.*?\*/|//[^\n]*(?:\n|$))*string(?:\s|/\*.*?\*/|//[^\n]*(?:\n|$))*,(?:\s|/\*.*?\*/|//[^\n]*(?:\n|$))*unknown(?:\s|/\*.*?\*/|//[^\n]*(?:\n|$))*>$'
+    - regex: '/\*|//'

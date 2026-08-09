@@ -1,0 +1,19 @@
+id: no-commented-record-string-unknown
+
+invalid:
+  - export type Payload = Record<string /* key */, unknown>
+  - |
+    export function read(value: Record<
+      string,
+      // raw value
+      unknown
+    >) {
+      return value
+    }
+  - export type Payload = Readonly<Record<string /* key */, unknown>>
+
+valid:
+  - export type Payload = Record<string, unknown>
+  - export type Payload = Record<string /* key */, DomainValue>
+  - export type Payload = Record<number /* key */, unknown>
+  - export type Payload = Map<string, unknown>

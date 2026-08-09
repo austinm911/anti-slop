@@ -1,0 +1,41 @@
+id: no-mixed-jsdoc-line-prefix
+language: TypeScript
+severity: hint
+message: This JSDoc block mixes prefixed and unprefixed lines. The parser strips one leading asterisk per line, so a lone `*` bullet is discarded.
+note: Prefix every content line with `*`, or none of them. Write markdown lists with `-`.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
+  - "**/*.stories.ts"
+  - "**/*.bench.ts"
+rule:
+  all:
+    - kind: comment
+    - regex: '\A/\*\*'
+    - regex: '\n[ \t]*\*[ \t]+[^\s]'
+    - regex: '\n[ \t]*[^\s*][^\n]*'
+---
+id: no-mixed-jsdoc-line-prefix-tsx
+language: Tsx
+severity: hint
+message: This JSDoc block mixes prefixed and unprefixed lines. The parser strips one leading asterisk per line, so a lone `*` bullet is discarded.
+note: Prefix every content line with `*`, or none of them. Write markdown lists with `-`.
+ignores:
+  - "**/archive/**"
+  - "**/_archive/**"
+  - "**/__tests__/**"
+  - "**/__fixtures__/**"
+  - "**/*.test.tsx"
+  - "**/*.spec.tsx"
+  - "**/*.stories.tsx"
+  - "**/*.bench.tsx"
+rule:
+  all:
+    - kind: comment
+    - regex: '\A/\*\*'
+    - regex: '\n[ \t]*\*[ \t]+[^\s]'
+    - regex: '\n[ \t]*[^\s*][^\n]*'
