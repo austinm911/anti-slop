@@ -28,6 +28,11 @@ infrastructure code must reuse one helper owned by its package.
 The rule remains a warning until downstream migrations remove the known
 backlog.
 
+The rule ships with no exemption for the sanctioned guard, because a package
+layout is a downstream decision. The one guard a package keeps must be named in
+the rule's `ignores` list, so each sanctioned copy stays a declared decision and
+a new package cannot claim the exemption in silence.
+
 ## `no-throw-local-alias-function`
 
 Throw the initializer directly when an untyped `const` and its throw are the

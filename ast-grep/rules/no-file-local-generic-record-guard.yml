@@ -2,7 +2,7 @@ id: no-file-local-generic-record-guard
 language: TypeScript
 severity: warning
 message: Do not add another file-local generic isRecord guard.
-note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard.
+note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard. Name that guard's file in this rule's ignores list, so the sanctioned copy is a declared decision.
 ignores:
   - "**/archive/**"
   - "**/_archive/**"
@@ -34,7 +34,7 @@ id: no-file-local-generic-record-guard-tsx
 language: Tsx
 severity: warning
 message: Do not add another file-local generic isRecord guard.
-note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard.
+note: Decode external input with Effect Schema or Zod. Generic infrastructure code must reuse one package-owned guard. Name that guard's file in this rule's ignores list, so the sanctioned copy is a declared decision.
 ignores:
   - "**/archive/**"
   - "**/_archive/**"
