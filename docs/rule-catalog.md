@@ -72,8 +72,8 @@ same open-object contract even when the code uses the map intentionally. The
 rule has no exemptions.
 
 The rule starts as a warning because the scan found an existing backlog and no
-semantics-preserving fixer is possible. After migration,
-`anti-slop scan --strict` promotes both matching engines to blocking errors.
+semantics-preserving fixer is possible. After migration, both matching engines
+become blocking errors.
 
 The optional OMP companion uses a regex limited to TypeScript edit and write
 streams. A standalone TypeScript type reference is not a valid ast-grep root

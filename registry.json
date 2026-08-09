@@ -7,7 +7,7 @@
       "name": "no-return-local-alias-function",
       "type": "registry:item",
       "title": "No return local alias function",
-      "description": "Install the local-alias return rule, its tests, and the shared ast-grep setup.",
+      "description": "Install the local-alias return rule, its tests, and the ast-grep setup.",
       "devDependencies": ["@ast-grep/cli@0.45.0"],
       "files": [
         {
@@ -29,11 +29,6 @@
           "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
         }
       ]
     },
@@ -41,7 +36,7 @@
       "name": "no-throw-local-alias-function",
       "type": "registry:item",
       "title": "No throw local alias function",
-      "description": "Install the local-alias throw rule, its tests, and the shared ast-grep setup.",
+      "description": "Install the local-alias throw rule, its tests, and the ast-grep setup.",
       "devDependencies": ["@ast-grep/cli@0.45.0"],
       "files": [
         {
@@ -63,11 +58,6 @@
           "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
         }
       ]
     },
@@ -75,7 +65,7 @@
       "name": "no-file-local-generic-record-guard",
       "type": "registry:item",
       "title": "No file-local generic record guard",
-      "description": "Install the file-local isRecord guard rule, its tests, and the shared ast-grep setup.",
+      "description": "Install the file-local isRecord guard rule, its tests, and the ast-grep setup.",
       "devDependencies": ["@ast-grep/cli@0.45.0"],
       "files": [
         {
@@ -97,11 +87,6 @@
           "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
         }
       ]
     },
@@ -109,9 +94,19 @@
       "name": "no-record-string-unknown",
       "type": "registry:item",
       "title": "No Record string unknown",
-      "description": "Install the Record<string, unknown> restriction, its Oxlint and ast-grep tests, and downstream setup.",
-      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
+      "description": "Install the Oxlint rule for Record<string, unknown>, its test, and the ast-grep supplement for comment-formatted instances.",
+      "devDependencies": ["oxlint@1.77.0", "@ast-grep/cli@0.45.0"],
       "files": [
+        {
+          "path": "oxlint/.oxlintrc.json",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/.oxlintrc.json"
+        },
+        {
+          "path": "oxlint/test.mjs",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/test.mjs"
+        },
         {
           "path": "ast-grep/sgconfig.yml",
           "type": "registry:file",
@@ -131,199 +126,6 @@
           "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
-        },
-        {
-          "path": "oxlint/.oxlintrc.json",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/.oxlintrc.json"
-        },
-        {
-          "path": "oxlint/test.mjs",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/test.mjs"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
-        }
-      ]
-    },
-    {
-      "name": "recommended",
-      "type": "registry:item",
-      "title": "Anti-slop recommended rules",
-      "description": "Install the recommended anti-slop ast-grep rules and Oxlint restrictions as repository-owned source.",
-      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
-      "files": [
-        {
-          "path": "ast-grep/sgconfig.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/sgconfig.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-return-local-alias-function.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-return-local-alias-function.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-return-local-alias-function-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-throw-local-alias-function.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-throw-local-alias-function.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-throw-local-alias-function-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-file-local-generic-record-guard.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-file-local-generic-record-guard.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-commented-record-string-unknown.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-commented-record-string-unknown.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
-        },
-        {
-          "path": "oxlint/.oxlintrc.json",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/.oxlintrc.json"
-        },
-        {
-          "path": "oxlint/test.mjs",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/test.mjs"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
-        }
-      ]
-    },
-    {
-      "name": "all",
-      "type": "registry:item",
-      "title": "All anti-slop rules",
-      "description": "Install every admitted anti-slop correctness rule as repository-owned source. Preferences ship separately in the `preferences` item.",
-      "devDependencies": ["@ast-grep/cli@0.45.0", "oxlint@1.77.0"],
-      "files": [
-        {
-          "path": "ast-grep/sgconfig.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/sgconfig.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-return-local-alias-function.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-return-local-alias-function.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-return-local-alias-function-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-return-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-throw-local-alias-function.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-throw-local-alias-function.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-throw-local-alias-function-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-throw-local-alias-function-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-file-local-generic-record-guard.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-file-local-generic-record-guard.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-file-local-generic-record-guard-tsx-test.yml"
-        },
-        {
-          "path": "ast-grep/rules/no-commented-record-string-unknown.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rules/no-commented-record-string-unknown.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-test.yml"
-        },
-        {
-          "path": "ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/rule-tests/no-commented-record-string-unknown-tsx-test.yml"
-        },
-        {
-          "path": "oxlint/.oxlintrc.json",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/.oxlintrc.json"
-        },
-        {
-          "path": "oxlint/test.mjs",
-          "type": "registry:file",
-          "target": "~/tools/oxlint/test.mjs"
-        },
-        {
-          "path": "docs/downstream.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop.md"
         }
       ]
     },
@@ -331,7 +133,7 @@
       "name": "no-mixed-jsdoc-line-prefix",
       "type": "registry:item",
       "title": "No mixed JSDoc line prefix",
-      "description": "Install the mixed JSDoc line prefix preference, its tests, and the preferences ast-grep setup.",
+      "description": "Install the mixed JSDoc line-prefix preference, its tests, and the ast-grep setup.",
       "devDependencies": ["@ast-grep/cli@0.45.0"],
       "files": [
         {
@@ -353,47 +155,40 @@
           "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml",
           "type": "registry:file",
           "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml"
-        },
-        {
-          "path": "docs/preference-catalog.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop-preferences.md"
         }
       ]
+    },
+    {
+      "name": "ast-grep",
+      "type": "registry:item",
+      "title": "Ast-grep rules",
+      "description": "Install the three ast-grep rules.",
+      "registryDependencies": [
+        "austinm911/anti-slop/no-return-local-alias-function",
+        "austinm911/anti-slop/no-throw-local-alias-function",
+        "austinm911/anti-slop/no-file-local-generic-record-guard"
+      ]
+    },
+    {
+      "name": "oxlint",
+      "type": "registry:item",
+      "title": "Oxlint rules",
+      "description": "Install the Oxlint rule.",
+      "registryDependencies": ["austinm911/anti-slop/no-record-string-unknown"]
+    },
+    {
+      "name": "recommended",
+      "type": "registry:item",
+      "title": "Recommended anti-slop rules",
+      "description": "Install the recommended ast-grep and Oxlint rules.",
+      "registryDependencies": ["austinm911/anti-slop/ast-grep", "austinm911/anti-slop/oxlint"]
     },
     {
       "name": "preferences",
       "type": "registry:item",
       "title": "Anti-slop preferences",
-      "description": "Install every admitted anti-slop preference. Preferences encode conventions and never block a build.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
-      "files": [
-        {
-          "path": "ast-grep/sgconfig.preferences.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/sgconfig.preferences.yml"
-        },
-        {
-          "path": "ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/preferences/no-mixed-jsdoc-line-prefix.yml"
-        },
-        {
-          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-test.yml"
-        },
-        {
-          "path": "ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml",
-          "type": "registry:file",
-          "target": "~/tools/ast-grep/preference-tests/no-mixed-jsdoc-line-prefix-tsx-test.yml"
-        },
-        {
-          "path": "docs/preference-catalog.md",
-          "type": "registry:file",
-          "target": "~/docs/anti-slop-preferences.md"
-        }
-      ]
+      "description": "Install the recommended JSDoc preference.",
+      "registryDependencies": ["austinm911/anti-slop/no-mixed-jsdoc-line-prefix"]
     },
     {
       "name": "omp-ttsr",
@@ -405,24 +200,6 @@
           "path": "omp/rules/no-record-string-unknown.md",
           "type": "registry:file",
           "target": "~/.omp/rules/no-record-string-unknown.md"
-        }
-      ]
-    },
-    {
-      "name": "agent-guidance",
-      "type": "registry:item",
-      "title": "Anti-slop rule admission guidance",
-      "description": "Install the rule admission standard as downstream agent guidance.",
-      "files": [
-        {
-          "path": "docs/admission-standard.md",
-          "type": "registry:file",
-          "target": "~/docs/agents/anti-slop-rule-admission.md"
-        },
-        {
-          "path": "docs/preference-catalog.md",
-          "type": "registry:file",
-          "target": "~/docs/agents/anti-slop-preferences.md"
         }
       ]
     }

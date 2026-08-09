@@ -23,7 +23,8 @@ A preference rule encodes a convention. It does not detect a defect, so it
 cannot meet condition 1 and it never enters a correctness preset.
 
 Keep preference rules in `ast-grep/preferences` with tests in
-`ast-grep/preference-tests`. Run them with `anti-slop scan --preferences`.
+`ast-grep/preference-tests`. Run them with
+`ast-grep scan --config ast-grep/sgconfig.preferences.yml`.
 
 Admit a preference rule only when all conditions are true.
 

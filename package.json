@@ -9,29 +9,13 @@
     "type": "git",
     "url": "git+https://github.com/austinm911/anti-slop.git"
   },
-  "bin": {
-    "anti-slop": "./bin/anti-slop.mjs"
-  },
-  "files": [
-    "ast-grep",
-    "bin",
-    "docs/admission-standard.md",
-    "docs/rule-catalog.md",
-    "docs/preference-catalog.md",
-    "omp",
-    "oxlint",
-    "LICENSE",
-    "README.md"
-  ],
   "type": "module",
   "scripts": {
-    "check": "bun run format:check && bun run test && bun run rules:test && bun run registry:check && bun run pack:check",
+    "check": "bun run format:check && bun run rules:test && bun run registry:check",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "pack:check": "bun pm pack --dry-run",
     "registry:check": "shadcn registry validate registry.json",
-    "rules:test": "bun bin/anti-slop.mjs test",
-    "test": "bun test"
+    "rules:test": "ast-grep test --config ast-grep/sgconfig.yml --skip-snapshot-tests && ast-grep test --config ast-grep/sgconfig.preferences.yml --skip-snapshot-tests && node oxlint/test.mjs"
   },
   "dependencies": {
     "@ast-grep/cli": "0.45.0",

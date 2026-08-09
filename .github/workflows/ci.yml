@@ -16,3 +16,5 @@ jobs:
           bun-version: 1.3.14
       - run: bun install --frozen-lockfile
       - run: bun run check
+      - if: github.event_name == 'push'
+        run: bunx --bun shadcn@latest registry validate austinm911/anti-slop

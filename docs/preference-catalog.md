@@ -4,7 +4,7 @@ A preference rule encodes a convention. It does not detect a defect. No
 preference rule enters the `recommended` or `all` presets, and every preference
 rule uses `hint` severity.
 
-Run them with `anti-slop scan --preferences`.
+Run them with `ast-grep scan --config ast-grep/sgconfig.preferences.yml`.
 
 | Rule                         | Owner    | Preset      | Severity | Convention                                                         |
 | ---------------------------- | -------- | ----------- | -------- | ------------------------------------------------------------------ |

@@ -4,97 +4,139 @@ Reusable correctness rules and conventions for code written by people and
 coding agents.
 
 The project uses native Oxlint rules when one already owns a check. It uses
-ast-grep for local syntax shapes that Oxlint does not cover. A custom Oxlint
-rule is reserved for checks that need scope, control-flow, configuration, or
-fixer logic. A rule must pass the admission standard in
-[`docs/admission-standard.md`](docs/admission-standard.md) before it enters a
-preset.
+ast-grep for local syntax shapes that Oxlint does not cover. It reserves custom
+Oxlint rules for checks that need scope, control flow, configuration, or fixer
+logic. A rule must pass the
+[`docs/admission-standard.md`](docs/admission-standard.md) admission standard
+before it enters a preset.
 
-Rules ship in two tiers. A correctness rule reports a defect and can block a
-build. A preference encodes a convention, uses `hint` severity, and never
-enters a correctness preset.
+Rules ship in two tiers:
 
-The recommended preset contains four ast-grep rules and one Oxlint restriction:
+- A correctness rule reports a defect. It can block a check.
+- A preference encodes a convention. It uses `hint` severity. It never enters a
+  correctness bundle.
+
+## Correctness rules
 
 - `no-return-local-alias-function` rejects a local that only forwards its
   initializer to the next return.
 - `no-throw-local-alias-function` rejects a local that only forwards its
   initializer to the next throw.
-- `no-file-local-generic-record-guard` warns about another file-local
-  `isRecord` helper instead of a boundary decoder or package-owned utility.
-- `no-commented-record-string-unknown` completes the Oxlint restriction for
-  equivalent type expressions that contain a comment.
-
-The Oxlint rule:
-
+- `no-file-local-generic-record-guard` warns about another file-local `isRecord`
+  helper instead of a boundary decoder or package-owned utility.
 - `no-record-string-unknown` warns on `Record<string, unknown>` and directs the
   author to parse data into a strongly typed domain type at its I/O boundary.
+  The item also installs `no-commented-record-string-unknown`, an ast-grep
+  supplement that catches comment-formatted instances Oxlint does not
+  normalize.
 
-The preferences tier contains one ast-grep rule:
+## Preferences
 
 - `no-mixed-jsdoc-line-prefix` reports a JSDoc block that prefixes some lines
   with `*` and not others, because the parser discards the difference.
 
 ## Install from the GitHub registry
 
-Install one rule directly from the public GitHub source registry:
+The shadcn CLI copies the selected item into the consumer repository. It also
+installs the item's declared development dependencies. The CLI requires a valid
+`components.json` and `tsconfig.json` in the consumer repository. These files
+configure the CLI; this registry does not add UI components.
+
+### Individual rules
 
 ```bash
 bunx --bun shadcn@latest add austinm911/anti-slop/no-return-local-alias-function
+bunx --bun shadcn@latest add austinm911/anti-slop/no-throw-local-alias-function
+bunx --bun shadcn@latest add austinm911/anti-slop/no-file-local-generic-record-guard
+bunx --bun shadcn@latest add austinm911/anti-slop/no-record-string-unknown
+bunx --bun shadcn@latest add austinm911/anti-slop/no-mixed-jsdoc-line-prefix
 ```
 
-The shadcn CLI requires a valid `components.json` and `tsconfig.json` in the
-consumer repository. `components.json` is project configuration for the CLI;
-using this registry does not require adopting shadcn UI components.
+### Tool bundles
 
-The untagged address follows the latest commit on the repository's default
-branch. Pin a release when reproducibility matters:
+Install the ast-grep or Oxlint rules as a tool bundle:
 
 ```bash
-bunx --bun shadcn@latest add austinm911/anti-slop/no-return-local-alias-function#v0.1.0
+bunx --bun shadcn@latest add austinm911/anti-slop/ast-grep
+bunx --bun shadcn@latest add austinm911/anti-slop/oxlint
 ```
 
-Other installable items:
+`ast-grep` installs the three ast-grep correctness rules. `oxlint` installs the
+`no-record-string-unknown` restriction.
 
-```text
-austinm911/anti-slop/no-throw-local-alias-function
-austinm911/anti-slop/no-file-local-generic-record-guard
-austinm911/anti-slop/no-record-string-unknown
-austinm911/anti-slop/no-mixed-jsdoc-line-prefix
-austinm911/anti-slop/recommended
-austinm911/anti-slop/all
-austinm911/anti-slop/preferences
-austinm911/anti-slop/omp-ttsr
-austinm911/anti-slop/agent-guidance
+### Presets
+
+Install the correctness or preferences preset:
+
+```bash
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended
+bunx --bun shadcn@latest add austinm911/anti-slop/preferences
 ```
 
-Each rule item copies its repository-owned source, test configuration, and setup
-guide into the downstream repository. `recommended` installs the normal preset;
-`all` installs every admitted correctness rule; `preferences` installs the
-convention rules under a separate configuration.
+`recommended` installs both correctness tool bundles. `preferences` installs the
+preferences rule.
 
-Preview an install:
+## Wire the checks in the consumer repository
+
+Registry items place ast-grep files under `tools/ast-grep` and the Oxlint
+configuration under `tools/oxlint`. Add scripts with source roots that exist in
+the consumer repository. Replace the example roots when needed:
+
+```json
+{
+  "scripts": {
+    "lint:ast": "ast-grep scan --config tools/ast-grep/sgconfig.yml apps packages projects tools",
+    "lint:ast:test": "ast-grep test --config tools/ast-grep/sgconfig.yml --skip-snapshot-tests",
+    "lint:types:anti-slop": "oxlint --config tools/oxlint/.oxlintrc.json apps packages projects tools",
+    "lint:ast:preferences": "ast-grep scan --config tools/ast-grep/sgconfig.preferences.yml apps packages projects tools"
+  }
+}
+```
+
+Put `lint:ast` and `lint:types:anti-slop` in the normal check command. Keep
+`lint:ast:preferences` out of the blocking check when the repository treats
+preferences as optional.
+
+Bun can defer the `@ast-grep/cli` platform binary postinstall. Trust the package
+once to avoid that fallback:
+
+```bash
+bun pm trust @ast-grep/cli
+```
+
+## Resync and pin installed items
+
+Consumers own the installed copies. They may edit those copies. The registry
+does not update them automatically. Run the same untagged address to fetch the
+latest commit on the registry repository's default branch:
+
+```bash
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended
+```
+
+Preview changes before you replace a local copy:
 
 ```bash
 bunx --bun shadcn@latest add austinm911/anti-slop/recommended --dry-run
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended --diff tools/ast-grep/rules/no-return-local-alias-function.yml
 ```
 
-Registry installs are repository-owned source, not automatically updated.
-Re-run the same untagged address to fetch the latest default-branch version.
-Use `--dry-run` and `--diff <file>` to review changes, then `--overwrite` only
-when replacing the local copies is intended.
-
-## Promote the restriction after migration
-
-The restriction starts as a warning because the initial external scan found
-1,679 matches. After a repository removes its backlog, make this rule blocking:
+Use `--overwrite` only when you want the registry version to replace the local
+files:
 
 ```bash
-anti-slop scan --strict
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended --overwrite
 ```
 
-Strict mode promotes the native Oxlint restriction and its ast-grep comment
-supplement to errors. Other warning-level rules keep their rollout severity.
+Pin an install to a release tag when you need a fixed version:
+
+```bash
+bunx --bun shadcn@latest add austinm911/anti-slop/recommended#v0.1.0
+```
+
+An untagged address follows the default branch. A tag stays on that release.
+Resync with `--overwrite` replaces local edits. Review the diff before the
+replacement.
 
 ## Optional OMP TTSR guard
 
@@ -109,9 +151,9 @@ write streams for the banned type. On a match, it aborts the pending tool call,
 injects the boundary guidance, and retries from the same point.
 
 TTSR is not the enforcement layer. A TTSR rule fires once per session by
-default, and its regex can also see code comments. The Oxlint restriction and
-ast-grep supplement remain the syntax-aware source of truth for local checks and
-CI. See the [OMP TTSR documentation](https://omp.sh/docs/ttsr).
+default, and its regex can also see code comments. The Oxlint restriction
+remains the syntax-aware source of truth for local checks and CI. See the
+[OMP TTSR documentation](https://omp.sh/docs/ttsr).
 
 ## Develop
 
@@ -119,14 +161,3 @@ CI. See the [OMP TTSR documentation](https://omp.sh/docs/ttsr).
 bun install
 bun run check
 ```
-
-Scan a repository with either tier:
-
-```bash
-bunx anti-slop scan
-bunx anti-slop scan --preferences
-```
-
-See [`docs/rule-catalog.md`](docs/rule-catalog.md) for rule ownership and rollout
-details, and [`docs/preference-catalog.md`](docs/preference-catalog.md) for the
-preferences tier.
