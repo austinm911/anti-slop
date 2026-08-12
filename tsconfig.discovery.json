@@ -3,12 +3,18 @@
     "allowImportingTsExtensions": true,
     "module": "Preserve",
     "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["bun"]
+    "types": ["bun", "react", "react-dom"]
   },
-  "include": ["scripts/discovery/**/*.ts"]
+  "include": [
+    "scripts/discovery/**/*.ts",
+    "scripts/review/**/*.ts",
+    "review/**/*.tsx",
+    "review/**/*.d.ts"
+  ]
 }

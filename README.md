@@ -183,6 +183,26 @@ Use `--batch-size N` to control candidates per agent call. Every correctness
 candidate still needs native Oxlint verification, behavioral counterexamples,
 and repository scan evidence before admission.
 
+## Review discovered candidates
+
+The local review app keeps generated discovery facts separate from human
+decisions. It reads `discovery/candidates.json`, appends decisions to
+`review/events.jsonl`, projects current state to `review/state.json`, and
+regenerates `docs/generated/review-summary.md`.
+
+```bash
+bun run review
+```
+
+Open `http://localhost:4317` if the browser does not open automatically. Start
+in **Inbox**: keep promising candidates for deeper evaluation, reject weak
+evidence, or defer blocked decisions. The **Kept** queue then offers adopt,
+adapt, native-rule, and reject outcomes. Decisions do not modify or promote
+rules; admission still requires every condition in
+[`docs/admission-standard.md`](docs/admission-standard.md).
+
+Keyboard shortcuts: `J`/`K` navigate, `E` keeps, `R` rejects, and `D` defers.
+
 ## Develop
 
 ```bash

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 discovery/cache/
+review/state.json
 .DS_Store
 
 
