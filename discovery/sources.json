@@ -1,0 +1,8 @@
+{
+  "repositories": [
+    { "repo": "astahmer/nixfiles", "ref": "main" },
+    { "repo": "rayhanadev/oxray", "ref": "main" },
+    { "repo": "typeonce-dev/ai-automation", "ref": "main" },
+    { "repo": "dmmulroy/anti-slop", "ref": "main" }
+  ]
+}
