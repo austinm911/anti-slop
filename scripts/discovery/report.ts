@@ -49,12 +49,19 @@ ${CLASSIFICATION_ORDER.map((classification) => `- ${CLASSIFICATION_HEADING[class
 
 ## Sources
 
-| Repository | Ref | Commit |
-| --- | --- | --- |
-${catalog.sources.map((source) => `| [${source.repository}](https://github.com/${source.repository}/tree/${source.commit}) | \`${source.ref}\` | \`${source.commit.slice(0, 12)}\` |`).join("\n")}
+| Repository | Ref | Pinned commit | Refresh status |
+| --- | --- | --- | --- |
+${catalog.sources.map((source) => `| [${source.repository}](https://github.com/${source.repository}/tree/${source.commit}) | \`${source.ref}\` | \`${source.commit.slice(0, 12)}\` | ${sourceRefreshStatus(source)} |`).join("\n")}
 
 ${sections.join("\n\n")}
 `;
+}
+
+function sourceRefreshStatus(source: CandidateCatalog["sources"][number]): string {
+  if (source.updateStatus === "updated" && source.previousCommit) {
+    return `updated from \`${source.previousCommit.slice(0, 12)}\``;
+  }
+  return source.updateStatus ?? "not checked";
 }
 
 function renderSection(classification: Classification, candidates: RuleCandidate[]): string {

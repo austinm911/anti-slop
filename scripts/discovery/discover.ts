@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile, rm, stat } from "node:fs/promises";
 import { basename, extname, join, relative } from "node:path";
+import { load as parseYaml } from "js-yaml";
+import { readOxlintPolicyEvidence } from "./oxlint-config.ts";
 import type {
   ArtifactKind,
   CandidateCatalog,
@@ -8,6 +10,7 @@ import type {
   RuleCandidate,
   SourceManifest,
   SourceSpec,
+  SourceUpdate,
 } from "./types.ts";
 
 const RULE_SOURCE_EXTENSIONS = new Set([
@@ -81,6 +84,7 @@ export async function loadManifest(path: string): Promise<SourceManifest> {
 export async function discoverCatalog(
   manifest: SourceManifest,
   options: DiscoveryOptions,
+  previousCatalog?: CandidateCatalog,
 ): Promise<CandidateCatalog> {
   const checkouts = await Promise.all(
     manifest.repositories.map((spec) => checkoutRepository(spec, options.cacheDirectory)),
@@ -91,12 +95,68 @@ export async function discoverCatalog(
   return {
     schemaVersion: 1,
     generatedAt: (options.now ?? (() => new Date()))().toISOString(),
-    sources: checkouts.map(({ spec, commit }) => ({
-      repository: spec.repo,
-      ref: spec.ref,
-      commit,
-    })),
+    sources: sourceUpdates(checkouts, previousCatalog).map((source) =>
+      preserveSourceTransition(source, previousCatalog),
+    ),
     candidates,
+  };
+}
+
+export async function refreshSources(
+  manifest: SourceManifest,
+  previousCatalog?: CandidateCatalog,
+): Promise<SourceUpdate[]> {
+  return Promise.all(
+    manifest.repositories.map(async (spec) =>
+      compareSourceUpdate(spec, await resolveRemoteCommit(spec), previousCatalog),
+    ),
+  );
+}
+
+export function compareSourceUpdate(
+  spec: SourceSpec,
+  latestCommit: string,
+  previousCatalog?: CandidateCatalog,
+): SourceUpdate {
+  const previousCommit = previousCatalog?.sources.find(
+    (source) => source.repository === spec.repo && source.ref === spec.ref,
+  )?.commit;
+  return {
+    repository: spec.repo,
+    ref: spec.ref,
+    ...(previousCommit ? { previousCommit } : {}),
+    latestCommit,
+    status:
+      previousCommit === undefined
+        ? "new"
+        : previousCommit === latestCommit
+          ? "unchanged"
+          : "updated",
+  };
+}
+
+function sourceUpdates(checkouts: Checkout[], previousCatalog?: CandidateCatalog): SourceUpdate[] {
+  return checkouts.map(({ spec, commit }) => compareSourceUpdate(spec, commit, previousCatalog));
+}
+
+export function preserveSourceTransition(
+  source: SourceUpdate,
+  previousCatalog?: CandidateCatalog,
+): CandidateCatalog["sources"][number] {
+  const previous = previousCatalog?.sources.find(
+    (candidate) => candidate.repository === source.repository && candidate.ref === source.ref,
+  );
+  const transitionCommit =
+    (source.status === "updated" ? source.previousCommit : previous?.previousCommit) ??
+    (source.status !== "new" && source.previousCommit !== source.latestCommit
+      ? source.previousCommit
+      : undefined);
+  return {
+    repository: source.repository,
+    ref: source.ref,
+    commit: source.latestCommit,
+    ...(transitionCommit ? { previousCommit: transitionCommit } : {}),
+    updateStatus: source.status,
   };
 }
 
@@ -146,6 +206,20 @@ async function checkoutRepository(spec: SourceSpec, cacheDirectory: string): Pro
   };
 }
 
+async function resolveRemoteCommit(spec: SourceSpec): Promise<string> {
+  const output = await runGit([
+    "ls-remote",
+    `https://github.com/${spec.repo}.git`,
+    spec.ref,
+    `${spec.ref}^{}`,
+  ]);
+  const lines = output.trim().split("\n");
+  const resolved = lines.find((line) => line.endsWith("^{}")) ?? lines[0];
+  const commit = resolved?.split(/\s+/)[0];
+  if (!commit) throw new Error(`Could not resolve ${spec.repo}@${spec.ref}`);
+  return commit;
+}
+
 async function discoverCheckout(checkout: Checkout): Promise<RuleCandidate[]> {
   const candidates: CandidateInput[] = [];
   const tests = await Promise.all(
@@ -182,7 +256,21 @@ async function discoverCheckout(checkout: Checkout): Promise<RuleCandidate[]> {
 
     if (OXLINT_CONFIG.test(fileName)) {
       const content = await readText(absolutePath);
-      candidates.push(...discoverOxlintPolicy(path, content));
+      const parsed = parseStructuredConfig(path, content);
+      if (parsed) {
+        const ruleNames = new Set<string>();
+        collectRuleNames(parsed, ruleNames);
+        candidates.push(...discoverOxlintPolicy([path], content, [...ruleNames]));
+      } else {
+        const evidence = await readOxlintPolicyEvidence(
+          checkout.directory,
+          path,
+          new Set(checkout.files),
+        );
+        candidates.push(
+          ...discoverOxlintPolicy(evidence.paths, evidence.content, evidence.ruleNames),
+        );
+      }
       continue;
     }
 
@@ -231,27 +319,17 @@ async function discoverCheckout(checkout: Checkout): Promise<RuleCandidate[]> {
   return deduplicateWithinSource(candidates.map((candidate) => makeCandidate(checkout, candidate)));
 }
 
-function discoverOxlintPolicy(path: string, content: string): CandidateInput[] {
-  const ruleNames = new Set<string>();
-  const parsed = parseJsonConfig(content);
-  if (parsed) collectRuleNames(parsed, ruleNames);
-
-  if (ruleNames.size === 0) {
-    for (const match of content.matchAll(/["']((?:[a-z0-9-]+\/)?[a-z][a-z0-9-]+)["']\s*:/gi)) {
-      const name = match[1];
-      if (!name) continue;
-      if (/^(?:rules?|plugins?|overrides?|files?|settings?)$/.test(name)) continue;
-      if (/^(?:off|warn|error)$/.test(name)) continue;
-      ruleNames.add(name);
-    }
-  }
-
+function discoverOxlintPolicy(
+  paths: string[],
+  content: string,
+  ruleNames: Iterable<string>,
+): CandidateInput[] {
   return [...ruleNames].sort().map((name) => ({
     name,
     description: `Oxlint configuration enables or configures ${name}`,
     kind: "oxlint-policy",
     sourceRuleName: name,
-    implementationPaths: [path],
+    implementationPaths: paths,
     testPaths: [],
     content: `${name}\n${content}`,
     classification: "native-policy",
@@ -328,7 +406,10 @@ function discoverMarkdownGuidance(path: string, content: string): CandidateInput
 }
 
 function makeCandidate(checkout: Checkout, input: CandidateInput): RuleCandidate {
-  const sourceKey = `${checkout.spec.repo}:${input.kind}:${input.name}:${input.implementationPaths.join(",")}`;
+  const sourceKey =
+    input.kind === "oxlint-policy"
+      ? `${checkout.spec.repo}:${input.kind}:${input.name}`
+      : `${checkout.spec.repo}:${input.kind}:${input.name}:${input.implementationPaths.join(",")}`;
   const id = `${checkout.spec.repo.replace("/", "--")}:${slug(input.name)}:${hash(sourceKey).slice(0, 8)}`;
   return {
     id,
@@ -383,6 +464,10 @@ function deduplicateWithinSource(candidates: RuleCandidate[]): RuleCandidate[] {
   for (const candidate of candidates) {
     const key = `${candidate.artifact.kind}:${identityRuleName(candidate.name)}`;
     const current = chosen.get(key);
+    if (current?.artifact.kind === "oxlint-policy" && candidate.artifact.kind === "oxlint-policy") {
+      chosen.set(key, mergePolicyCandidates(current, candidate));
+      continue;
+    }
     if (!current || sourcePreference(candidate) < sourcePreference(current)) {
       chosen.set(key, candidate);
       continue;
@@ -412,9 +497,31 @@ function deduplicateWithinSource(candidates: RuleCandidate[]): RuleCandidate[] {
   });
 }
 
+function mergePolicyCandidates(current: RuleCandidate, candidate: RuleCandidate): RuleCandidate {
+  const implementationPaths = [
+    ...new Set([
+      ...current.artifact.implementationPaths,
+      ...candidate.artifact.implementationPaths,
+    ]),
+  ].sort();
+  return {
+    ...current,
+    source: {
+      ...current.source,
+      paths: [...new Set([...current.source.paths, ...candidate.source.paths])].sort(),
+    },
+    artifact: { ...current.artifact, implementationPaths },
+    fingerprint: hash([current.fingerprint, candidate.fingerprint].sort().join("\n")),
+  };
+}
+
 function initialAdmissionFailures(input: CandidateInput): string[] {
-  if (input.kind === "oxlint-policy") return [];
   const failures: string[] = [];
+  if (input.kind === "oxlint-policy") {
+    failures.push("Configured rule ownership and behavior have not been verified.");
+    failures.push("Repository scan evidence has not been recorded.");
+    return failures;
+  }
   if (input.kind === "agent-guidance")
     failures.push("No executable rule implementation discovered.");
   if (input.testPaths.length === 0) failures.push("No behavioral tests discovered.");
@@ -496,6 +603,17 @@ function parseJsonConfig(content: string): unknown | undefined {
       return undefined;
     }
   }
+}
+
+function parseStructuredConfig(path: string, content: string): unknown | undefined {
+  if (/\.ya?ml$/i.test(path)) {
+    try {
+      return parseYaml(content);
+    } catch {
+      return undefined;
+    }
+  }
+  return parseJsonConfig(content);
 }
 
 function collectRuleNames(value: unknown, names: Set<string>): void {

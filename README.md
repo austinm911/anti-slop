@@ -157,9 +157,21 @@ remains the syntax-aware source of truth for local checks and CI. See the
 
 ## Discover rules in other repositories
 
-The discovery pipeline clones pinned source revisions into an ignored cache,
-finds executable ast-grep and Oxlint rules, records configured Oxlint policy,
-links tests, and collects agent-guidance leads without executing foreign code.
+The discovery pipeline clones source revisions into an ignored cache, pins each
+resolved commit in the catalog, finds executable ast-grep and Oxlint rules,
+records configured Oxlint policy, follows local config re-exports, links tests,
+and collects agent-guidance leads without executing foreign code.
+
+Check whether tracked branches moved without changing the pinned catalog or its
+evidence checkouts:
+
+```bash
+bun run discovery:refresh
+```
+
+The refresh output compares each upstream commit with the catalog snapshot.
+`updated` means the branch moved, `new` means the source is not in the current
+catalog, and `unchanged` means the pinned commit is still current.
 
 ```bash
 bun run discovery:discover
@@ -168,11 +180,15 @@ bun run discovery:discover
 The canonical source list is [`discovery/sources.json`](discovery/sources.json).
 Use `--repo owner/name --ref branch` for a one-repository run. Discovery writes
 structured candidates to `discovery/candidates.json` and generates
-`docs/generated/candidate-catalog.md`.
+`docs/generated/candidate-catalog.md`. When a source moved, discovery records
+both the previous and newly pinned commit in the source table. Candidate links
+always use the commit whose files were analyzed.
 
-Agent enrichment is optional. OMP and Pi receive bounded source-and-test packets
-and must return structured admission assessments. They may classify candidates,
-but they never promote or install a rule:
+Agent enrichment is optional. OMP and Pi receive bounded source-and-test packets,
+including configured Oxlint policy, and must return structured admission
+assessments. A policy assessment recommends whether to adopt an existing native
+or third-party rule. It does not treat configuration as a custom implementation.
+Agents may classify candidates, but they never promote or install a rule:
 
 ```bash
 bun run discovery:triage -- --agent omp --model luna --thinking xhigh
@@ -182,6 +198,10 @@ bun run discovery:triage -- --agent pi --model openai-codex/gpt-5.6-luna --think
 Use `--batch-size N` to control candidates per agent call. Every correctness
 candidate still needs native Oxlint verification, behavioral counterexamples,
 and repository scan evidence before admission.
+
+The normal revisit loop is `discovery:refresh`, `discovery:discover`, then
+`discovery:triage`. Review the generated commit transition and candidate diff
+before triage, especially when an existing source reports new additions.
 
 ## Review discovered candidates
 

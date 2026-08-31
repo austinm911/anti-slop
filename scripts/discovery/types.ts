@@ -88,8 +88,22 @@ export type CandidateCatalog = {
     repository: string;
     ref: string;
     commit: string;
+    previousCommit?: string;
+    updateStatus?: SourceUpdateStatus;
   }>;
   candidates: RuleCandidate[];
+};
+
+export const SOURCE_UPDATE_STATUSES = ["new", "unchanged", "updated"] as const;
+
+export type SourceUpdateStatus = (typeof SOURCE_UPDATE_STATUSES)[number];
+
+export type SourceUpdate = {
+  repository: string;
+  ref: string;
+  previousCommit?: string;
+  latestCommit: string;
+  status: SourceUpdateStatus;
 };
 
 export type AgentKind = "none" | "omp" | "pi";

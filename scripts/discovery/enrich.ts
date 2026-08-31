@@ -22,7 +22,8 @@ export async function enrichCatalog(
   catalog: CandidateCatalog,
   options: EnrichmentOptions,
 ): Promise<CandidateCatalog> {
-  const candidates = catalog.candidates.filter(({ artifact }) => artifact.kind !== "oxlint-policy");
+  await verifyEvidenceCheckouts(catalog, options.cacheDirectory);
+  const candidates = catalog.candidates;
   const assessments = new Map<string, AgentAssessment>();
   const batchSize = options.batchSize ?? 8;
 
@@ -64,6 +65,29 @@ export async function enrichCatalog(
       };
     }),
   };
+}
+
+async function verifyEvidenceCheckouts(
+  catalog: CandidateCatalog,
+  cacheDirectory: string,
+): Promise<void> {
+  for (const source of catalog.sources) {
+    const checkout = join(cacheDirectory, source.repository.replace("/", "--"));
+    const process = Bun.spawn(["git", "-C", checkout, "rev-parse", "HEAD"], {
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const [stdout, exitCode] = await Promise.all([
+      new Response(process.stdout).text(),
+      process.exited,
+    ]);
+    const actualCommit = stdout.trim();
+    if (exitCode !== 0 || actualCommit !== source.commit) {
+      throw new Error(
+        `Evidence checkout for ${source.repository} is not at catalog commit ${source.commit}; run discovery before triage`,
+      );
+    }
+  }
 }
 
 export function mergeFailedConditions(
@@ -115,6 +139,9 @@ Admission standard:
 - ast-grep owns local syntax shapes and codemods. Oxlint owns scope, control flow, configuration, or context-aware fixers.
 - Missing repository scan evidence is always a failed condition.
 - Project or stack-specific rules may still be useful, but classify them honestly.
+- An oxlint-policy packet is evidence that a repository configured a rule, not that the repository implements it. Classify whether anti-slop should adopt that existing policy. Never describe a configured native or third-party rule as a new custom anti-slop rule.
+- For oxlint-policy packets, correctness-candidate means "adopt this configured rule in the correctness preset" and preference-candidate means "offer this configured rule as a hint-level preference." Name the existing provider in dependencies when the evidence identifies one. Reject or mark project-specific policy that does not meet the same admission standard.
+- Configuration alone does not prove the rule's behavior, test coverage, native availability, or fit. Record those gaps in failedConditions.
 
 For each packet return exactly:
 {

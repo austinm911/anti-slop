@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { discoverCatalog, loadManifest } from "./discover.ts";
+import { discoverCatalog, loadManifest, refreshSources } from "./discover.ts";
 import { enrichCatalog } from "./enrich.ts";
 import { renderCatalog } from "./report.ts";
 import type { AgentKind, CandidateCatalog, SourceManifest } from "./types.ts";
@@ -20,7 +20,8 @@ if (command === "discover") {
   const manifest = options.repo
     ? singleRepositoryManifest(options.repo, options.ref ?? "main")
     : await loadManifest(manifestPath);
-  let catalog = await discoverCatalog(manifest, { cacheDirectory });
+  const previousCatalog = await readCatalogIfPresent(catalogPath);
+  let catalog = await discoverCatalog(manifest, { cacheDirectory }, previousCatalog);
   if (agent !== "none") {
     catalog = await enrichCatalog(catalog, {
       agent,
@@ -32,6 +33,13 @@ if (command === "discover") {
   }
   await writeOutputs(catalog, catalogPath, reportPath);
   printSummary(catalog, catalogPath, reportPath);
+} else if (command === "refresh") {
+  const manifest = options.repo
+    ? singleRepositoryManifest(options.repo, options.ref ?? "main")
+    : await loadManifest(manifestPath);
+  const previousCatalog = await readCatalogIfPresent(catalogPath);
+  const updates = await refreshSources(manifest, previousCatalog);
+  console.log(renderSourceUpdates(updates));
 } else if (command === "triage") {
   if (agent === "none") throw new Error("triage requires --agent omp or --agent pi");
   const catalog = await readCatalog(catalogPath);
@@ -85,6 +93,33 @@ async function readCatalog(path: string): Promise<CandidateCatalog> {
     throw new Error(`Invalid candidate catalog: ${path}`);
   }
   return parsed;
+}
+
+async function readCatalogIfPresent(path: string): Promise<CandidateCatalog | undefined> {
+  try {
+    return await readCatalog(path);
+  } catch (error) {
+    if (isMissingFileError(error)) return undefined;
+    throw error;
+  }
+}
+
+function isMissingFileError(error: unknown): boolean {
+  return typeof error === "object" && error !== null && Reflect.get(error, "code") === "ENOENT";
+}
+
+export function renderSourceUpdates(updates: Awaited<ReturnType<typeof refreshSources>>): string {
+  const rows = updates.map((update) => {
+    const previous = update.previousCommit?.slice(0, 12) ?? "not cataloged";
+    return `${update.status.padEnd(9)} ${update.repository}@${update.ref} ${previous} -> ${update.latestCommit.slice(0, 12)}`;
+  });
+  const changed = updates.filter(({ status }) => status === "updated").length;
+  const added = updates.filter(({ status }) => status === "new").length;
+  return [
+    ...rows,
+    `\n${changed} updated, ${added} new, ${updates.length - changed - added} unchanged.`,
+    "Pinned catalog provenance was not changed. Run discovery:discover to update the snapshot.",
+  ].join("\n");
 }
 
 function parseOptions(values: string[]): { [key: string]: string } {

@@ -2,7 +2,12 @@ import { afterEach, describe, expect, test } from "bun:test";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { classifySimilarities, discoverDirectory } from "./discover.ts";
+import {
+  classifySimilarities,
+  compareSourceUpdate,
+  discoverDirectory,
+  preserveSourceTransition,
+} from "./discover.ts";
 import {
   buildPrompt,
   excerptEvidence,
@@ -57,6 +62,64 @@ describe("repository discovery", () => {
 
     const policy = candidates.find(({ name }) => name === "unicorn/no-useless-fallback-in-spread");
     expect(policy?.admission.classification).toBe("native-policy");
+    expect(policy?.admission.failedConditions).toContain(
+      "Configured rule ownership and behavior have not been verified.",
+    );
+  });
+
+  test("follows local config re-exports and extracts only configured rule keys", async () => {
+    const root = await fixture({
+      "oxlint.config.ts": `import config from './index.js';\nexport default config;`,
+      "index.js": `export default defineConfig({
+        helper: await import('./unrelated.js'),
+        overrides: [{ files: ['**/*.ts'], rules: { 'no-console': 'off' } }],
+        rules: {
+          '@nkzw/no-instanceof': 'error',
+          curly: 'error',
+          eqeqeq: ['error', { null: 'ignore' }],
+        },
+      });`,
+      "unrelated.js": `export default { rules: { 'not-oxlint-policy': true } };`,
+    });
+
+    const candidates = await discoverDirectory(root, { repo: "fixture/repo", ref: "main" });
+    expect(candidates.map(({ name }) => name)).toEqual([
+      "@nkzw/no-instanceof",
+      "curly",
+      "eqeqeq",
+      "no-console",
+    ]);
+    expect(candidates[0]?.artifact.implementationPaths).toEqual(["oxlint.config.ts", "index.js"]);
+    expect(candidates.some(({ name }) => name === "null")).toBeFalse();
+    expect(candidates.some(({ name }) => name === "not-oxlint-policy")).toBeFalse();
+  });
+
+  test("merges the same policy from multiple configs without losing evidence", async () => {
+    const root = await fixture({
+      "oxlint.config.ts": `export default { rules: { 'no-console': 'error' } };`,
+      "packages/app/oxlint.config.ts": `export default { rules: { 'no-console': 'off' } };`,
+    });
+
+    const candidates = await discoverDirectory(root, { repo: "fixture/repo", ref: "main" });
+    const policies = candidates.filter(({ name }) => name === "no-console");
+    expect(policies).toHaveLength(1);
+    expect(policies[0]?.artifact.implementationPaths).toEqual([
+      "oxlint.config.ts",
+      "packages/app/oxlint.config.ts",
+    ]);
+    expect(policies[0]?.source.paths).toEqual([
+      "oxlint.config.ts",
+      "packages/app/oxlint.config.ts",
+    ]);
+  });
+
+  test("extracts policy from YAML configs", async () => {
+    const root = await fixture({
+      ".oxlintrc.yaml": `rules:\n  no-console: error\n  unicorn/prefer-at: warn\n`,
+    });
+
+    const candidates = await discoverDirectory(root, { repo: "fixture/repo", ref: "main" });
+    expect(candidates.map(({ name }) => name)).toEqual(["no-console", "unicorn/prefer-at"]);
   });
 
   test("links same-policy variants within a repository", async () => {
@@ -160,6 +223,87 @@ describe("agent enrichment contract", () => {
       ),
     ).not.toThrow();
   });
+
+  test("asks the agent to assess configured policy as adoption, not implementation", async () => {
+    const root = await fixture({
+      "oxlint.config.ts": `export default { rules: { 'no-console': 'error' } };`,
+    });
+    const [policy] = await discoverDirectory(root, { repo: "fixture/repo", ref: "main" });
+    if (!policy) throw new Error("Expected policy candidate");
+    const prompt = buildPrompt([policy], ["configured policy evidence"]);
+    expect(prompt).toContain("adopt that existing policy");
+    expect(prompt).toContain("not that the repository implements it");
+    expect(prompt).toContain('"kind":"oxlint-policy"');
+  });
+});
+
+describe("source refresh", () => {
+  test("reports branch movement against the pinned catalog commit", () => {
+    const previous: CandidateCatalog = {
+      schemaVersion: 1,
+      generatedAt: "2026-08-12T00:00:00.000Z",
+      sources: [{ repository: "fixture/repo", ref: "main", commit: "old123" }],
+      candidates: [],
+    };
+    expect(compareSourceUpdate({ repo: "fixture/repo", ref: "main" }, "new456", previous)).toEqual({
+      repository: "fixture/repo",
+      ref: "main",
+      previousCommit: "old123",
+      latestCommit: "new456",
+      status: "updated",
+    });
+    expect(
+      compareSourceUpdate({ repo: "fixture/new", ref: "main" }, "first", previous).status,
+    ).toBe("new");
+  });
+
+  test("preserves the original transition after the refreshed commit is unchanged", () => {
+    const previous: CandidateCatalog = {
+      schemaVersion: 1,
+      generatedAt: "2026-08-13T00:00:00.000Z",
+      sources: [
+        {
+          repository: "fixture/repo",
+          ref: "main",
+          commit: "new456",
+          previousCommit: "old123",
+          updateStatus: "updated",
+        },
+      ],
+      candidates: [],
+    };
+    const update = compareSourceUpdate({ repo: "fixture/repo", ref: "main" }, "new456", previous);
+    expect(preserveSourceTransition(update, previous)).toEqual({
+      repository: "fixture/repo",
+      ref: "main",
+      commit: "new456",
+      previousCommit: "old123",
+      updateStatus: "unchanged",
+    });
+  });
+
+  test("records the immediately previous commit after another upstream update", () => {
+    const previous: CandidateCatalog = {
+      schemaVersion: 1,
+      generatedAt: "2026-08-13T00:00:00.000Z",
+      sources: [
+        {
+          repository: "fixture/repo",
+          ref: "main",
+          commit: "new456",
+          previousCommit: "old123",
+          updateStatus: "updated",
+        },
+      ],
+      candidates: [],
+    };
+    const update = compareSourceUpdate(
+      { repo: "fixture/repo", ref: "main" },
+      "newest789",
+      previous,
+    );
+    expect(preserveSourceTransition(update, previous).previousCommit).toBe("new456");
+  });
 });
 
 describe("catalog report", () => {
@@ -175,13 +319,22 @@ describe("catalog report", () => {
     const catalog: CandidateCatalog = {
       schemaVersion: 1,
       generatedAt: "2026-08-12T00:00:00.000Z",
-      sources: [{ repository: "fixture/repo", ref: "main", commit: "abc123" }],
+      sources: [
+        {
+          repository: "fixture/repo",
+          ref: "main",
+          commit: "abc123",
+          previousCommit: "old123",
+          updateStatus: "updated",
+        },
+      ],
       candidates,
     };
     const report = renderCatalog(catalog);
     expect(report).toContain("# Discovery candidate catalog");
     expect(report).toContain("fixture/repo/blob/abc123/rules/no-cast.ts");
     expect(report).toContain("Repository scan evidence has not been recorded");
+    expect(report).toContain("updated from `old123`");
   });
 });
 
