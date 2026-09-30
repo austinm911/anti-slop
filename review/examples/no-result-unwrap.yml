@@ -1,0 +1,31 @@
+rule: rule:no-result-unwrap
+breaks:
+  - why: Unwrapping turns an expected parse failure into a panic, so the error the Result was carrying is thrown away.
+    code: |
+      import { Result } from "better-result";
+
+      const config = Result.try(() => JSON.parse(rawConfig)).unwrap();
+    fixed: |
+      import { Result } from "better-result";
+
+      const config = Result.try(() => JSON.parse(rawConfig)).match({
+        ok: (value) => value,
+        err: () => defaultConfig,
+      });
+  - why: The static Result.unwrap helper has the same effect and panics whenever the lookup returned an error.
+    code: |
+      import { Result } from "better-result";
+
+      const account = Result.unwrap(findAccount(accountId));
+    fixed: |
+      import { Result } from "better-result";
+
+      const account = Result.gen(function* () {
+        const found = yield* findAccount(accountId);
+        return Result.ok(found);
+      });
+passes:
+  - code: |
+      import { Result } from "better-result";
+
+      const port = Result.try(() => Number.parseInt(env.PORT, 10)).unwrapOr(3000);

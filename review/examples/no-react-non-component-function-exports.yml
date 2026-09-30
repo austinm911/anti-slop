@@ -1,0 +1,27 @@
+rule: rule:no-react-non-component-function-exports
+breaks:
+  - why: The TSX file exports formatPrice, a plain helper, so non-component logic lives in a component module.
+    code: |
+      export function formatPrice(cents: number) {
+        return `$${(cents / 100).toFixed(2)}`;
+      }
+
+      export function PriceTag({ cents }: { cents: number }) {
+        return <span>{formatPrice(cents)}</span>;
+      }
+    fixed: |
+      import { formatPrice } from "./format-price";
+
+      export function PriceTag({ cents }: { cents: number }) {
+        return <span>{formatPrice(cents)}</span>;
+      }
+passes:
+  - filename: page.tsx
+    code: |
+      export async function generateMetadata() {
+        return { title: "Billing" };
+      }
+
+      export default function BillingPage() {
+        return <h1>Billing</h1>;
+      }

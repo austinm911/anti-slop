@@ -1,0 +1,29 @@
+rule: rule:json-parse-argument-of-safeparse
+breaks:
+  - why: JSON.parse runs before safeParse is called, so a malformed body throws instead of returning a failed parse result.
+    code: |
+      import { z } from "zod";
+
+      const signupSchema = z.strictObject({ email: z.email(), name: z.string() });
+
+      export function readSignup(body: string) {
+        return signupSchema.safeParse(JSON.parse(body));
+      }
+    fixed: |
+      import { Result } from "better-result";
+      import { z } from "zod";
+
+      const signupSchema = z.strictObject({ email: z.email(), name: z.string() });
+
+      export function readSignup(body: string) {
+        return Result.try(() => signupSchema.safeParse(JSON.parse(body)));
+      }
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const eventSchema = z.strictObject({ type: z.string(), id: z.string() });
+
+      export async function readEvent(request: Request) {
+        return eventSchema.safeParse(await request.json());
+      }

@@ -1,0 +1,16 @@
+rule: rule:no-unknown-property
+breaks:
+  - why: "`class` is not a React DOM prop, so React warns and the element should use `className` instead."
+    code: |
+      export function Alert({ message }: { message: string }) {
+        return <div class="alert alert-warning">{message}</div>;
+      }
+    fixed: |
+      export function Alert({ message }: { message: string }) {
+        return <div className="alert alert-warning">{message}</div>;
+      }
+passes:
+  - code: |
+      export function EmailLabel() {
+        return <label htmlFor="email" data-testid="email-label" aria-live="polite">Email</label>;
+      }

@@ -1,0 +1,26 @@
+rule: rule:no-known-value-widening
+breaks:
+  - why: Annotating a literal object as an open `Record<string, RouteHandler>` throws away the known keys, so `routes.billing` could be missing as far as the compiler knows.
+    code: |
+      const routes: Record<string, RouteHandler> = {
+        home: renderHome,
+        billing: renderBilling,
+      };
+    fixed: |
+      const routes = {
+        home: renderHome,
+        billing: renderBilling,
+      } satisfies Record<string, RouteHandler>;
+  - why: Returning a known object through an `unknown` return type forces every caller to rediscover a value the function already built.
+    code: |
+      function defaultSettings(): unknown {
+        return { theme: "light", locale: "en-US" };
+      }
+    fixed: |
+      function defaultSettings() {
+        return { theme: "light", locale: "en-US" } as const;
+      }
+passes:
+  - code: |
+      type Plan = "free" | "team";
+      const seatLimits: Record<Plan, number> = { free: 3, team: 25 };

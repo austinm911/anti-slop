@@ -1,0 +1,29 @@
+rule: rule:zodtype-annotation-instead-of-satisfies
+breaks:
+  - why: The `z.ZodType<User>` annotation widens the concrete object schema, so methods such as `.extend` and `.shape` and the input type disappear.
+    code: |
+      import { z } from "zod";
+      import type { User } from "./user";
+
+      const userSchema: z.ZodType<User> = z.object({
+        id: z.string(),
+        email: z.email(),
+      });
+    fixed: |
+      import { z } from "zod";
+      import type { User } from "./user";
+
+      const userSchema = z.object({
+        id: z.string(),
+        email: z.email(),
+      }) satisfies z.ZodType<User>;
+passes:
+  - code: |
+      import { z } from "zod";
+
+      type Category = { name: string; children: Category[] };
+
+      const categorySchema: z.ZodType<Category> = z.object({
+        name: z.string(),
+        children: z.array(z.lazy(() => categorySchema)),
+      });

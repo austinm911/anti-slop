@@ -1,0 +1,16 @@
+rule: rule:prefer-at
+breaks:
+  - why: Indexing with `length - 1` repeats the array name and is easy to get wrong, while `.at(-1)` reads the last item directly.
+    code: |
+      export function latestMessage(messages: { text: string }[]) {
+        return messages[messages.length - 1];
+      }
+    fixed: |
+      export function latestMessage(messages: { text: string }[]) {
+        return messages.at(-1);
+      }
+passes:
+  - code: |
+      export function headerRow(rows: string[][]) {
+        return rows[0];
+      }

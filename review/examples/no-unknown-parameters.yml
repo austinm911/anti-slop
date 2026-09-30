@@ -1,0 +1,20 @@
+rule: rule:no-unknown-parameters
+breaks:
+  - why: A service function that takes `unknown` pushes parsing into business logic instead of decoding the input at the request boundary.
+    code: |
+      const createCustomer = (input: unknown) => {
+        const customer = Schema.decodeUnknownSync(NewCustomer)(input);
+        return customers.insert(customer);
+      };
+    fixed: |
+      const createCustomer = (customer: NewCustomer) => customers.insert(customer);
+passes:
+  - code: |
+      class ChargeFailed extends Error {
+        constructor(readonly chargeId: string, cause: unknown) {
+          super(`Charge ${chargeId} failed`, { cause });
+        }
+      }
+  - code: |
+      const isApiError = (value: unknown): value is ApiError =>
+        value instanceof ApiError;

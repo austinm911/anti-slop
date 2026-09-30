@@ -1,0 +1,40 @@
+rule: rule:no-is-mounted
+breaks:
+  - why: "`isMounted` is deprecated and unavailable on ES6 class components, so the guard throws instead of protecting the update."
+    code: |
+      import { Component } from "react";
+
+      export class Profile extends Component<{ load: () => Promise<string> }, { name: string }> {
+        state = { name: "" };
+        async componentDidMount() {
+          const name = await this.props.load();
+          if (this.isMounted()) this.setState({ name });
+        }
+        render() { return <h1>{this.state.name}</h1>; }
+      }
+    fixed: |
+      import { Component } from "react";
+
+      export class Profile extends Component<{ load: () => Promise<string> }, { name: string }> {
+        state = { name: "" };
+        mounted = true;
+        async componentDidMount() {
+          const name = await this.props.load();
+          if (this.mounted) this.setState({ name });
+        }
+        componentWillUnmount() { this.mounted = false; }
+        render() { return <h1>{this.state.name}</h1>; }
+      }
+passes:
+  - code: |
+      import { useEffect, useState } from "react";
+
+      export function Profile({ load }: { load: (signal: AbortSignal) => Promise<string> }) {
+        const [name, setName] = useState("");
+        useEffect(() => {
+          const controller = new AbortController();
+          load(controller.signal).then(setName);
+          return () => controller.abort();
+        }, [load]);
+        return <h1>{name}</h1>;
+      }

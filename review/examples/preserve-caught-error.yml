@@ -1,0 +1,29 @@
+rule: rule:preserve-caught-error
+breaks:
+  - why: Throwing a new error inside `catch` without `cause` discards the original error and its stack, which makes the failure hard to debug.
+    code: |
+      export async function loadInvoice(id: string) {
+        try {
+          return await db.invoices.findOrThrow(id);
+        } catch (error) {
+          throw new Error(`Could not load invoice ${id}`);
+        }
+      }
+    fixed: |
+      export async function loadInvoice(id: string) {
+        try {
+          return await db.invoices.findOrThrow(id);
+        } catch (error) {
+          throw new Error(`Could not load invoice ${id}`, { cause: error });
+        }
+      }
+passes:
+  - code: |
+      export function parseWebhook(body: string) {
+        try {
+          return JSON.parse(body);
+        } catch (error) {
+          logger.warn("Rejected malformed webhook", { error });
+          return undefined;
+        }
+      }

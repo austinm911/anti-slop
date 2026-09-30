@@ -1,0 +1,31 @@
+rule: rule:no-exported-function-expressions
+breaks:
+  - why: The exported arrow function hides that `formatInvoiceNumber` is a plain function, so the rule asks for a function declaration instead.
+    code: |
+      export const formatInvoiceNumber = (invoice: Invoice): string => {
+        return `INV-${invoice.year}-${String(invoice.sequence).padStart(5, "0")}`;
+      };
+    fixed: |
+      export function formatInvoiceNumber(invoice: Invoice): string {
+        return `INV-${invoice.year}-${String(invoice.sequence).padStart(5, "0")}`;
+      }
+  - why: A function expression bound to a local const and then exported through a specifier is still an exported function expression.
+    code: |
+      const parseSessionToken = function (header: string): string | undefined {
+        return header.startsWith("Bearer ") ? header.slice(7) : undefined;
+      };
+
+      export { parseSessionToken };
+    fixed: |
+      function parseSessionToken(header: string): string | undefined {
+        return header.startsWith("Bearer ") ? header.slice(7) : undefined;
+      }
+
+      export { parseSessionToken };
+passes:
+  - code: |
+      export const deleteProject = withAuth(async (request: Request, session: Session) => {
+        await projects.remove(request.params.id, session.userId);
+
+        return new Response(null, { status: 204 });
+      });

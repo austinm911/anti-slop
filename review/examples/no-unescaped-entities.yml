@@ -1,0 +1,16 @@
+rule: rule:no-unescaped-entities
+breaks:
+  - why: A raw quote in JSX text is easy to mistype as the end of an attribute string, so the rule asks for an escaped entity instead.
+    code: |
+      export function SaveHint() {
+        return <p>Click "Save" to keep your changes.</p>;
+      }
+    fixed: |
+      export function SaveHint() {
+        return <p>Click &quot;Save&quot; to keep your changes.</p>;
+      }
+passes:
+  - code: |
+      export function Greeting({ name }: { name: string }) {
+        return <p>{`Welcome back, ${name}. You're all set.`}</p>;
+      }

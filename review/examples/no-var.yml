@@ -1,0 +1,28 @@
+rule: rule:no-var
+breaks:
+  - why: A `var` binding is function scoped and hoisted, so it leaks out of blocks and can be read before it is assigned.
+    code: |
+      export function totalCents(lines: { cents: number }[]) {
+        var total = 0;
+        for (var i = 0; i < lines.length; i++) {
+          total += lines[i].cents;
+        }
+        return total;
+      }
+    fixed: |
+      export function totalCents(lines: { cents: number }[]) {
+        let total = 0;
+        for (let i = 0; i < lines.length; i++) {
+          total += lines[i].cents;
+        }
+        return total;
+      }
+passes:
+  - code: |
+      export const MAX_RETRIES = 3;
+      let attempts = 0;
+
+      export function recordAttempt() {
+        attempts += 1;
+        return attempts <= MAX_RETRIES;
+      }

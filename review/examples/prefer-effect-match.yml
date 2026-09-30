@@ -1,0 +1,20 @@
+rule: rule:prefer-effect-match
+breaks:
+  - why: A chain of ternaries testing the same value against literals hides missing cases, and Match makes each case explicit.
+    code: |
+      const planLimit = (plan: Plan) =>
+        plan === "free" ? 3 : plan === "team" ? 25 : 100;
+    fixed: |
+      const planLimit = (plan: Plan) =>
+        Match.value(plan).pipe(
+          Match.when("free", () => 3),
+          Match.when("team", () => 25),
+          Match.orElse(() => 100),
+        );
+passes:
+  - code: |
+      const badgeColor = (invoice: Invoice) =>
+        invoice.status === "overdue" ? "red" : "gray";
+  - code: |
+      const shippingLabel = (order: Order) =>
+        order.status === "shipped" ? "On the way" : order.paid ? "Preparing" : "Awaiting payment";

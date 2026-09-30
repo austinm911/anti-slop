@@ -2,8 +2,10 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { bareName } from "./rules.ts";
 import {
+  OXLINT_CATEGORIES,
   SEVERITIES,
   type CompiledProfile,
+  type ProfileCategories,
   type ProfileFile,
   type ProfileGap,
   type ReviewRule,
@@ -12,15 +14,11 @@ import {
 
 const PROFILE_NAME = /^[a-z][a-z0-9-]*$/;
 const VENDORED_PLUGIN = "anti-slop";
-const CATEGORIES_OFF = {
-  correctness: "off",
-  nursery: "off",
-  pedantic: "off",
-  perf: "off",
-  restriction: "off",
-  style: "off",
-  suspicious: "off",
-};
+/**
+ * Oxlint's default plugins. An explicit `plugins` list replaces the defaults, so a profile that
+ * enables a category names them to keep the category's rules from those plugins.
+ */
+const DEFAULT_PLUGINS = ["eslint", "oxc", "typescript", "unicorn"];
 
 export async function loadProfiles(directory: string): Promise<Map<string, ProfileFile>> {
   const entries = await readdir(directory).catch((error: unknown) => {
@@ -96,7 +94,8 @@ function compileProfile(
   const profile = profiles.get(name);
   if (!profile) throw new Error(`Unknown profile: ${name}`);
   const resolved = resolveRules(name, profiles, []);
-  const plugins = new Set<string>();
+  const categories = resolveCategories(name, profiles);
+  const plugins = new Set<string>(Object.keys(categories).length > 0 ? DEFAULT_PLUGINS : []);
   const oxlintRules: { [ruleId: string]: unknown } = {};
   const astGrepRules = new Set<string>();
   const gaps: ProfileGap[] = [];
@@ -142,7 +141,9 @@ function compileProfile(
   const config = {
     plugins: [...plugins].sort(),
     ...(usesVendoredPlugin ? { jsPlugins: [`./plugins/${VENDORED_PLUGIN}.js`] } : {}),
-    categories: CATEGORIES_OFF,
+    categories: Object.fromEntries(
+      OXLINT_CATEGORIES.map((category) => [category, categories[category] ?? "off"]),
+    ),
     rules: Object.fromEntries(
       Object.entries(oxlintRules).sort(([left], [right]) => left.localeCompare(right)),
     ),
@@ -155,6 +156,7 @@ function compileProfile(
     extends: profile.extends ?? [],
     own: profile.rules,
     resolved,
+    categories,
     oxlintConfig: `${JSON.stringify(config, null, 2)}\n`,
     astGrepRules: astGrep,
     install: renderInstall(name, astGrep.length > 0),
@@ -175,6 +177,13 @@ function resolveRules(
     resolveRules(base, profiles, [...trail, name]),
   );
   return Object.assign({}, ...inherited, profile.rules);
+}
+
+function resolveCategories(name: string, profiles: Map<string, ProfileFile>): ProfileCategories {
+  const profile = profiles.get(name);
+  if (!profile) throw new Error(`Unknown profile: ${name}`);
+  const inherited = (profile.extends ?? []).map((base) => resolveCategories(base, profiles));
+  return Object.assign({}, ...inherited, profile.categories);
 }
 
 function withSeverity(value: unknown, severity: Severity): unknown {

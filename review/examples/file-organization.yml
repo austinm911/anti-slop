@@ -1,0 +1,36 @@
+rule: rule:file-organization
+breaks:
+  - why: A schemas file should hold only schema constants and their inferred types, so a hand-written type alias does not belong here.
+    filename: schemas.ts
+    code: |
+      import { z } from "zod";
+
+      export const userSchema = z.strictObject({ id: z.string(), email: z.email() });
+      export type User = { id: string; email: string };
+    fixed: |
+      import { z } from "zod";
+
+      export const userSchema = z.strictObject({ id: z.string(), email: z.email() });
+      export type User = z.infer<typeof userSchema>;
+  - why: A parsing function hides application logic inside a file that advertises only schema declarations.
+    filename: schemas.ts
+    code: |
+      import { z } from "zod";
+
+      export const orderSchema = z.strictObject({ id: z.string(), total: z.number() });
+      export function parseOrder(input: unknown) {
+        return orderSchema.safeParse(input);
+      }
+    fixed: |
+      import { z } from "zod";
+
+      export const orderSchema = z.strictObject({ id: z.string(), total: z.number() });
+      export type Order = z.infer<typeof orderSchema>;
+passes:
+  - filename: schemas.ts
+    code: |
+      import { z } from "zod";
+
+      export * from "./billing-schemas.ts";
+      export const orderStatusSchema = z.enum(["pending", "paid", "refunded"]);
+      export type OrderStatus = z.infer<typeof orderStatusSchema>;

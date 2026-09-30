@@ -1,0 +1,36 @@
+rule: rule:no-case-declarations
+breaks:
+  - why: A `const` declared directly in a `case` is visible to every other case in the switch, so another branch can hit it before initialization and throw.
+    code: |
+      function describe(event: { type: string; amount: number }) {
+        switch (event.type) {
+          case "refund":
+            const label = `Refund of ${event.amount}`;
+            return label;
+          default:
+            return "Unknown event";
+        }
+      }
+    fixed: |
+      function describe(event: { type: string; amount: number }) {
+        switch (event.type) {
+          case "refund": {
+            const label = `Refund of ${event.amount}`;
+            return label;
+          }
+          default:
+            return "Unknown event";
+        }
+      }
+passes:
+  - code: |
+      function statusColor(status: "ok" | "warn" | "error") {
+        switch (status) {
+          case "ok":
+            return "green";
+          case "warn":
+            return "yellow";
+          default:
+            return "red";
+        }
+      }

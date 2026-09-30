@@ -1,0 +1,20 @@
+rule: rule:no-console
+breaks:
+  - why: A leftover `console.log` in a request handler writes unstructured noise to production output instead of going through the app logger.
+    code: |
+      export async function handleCheckout(request: Request) {
+        const body = await request.json();
+        console.log("checkout body", body);
+        return Response.json({ ok: true });
+      }
+    fixed: |
+      export async function handleCheckout(request: Request) {
+        const body = await request.json();
+        logger.debug("checkout body", { body });
+        return Response.json({ ok: true });
+      }
+passes:
+  - code: |
+      export function reportFailure(error: Error) {
+        logger.error("Payment sync failed", { message: error.message });
+      }

@@ -1,0 +1,21 @@
+rule: rule:no-manual-tagged-construction
+breaks:
+  - why: Writing the `_tag` literal by hand bypasses the tagged constructor, so the object can drift from the schema and skips its validation.
+    code: |
+      const markShipped = (orderId: string, trackingId: string) => ({
+        _tag: "Shipped",
+        orderId,
+        trackingId,
+      });
+    fixed: |
+      const markShipped = (orderId: string, trackingId: string) =>
+        OrderShipped.make({ orderId, trackingId });
+passes:
+  - code: |
+      const handleEvent = Match.type<OrderEvent>().pipe(
+        Match.when({ _tag: "Shipped" }, (event) => notifyCustomer(event.orderId)),
+        Match.orElse(() => Effect.void),
+      );
+  - code: |
+      const failCheckout = (cartId: string) =>
+        Effect.fail(new CheckoutFailed({ cartId }));

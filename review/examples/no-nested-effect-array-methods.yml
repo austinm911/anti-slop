@@ -1,0 +1,26 @@
+rule: rule:no-nested-effect-array-methods
+breaks:
+  - why: Nesting `Array.filter` inside `Array.map` reads inside out and weakens type inference for the outer callback.
+    code: |
+      import { Array } from "effect";
+
+      export const activeEmails = (users: ReadonlyArray<User>) =>
+        Array.map(
+          Array.filter(users, (user) => user.active),
+          (user) => user.email,
+        );
+    fixed: |
+      import { Array, pipe } from "effect";
+
+      export const activeEmails = (users: ReadonlyArray<User>) =>
+        pipe(
+          users,
+          Array.filter((user) => user.active),
+          Array.map((user) => user.email),
+        );
+passes:
+  - code: |
+      import { Array } from "effect";
+
+      export const ordersByCustomer = (orders: ReadonlyArray<Order>) =>
+        Array.groupBy(orders, (order) => order.customerId);

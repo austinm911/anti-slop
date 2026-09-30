@@ -1,0 +1,36 @@
+rule: rule:zod3-string-format-method
+breaks:
+  - why: Zod 4 deprecates `z.string().email()` in favor of the top-level `z.email()` schema, which carries first-class format metadata.
+    code: |
+      import { z } from "zod";
+
+      const contactSchema = z.strictObject({
+        email: z.string().email(),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      const contactSchema = z.strictObject({
+        email: z.email(),
+      });
+  - why: Zod 4 moves ISO datetime validation from `z.string().datetime()` to the top-level `z.iso.datetime()` schema.
+    code: |
+      import { z } from "zod";
+
+      const eventSchema = z.strictObject({
+        startsAt: z.string().datetime(),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      const eventSchema = z.strictObject({
+        startsAt: z.iso.datetime(),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const webhookSchema = z.strictObject({
+        callbackUrl: z.url(),
+        secret: z.string().min(32),
+      });

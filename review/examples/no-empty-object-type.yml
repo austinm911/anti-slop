@@ -1,0 +1,37 @@
+rule: rule:no-empty-object-type
+breaks:
+  - why: The type `{}` accepts any non-nullish value, including strings and numbers, so this props type does not restrict anything.
+    code: |
+      type BadgeProps = {};
+
+      export function Badge(props: BadgeProps) {
+        return <span className="badge" />;
+      }
+    fixed: |
+      type BadgeProps = Record<string, never>;
+
+      export function Badge(props: BadgeProps) {
+        return <span className="badge" />;
+      }
+  - why: An empty interface declares no shape at all, so it reads like a contract while accepting almost any value.
+    code: |
+      interface AuditEvent {}
+
+      export function record(event: AuditEvent) {
+        queue.push(event);
+      }
+    fixed: |
+      interface AuditEvent {
+        action: string;
+        actorId: string;
+      }
+
+      export function record(event: AuditEvent) {
+        queue.push(event);
+      }
+passes:
+  - code: |
+      interface ButtonProps {
+        label: string;
+        onClick: () => void;
+      }

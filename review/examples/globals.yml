@@ -1,0 +1,25 @@
+rule: rule:globals
+breaks:
+  - why: The component changes a module-level variable while rendering, so renders stop being repeatable and the rule reports the global mutation.
+    code: |
+      let renderedRows = 0;
+
+      function OrderRow({ order }: { order: Order }) {
+        renderedRows = renderedRows + 1;
+        return <tr><td>{order.number}</td></tr>;
+      }
+    fixed: |
+      function OrderRow({ order }: { order: Order }) {
+        useEffect(() => {
+          metrics.increment("order_row_rendered");
+        }, []);
+
+        return <tr><td>{order.number}</td></tr>;
+      }
+passes:
+  - code: |
+      const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+
+      function PriceTag({ cents }: { cents: number }) {
+        return <span>{currency.format(cents / 100)}</span>;
+      }

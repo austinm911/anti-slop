@@ -1,0 +1,34 @@
+rule: rule:no-extra-bind
+breaks:
+  - why: The callback never uses `this`, so the `.bind(this)` call creates a new function for no effect.
+    code: |
+      class Poller {
+        start() {
+          setInterval(function () {
+            refreshDashboard();
+          }.bind(this), 5000);
+        }
+      }
+    fixed: |
+      class Poller {
+        start() {
+          setInterval(function () {
+            refreshDashboard();
+          }, 5000);
+        }
+      }
+  - why: Arrow functions ignore `bind` for `this`, so binding one only allocates a wrapper.
+    code: |
+      const onSave = (() => saveDraft()).bind(this);
+    fixed: |
+      const onSave = () => saveDraft();
+passes:
+  - code: |
+      class Timer {
+        seconds = 0;
+        start() {
+          setInterval(function (this: Timer) {
+            this.seconds += 1;
+          }.bind(this), 1000);
+        }
+      }

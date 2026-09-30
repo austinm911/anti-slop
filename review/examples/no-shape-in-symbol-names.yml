@@ -1,0 +1,16 @@
+rule: rule:no-shape-in-symbol-names
+breaks:
+  - why: A name containing "shape" describes the structure of a value rather than what it means in the domain.
+    code: |
+      type InvoiceShape = { id: string; totalCents: number };
+
+      const invoiceShape = (id: string): InvoiceShape => ({ id, totalCents: 0 });
+    fixed: |
+      type DraftInvoice = { id: string; totalCents: number };
+
+      const draftInvoice = (id: string): DraftInvoice => ({ id, totalCents: 0 });
+passes:
+  - code: |
+      const fields = OrderSchema.shape;
+  - code: |
+      const renderCanvas = (canvas: Canvas) => canvas.layers.map((layer) => layer.draw());

@@ -1,0 +1,21 @@
+rule: rule:no-effect-asvoid
+breaks:
+  - why: "`Effect.asVoid` discards a success value that should already be `void`, which hides a mismatch between the mailer contract and how it is used."
+    code: |
+      import { Effect } from "effect";
+
+      export const notifyCustomer = (orderId: string) =>
+        mailer.send({ template: "order-shipped", orderId }).pipe(Effect.asVoid);
+    fixed: |
+      import { Effect } from "effect";
+
+      export const notifyCustomer = (orderId: string) =>
+        mailer.send({ template: "order-shipped", orderId });
+passes:
+  - code: |
+      import { Effect } from "effect";
+
+      export const archiveOrder = (orderId: string) =>
+        orders.archive(orderId).pipe(
+          Effect.tap(() => audit.record("order.archived", orderId)),
+        );

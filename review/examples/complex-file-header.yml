@@ -1,0 +1,32 @@
+rule: rule:complex-file-header
+breaks:
+  - why: This module exports many bindings, which pushes its structural score past the threshold, and it has no `@fileoverview` header telling readers what the module owns.
+    code: |
+      import { env } from "./env";
+
+      export const { apiUrl, cdnUrl, authUrl, billingUrl, searchUrl } = env.urls;
+      export const { maxRetries, timeoutMs, pageSize, cacheTtl, batchSize } = env.limits;
+      export const { region, stage } = env.deploy;
+    fixed: |
+      /** @fileoverview Exposes resolved runtime settings so services read config from one module. */
+      import { env } from "./env";
+
+      export const { apiUrl, cdnUrl, authUrl, billingUrl, searchUrl } = env.urls;
+      export const { maxRetries, timeoutMs, pageSize, cacheTtl, batchSize } = env.limits;
+      export const { region, stage } = env.deploy;
+passes:
+  - code: |
+      import { db } from "./db";
+
+      export async function findInvoice(id: string) {
+        const invoice = await db.invoices.find(id);
+
+        return invoice ?? null;
+      }
+  - code: |
+      export { createUser } from "./create-user";
+      export { deleteUser } from "./delete-user";
+      export { findUser } from "./find-user";
+      export { listUsers } from "./list-users";
+      export { updateUser } from "./update-user";
+      export { UserRole } from "./user-role";

@@ -1,0 +1,31 @@
+rule: rule:tool-input-not-strict
+breaks:
+  - why: "A plain `z.object` tool input quietly accepts extra keys the model invents and omits `additionalProperties: false` from the JSON Schema."
+    code: |
+      import { z } from "zod";
+
+      export const searchDocs = defineTool({
+        name: "search_docs",
+        input: z.object({
+          query: z.string(),
+          limit: z.int().max(20),
+        }),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const searchDocs = defineTool({
+        name: "search_docs",
+        input: z.strictObject({
+          query: z.string(),
+          limit: z.int().max(20),
+        }),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const searchResultSchema = z.object({
+        title: z.string(),
+        url: z.url(),
+      });

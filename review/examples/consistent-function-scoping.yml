@@ -1,0 +1,28 @@
+rule: rule:consistent-function-scoping
+breaks:
+  - why: The `formatPrice` helper uses nothing from `renderInvoice`, so defining it inside recreates it on every call and hides a reusable function.
+    code: |
+      export function renderInvoice(lines: Array<{ label: string; cents: number }>) {
+        function formatPrice(cents: number) {
+          return `$${(cents / 100).toFixed(2)}`;
+        }
+        return lines.map((line) => `${line.label}: ${formatPrice(line.cents)}`);
+      }
+    fixed: |
+      function formatPrice(cents: number) {
+        return `$${(cents / 100).toFixed(2)}`;
+      }
+
+      export function renderInvoice(lines: Array<{ label: string; cents: number }>) {
+        return lines.map((line) => `${line.label}: ${formatPrice(line.cents)}`);
+      }
+passes:
+  - code: |
+      export function createCounter(start: number) {
+        let count = start;
+        function increment() {
+          count += 1;
+          return count;
+        }
+        return increment;
+      }

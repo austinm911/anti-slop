@@ -1,0 +1,40 @@
+rule: rule:no-async-result-try
+breaks:
+  - why: Result.try only catches synchronous throws, so the rejection from this async callback escapes and the Result always holds a Promise.
+    code: |
+      import { Result } from "better-result";
+
+      const profile = Result.try(async () => {
+        const response = await fetch(`/api/users/${userId}`);
+        return response.json();
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const profile = await Result.tryPromise(async () => {
+        const response = await fetch(`/api/users/${userId}`);
+        return response.json();
+      });
+  - why: The object form has the same problem because its async try callback still rejects outside what Result.try can capture.
+    code: |
+      import { Result } from "better-result";
+
+      const saved = Result.try({
+        try: async () => orderRepository.save(order),
+        catch: (cause) => new OrderSaveFailed({ cause }),
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const saved = await Result.tryPromise({
+        try: async () => orderRepository.save(order),
+        catch: (cause) => new OrderSaveFailed({ cause }),
+      });
+passes:
+  - code: |
+      import { Result } from "better-result";
+
+      const settings = Result.try({
+        try: () => JSON.parse(rawSettings),
+        catch: (cause) => new InvalidSettings({ cause }),
+      });

@@ -1,0 +1,38 @@
+rule: rule:bad-bitwise-operator
+breaks:
+  - why: The single `&` evaluates `session.user` even when `session` is missing, so this guard throws instead of short-circuiting like `&&` would.
+    code: |
+      function currentUserId(session: { user: { id: string } } | undefined) {
+        if (session & session.user) {
+          return session.user.id;
+        }
+        return undefined;
+      }
+    fixed: |
+      function currentUserId(session: { user: { id: string } } | undefined) {
+        if (session && session.user) {
+          return session.user.id;
+        }
+        return undefined;
+      }
+  - why: Using `|` to supply a default object coerces both sides to numbers, so the options end up as `0` instead of an object.
+    code: |
+      function createClient(options?: { timeoutMs: number }) {
+        const resolved = options | {};
+        return new ApiClient(resolved);
+      }
+    fixed: |
+      function createClient(options?: { timeoutMs: number }) {
+        const resolved = options || {};
+        return new ApiClient(resolved);
+      }
+passes:
+  - code: |
+      const READ = 1;
+      const WRITE = 2;
+
+      function canWrite(permissions: number) {
+        return (permissions & WRITE) !== 0;
+      }
+
+      const defaultPermissions = READ | WRITE;

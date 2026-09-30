@@ -1,0 +1,19 @@
+rule: rule:no-abusive-eslint-disable
+breaks:
+  - why: A bare disable comment silences every lint rule on the next line, so real problems slip through along with the one warning it meant to hide.
+    code: |
+      export function logStartup(port: number) {
+        // eslint-disable-next-line
+        console.log(`Server listening on ${port}`);
+      }
+    fixed: |
+      export function logStartup(port: number) {
+        // eslint-disable-next-line no-console
+        console.log(`Server listening on ${port}`);
+      }
+passes:
+  - code: |
+      /* oxlint-disable no-console */
+      export function printReport(rows: string[]) {
+        for (const row of rows) console.log(row);
+      }

@@ -1,0 +1,33 @@
+rule: rule:no-promise-catch
+breaks:
+  - why: The catch chain swallows the rejection into an untyped fallback instead of capturing the failure as a Result at the call site.
+    code: |
+      const orders = await fetchOrders(customerId).catch((error) => {
+        logger.error("orders failed", error);
+        return [];
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const orders = await Result.tryPromise({
+        try: () => fetchOrders(customerId),
+        catch: (cause) => new OrdersUnavailable({ cause }),
+      });
+  - why: A second argument to then is a rejection handler, so it is the same catch chain in a different spelling.
+    code: |
+      sendReceipt(order).then(
+        () => metrics.increment("receipt.sent"),
+        (error) => metrics.increment("receipt.failed"),
+      );
+    fixed: |
+      import { Result } from "better-result";
+
+      const sent = await Result.tryPromise({
+        try: () => sendReceipt(order),
+        catch: (cause) => new ReceiptFailed({ cause }),
+      });
+passes:
+  - code: |
+      const invoices = await loadInvoices(accountId).then((rows) =>
+        rows.filter((invoice) => invoice.status === "open"),
+      );

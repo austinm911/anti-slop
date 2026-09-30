@@ -1,0 +1,22 @@
+rule: rule:jsx-props-no-spread-multi
+breaks:
+  - why: Spreading the same object twice onto one element is redundant and usually means a copy-paste mistake.
+    code: |
+      type FieldProps = { name: string; placeholder: string };
+
+      export function TextField(props: FieldProps) {
+        return <input {...props} className="field" {...props} />;
+      }
+    fixed: |
+      type FieldProps = { name: string; placeholder: string };
+
+      export function TextField(props: FieldProps) {
+        return <input className="field" {...props} />;
+      }
+passes:
+  - code: |
+      type Props = { defaults: { size: string }; overrides: { size?: string } };
+
+      export function Icon({ defaults, overrides }: Props) {
+        return <svg {...defaults} {...overrides} />;
+      }

@@ -1,0 +1,34 @@
+rule: rule:throwing-zod-refine
+breaks:
+  - why: The `new URL` call throws on a malformed string, so the exception escapes the refinement and even `safeParse` crashes instead of returning an issue.
+    code: |
+      import { z } from "zod";
+
+      const webhookSchema = z.strictObject({
+        callbackUrl: z
+          .string()
+          .refine((value) => new URL(value).protocol === "https:"),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      const webhookSchema = z.strictObject({
+        callbackUrl: z
+          .url({ abort: true })
+          .refine((value) => new URL(value).protocol === "https:"),
+      });
+passes:
+  - code: |
+      import { Result } from "better-result";
+      import { z } from "zod";
+
+      const settingsSchema = z
+        .string()
+        .refine((raw) => Result.try(() => JSON.parse(raw)).isOk());
+  - code: |
+      import { z } from "zod";
+
+      const amountSchema = z
+        .string()
+        .regex(/^\d+$/)
+        .transform((value) => BigInt(value));

@@ -1,0 +1,16 @@
+rule: rule:consistent-empty-array-spread
+breaks:
+  - why: The ternary spreads an array in one branch and an empty string in the other, so the reader has to reason about two different value types to see that nothing is added.
+    code: |
+      function toolbarItems(canEdit: boolean) {
+        return ["view", "share", ...(canEdit ? ["edit", "delete"] : "")];
+      }
+    fixed: |
+      function toolbarItems(canEdit: boolean) {
+        return ["view", "share", ...(canEdit ? ["edit", "delete"] : [])];
+      }
+passes:
+  - code: |
+      function buildArgs(verbose: boolean, extra: string[]) {
+        return ["build", ...(verbose ? ["--verbose"] : []), ...extra];
+      }

@@ -1,0 +1,32 @@
+rule: rule:error-boundaries
+breaks:
+  - why: A try/catch around JSX in a component cannot catch errors thrown while children render, so the rule asks for an error boundary instead.
+    code: |
+      function InvoicePanel({ invoiceId }: { invoiceId: string }) {
+        try {
+          return <InvoiceDetails invoiceId={invoiceId} />;
+        } catch (error) {
+          return <p>Could not load the invoice.</p>;
+        }
+      }
+    fixed: |
+      function InvoicePanel({ invoiceId }: { invoiceId: string }) {
+        return (
+          <ErrorBoundary fallback={<p>Could not load the invoice.</p>}>
+            <InvoiceDetails invoiceId={invoiceId} />
+          </ErrorBoundary>
+        );
+      }
+passes:
+  - code: |
+      function ExportButton({ report }: { report: Report }) {
+        const handleClick = async () => {
+          try {
+            await downloadCsv(report);
+          } catch (error) {
+            toast.error("Export failed");
+          }
+        };
+
+        return <button onClick={handleClick}>Export</button>;
+      }

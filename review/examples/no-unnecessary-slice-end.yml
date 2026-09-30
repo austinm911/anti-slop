@@ -1,0 +1,16 @@
+rule: rule:no-unnecessary-slice-end
+breaks:
+  - why: Passing the array length as the end of `.slice()` does nothing because slicing already runs to the end by default.
+    code: |
+      export function remainingSteps(steps: string[], current: number) {
+        return steps.slice(current + 1, steps.length);
+      }
+    fixed: |
+      export function remainingSteps(steps: string[], current: number) {
+        return steps.slice(current + 1);
+      }
+passes:
+  - code: |
+      export function firstPage<T>(rows: T[], pageSize: number) {
+        return rows.slice(0, pageSize);
+      }

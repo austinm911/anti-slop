@@ -182,6 +182,15 @@ function ProfileRules({
           <div className="kicker">Profile</div>
           <h2>{profile.name}</h2>
           <p>{profile.description}</p>
+          {Object.keys(profile.categories).length > 0 ? (
+            <p className="profile-categories">
+              Plus every Oxlint{" "}
+              {Object.entries(profile.categories)
+                .map(([category, severity]) => `${category} rule at ${severity}`)
+                .join(", ")}
+              {profile.extends.length > 0 ? `, through ${profile.extends.join(", ")}` : ""}.
+            </p>
+          ) : null}
         </div>
         <div className="profile-stats">
           <span>

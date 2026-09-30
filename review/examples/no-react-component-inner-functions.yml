@@ -1,0 +1,47 @@
+rule: rule:no-react-component-inner-functions
+breaks:
+  - why: The formatTotal helper is declared inside the component, so it is recreated on every render and mixes formatting logic into the view.
+    code: |
+      export default function CartSummary({ items }: { items: ReadonlyArray<CartItem> }) {
+        const formatTotal = () =>
+          items.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+
+        return <p>Total: ${formatTotal()}</p>;
+      }
+    fixed: |
+      const formatTotal = (items: ReadonlyArray<CartItem>) =>
+        items.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+
+      export default function CartSummary({ items }: { items: ReadonlyArray<CartItem> }) {
+        return <p>Total: ${formatTotal(items)}</p>;
+      }
+  - why: A useCallback submit handler holds business logic in the component body instead of a state machine event.
+    code: |
+      import { useCallback } from "react";
+
+      export default function InviteForm({ teamId }: { teamId: string }) {
+        const handleSubmit = useCallback(() => {
+          void sendInvite(teamId);
+        }, [teamId]);
+
+        return <button onClick={handleSubmit}>Send invite</button>;
+      }
+    fixed: |
+      import { useMachine } from "@xstate/react";
+
+      export default function InviteForm({ teamId }: { teamId: string }) {
+        const [, send] = useMachine(inviteMachine, { input: { teamId } });
+
+        return <button onClick={() => send({ type: "invite.submit" })}>Send invite</button>;
+      }
+passes:
+  - code: |
+      export default function TagList({ tags }: { tags: ReadonlyArray<Tag> }) {
+        return (
+          <ul>
+            {tags.map((tag) => (
+              <li key={tag.id}>{tag.label}</li>
+            ))}
+          </ul>
+        );
+      }

@@ -1,0 +1,20 @@
+rule: rule:unsupported-syntax
+breaks:
+  - why: The compiler cannot analyze `eval`, so a component that calls it cannot be optimized and runs arbitrary code from a string.
+    code: |
+      function FormulaCell({ formula }: { formula: string }) {
+        const value = eval(formula);
+        return <td>{value}</td>;
+      }
+    fixed: |
+      function FormulaCell({ formula }: { formula: string }) {
+        const value = evaluateFormula(parseFormula(formula));
+        return <td>{value}</td>;
+      }
+passes:
+  - code: |
+      function SettingsPreview({ raw }: { raw: string }) {
+        const settings = SettingsSchema.parse(JSON.parse(raw));
+
+        return <pre>{JSON.stringify(settings, null, 2)}</pre>;
+      }

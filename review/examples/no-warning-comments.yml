@@ -1,0 +1,18 @@
+rule: rule:no-warning-comments
+breaks:
+  - why: A TODO comment marks unfinished work that tends to ship and be forgotten, so the rule asks for it to be done or tracked elsewhere.
+    code: |
+      export async function sendInvoice(invoiceId: string) {
+        // TODO: retry when the mail provider returns 503
+        await mailer.send(invoiceId);
+      }
+    fixed: |
+      export async function sendInvoice(invoiceId: string) {
+        await retry(() => mailer.send(invoiceId), { attempts: 3 });
+      }
+passes:
+  - code: |
+      export async function sendInvoice(invoiceId: string) {
+        // The provider rate-limits bursts, so sends go through the shared queue.
+        await mailQueue.enqueue(invoiceId);
+      }

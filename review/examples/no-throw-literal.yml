@@ -1,0 +1,26 @@
+rule: rule:no-throw-literal
+breaks:
+  - why: Throwing a string loses the stack trace and breaks callers that check `instanceof Error`, so the rule asks for an Error object.
+    code: |
+      export function requireUser(session: { userId?: string }) {
+        if (!session.userId) {
+          throw "User is not signed in";
+        }
+        return session.userId;
+      }
+    fixed: |
+      export function requireUser(session: { userId?: string }) {
+        if (!session.userId) {
+          throw new Error("User is not signed in");
+        }
+        return session.userId;
+      }
+passes:
+  - code: |
+      class PaymentDeclinedError extends Error {
+        readonly name = "PaymentDeclinedError";
+      }
+
+      export function assertCharged(status: string) {
+        if (status !== "succeeded") throw new PaymentDeclinedError(status);
+      }

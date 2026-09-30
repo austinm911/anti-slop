@@ -11,9 +11,12 @@
 
 ## Profiles
 
-- `effect`: 4 rules, 0 gaps. Recommended rules plus Effect-specific checks.
+- `effect`: 93 rules, 41 gaps. Recommended plus Effect rules from typeonce and dmmulroy.
 - `preferences`: 1 rules, 0 gaps. Hint-level conventions. Keep out of blocking checks.
-- `recommended`: 4 rules, 0 gaps. Correctness rules for any TypeScript codebase.
+- `react`: 115 rules, 41 gaps. Recommended plus nkzw's React, accessibility, and React Compiler picks and typeonce's React rules.
+- `recommended`: 75 rules, 23 gaps. Oxlint correctness, nkzw's stricter native picks, our rules, and portable TypeScript rules from dmmulroy and oxray.
+- `result`: 86 rules, 34 gaps. Recommended plus oxray's better-result rules for codebases that return Results instead of throwing.
+- `zod`: 94 rules, 42 gaps. Recommended plus oxray's Zod 4 rules.
 
 ## Kept for evaluation
 

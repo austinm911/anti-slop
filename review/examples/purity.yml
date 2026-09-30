@@ -1,0 +1,34 @@
+rule: rule:purity
+breaks:
+  - why: Calling `Date.now()` during render gives a different result on every render, so the component is impure and the rule reports it.
+    code: |
+      function TrialBanner({ trialEndsAt }: { trialEndsAt: number }) {
+        const daysLeft = Math.ceil((trialEndsAt - Date.now()) / 86_400_000);
+        return <p>{daysLeft} days left in your trial</p>;
+      }
+    fixed: |
+      function TrialBanner({ trialEndsAt, now }: { trialEndsAt: number; now: number }) {
+        const daysLeft = Math.ceil((trialEndsAt - now) / 86_400_000);
+        return <p>{daysLeft} days left in your trial</p>;
+      }
+  - why: Generating an id with `Math.random()` while rendering changes the id each render and breaks hydration.
+    code: |
+      function EmailField() {
+        const id = `email-${Math.random().toString(36).slice(2)}`;
+        return <><label htmlFor={id}>Email</label><input id={id} type="email" /></>;
+      }
+    fixed: |
+      function EmailField() {
+        const id = useId();
+        return <><label htmlFor={id}>Email</label><input id={id} type="email" /></>;
+      }
+passes:
+  - code: |
+      function LogoutButton() {
+        const handleClick = () => {
+          audit.record({ action: "logout", at: Date.now() });
+          signOut();
+        };
+
+        return <button onClick={handleClick}>Log out</button>;
+      }

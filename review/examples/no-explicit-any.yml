@@ -1,0 +1,16 @@
+rule: rule:no-explicit-any
+breaks:
+  - why: Typing the payload as `any` turns off checking for every property read, so a renamed field in the webhook breaks at runtime instead of at compile time.
+    code: |
+      export function handleWebhook(payload: any) {
+        return payload.data.customerId;
+      }
+    fixed: |
+      export function handleWebhook(payload: unknown) {
+        return WebhookPayload.parse(payload).data.customerId;
+      }
+passes:
+  - code: |
+      export function first<T>(items: readonly T[]): T | undefined {
+        return items[0];
+      }

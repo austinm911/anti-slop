@@ -1,0 +1,20 @@
+rule: rule:no-children-prop
+breaks:
+  - why: Passing `children` as a prop hides the content in an attribute instead of nesting it, which is harder to read and conflicts with nested children.
+    code: |
+      export function WelcomeCard({ name }: { name: string }) {
+        return <Card title="Welcome" children={<p>Hello, {name}</p>} />;
+      }
+    fixed: |
+      export function WelcomeCard({ name }: { name: string }) {
+        return (
+          <Card title="Welcome">
+            <p>Hello, {name}</p>
+          </Card>
+        );
+      }
+passes:
+  - code: |
+      export function Layout({ sidebar, content }: { sidebar: JSX.Element; content: JSX.Element }) {
+        return <SplitView left={sidebar} right={content} />;
+      }

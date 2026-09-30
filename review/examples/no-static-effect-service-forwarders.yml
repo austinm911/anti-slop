@@ -1,0 +1,54 @@
+rule: rule:no-static-effect-service-forwarders
+breaks:
+  - why: The static theme field only forwards to the service method, which hides where the Preferences service is acquired and duplicates its interface.
+    code: |
+      import { Context, Effect } from "effect";
+
+      class Preferences extends Context.Service<Preferences, {
+        readonly theme: Effect.Effect<string>;
+      }>()("app/Preferences") {
+        static readonly theme = Effect.flatMap(Effect.service(this), (service) => service.theme);
+      }
+    fixed: |
+      import { Context, Effect } from "effect";
+
+      class Preferences extends Context.Service<Preferences, {
+        readonly theme: Effect.Effect<string>;
+      }>()("app/Preferences") {}
+
+      const renderHeader = Effect.gen(function* () {
+        const preferences = yield* Preferences;
+        return yield* preferences.theme;
+      });
+  - why: Piping Effect.service(this) into a flatMap that just calls save makes a static forwarder for the Orders service method.
+    code: |
+      import { Context, Effect } from "effect";
+
+      class Orders extends Context.Service<Orders, {
+        readonly save: (order: Order) => Effect.Effect<void>;
+      }>()("app/Orders") {
+        static readonly save = (order: Order) =>
+          Effect.service(this).pipe(Effect.flatMap((orders) => orders.save(order)));
+      }
+    fixed: |
+      import { Context, Effect } from "effect";
+
+      class Orders extends Context.Service<Orders, {
+        readonly save: (order: Order) => Effect.Effect<void>;
+      }>()("app/Orders") {}
+
+      const checkout = Effect.fn("Checkout.submit")(function* (order: Order) {
+        const orders = yield* Orders;
+        yield* orders.save(order);
+      });
+passes:
+  - code: |
+      import { Context, Effect, Layer } from "effect";
+
+      class Clock extends Context.Service<Clock, {
+        readonly now: Effect.Effect<Date>;
+      }>()("app/Clock") {
+        static readonly layer = Layer.succeed(this, {
+          now: Effect.sync(() => new Date()),
+        });
+      }

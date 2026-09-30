@@ -1,0 +1,18 @@
+rule: rule:approx-constant
+breaks:
+  - why: A hand-typed approximation of pi is less precise than `Math.PI`, so area calculations drift.
+    code: |
+      export function circleArea(radius: number): number {
+        return 3.14159 * radius * radius;
+      }
+    fixed: |
+      export function circleArea(radius: number): number {
+        return Math.PI * radius * radius;
+      }
+passes:
+  - code: |
+      export const SALES_TAX_RATE = 0.0825;
+
+      export function withTax(subtotal: number): number {
+        return subtotal * (1 + SALES_TAX_RATE);
+      }

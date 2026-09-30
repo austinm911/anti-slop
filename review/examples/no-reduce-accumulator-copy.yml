@@ -1,0 +1,25 @@
+rule: rule:no-reduce-accumulator-copy
+breaks:
+  - why: Copying the accumulator with Object.assign on every step makes indexing the list quadratic as the object grows.
+    code: |
+      const indexById = (users: User[]) =>
+        users.reduce(
+          (byId, user) => Object.assign({}, byId, { [user.id]: user }),
+          {},
+        );
+    fixed: |
+      const indexById = (users: User[]) =>
+        users.reduce<Record<string, User>>((byId, user) => {
+          byId[user.id] = user;
+          return byId;
+        }, {});
+  - why: Calling concat on the array accumulator creates a new, longer copy on every iteration.
+    code: |
+      const collectTags = (posts: Post[]) =>
+        posts.reduce((tags, post) => tags.concat(post.tags), [] as string[]);
+    fixed: |
+      const collectTags = (posts: Post[]) => posts.flatMap((post) => post.tags);
+passes:
+  - code: |
+      const totalCents = (items: CartItem[]) =>
+        items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0);

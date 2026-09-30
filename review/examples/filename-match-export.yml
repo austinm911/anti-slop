@@ -1,0 +1,33 @@
+rule: rule:filename-match-export
+breaks:
+  - why: The file is named `user-client.ts` but its default export is `AccountClient`, so imports and file search point at different names.
+    filename: user-client.ts
+    code: |
+      export default class AccountClient {
+        constructor(private readonly baseUrl: string) {}
+
+        getProfile(id: string) {
+          return fetch(`${this.baseUrl}/users/${id}`);
+        }
+      }
+    fixed: |
+      export default class UserClient {
+        constructor(private readonly baseUrl: string) {}
+
+        getProfile(id: string) {
+          return fetch(`${this.baseUrl}/users/${id}`);
+        }
+      }
+passes:
+  - filename: InvoiceTable.tsx
+    code: |
+      function InvoiceTable({ invoices }: { invoices: Invoice[] }) {
+        return <table>{invoices.map((invoice) => <InvoiceRow key={invoice.id} invoice={invoice} />)}</table>;
+      }
+
+      export default InvoiceTable;
+  - filename: index.ts
+    code: |
+      import { createRouter } from "./router";
+
+      export default createRouter;

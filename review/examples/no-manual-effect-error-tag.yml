@@ -1,0 +1,37 @@
+rule: rule:no-manual-effect-error-tag
+breaks:
+  - why: The broad Effect.catch handler checks `_tag` by hand, so the error channel still claims every failure is handled and the type never narrows.
+    code: |
+      const loadProfile = (userId: string) =>
+        fetchProfile(userId).pipe(
+          Effect.catch((error) =>
+            error._tag === "ProfileNotFound"
+              ? Effect.succeed(guestProfile)
+              : Effect.fail(error),
+          ),
+        );
+    fixed: |
+      const loadProfile = (userId: string) =>
+        fetchProfile(userId).pipe(
+          Effect.catchTag("ProfileNotFound", () => Effect.succeed(guestProfile)),
+        );
+  - why: A switch on the nested `reason._tag` inside Effect.catchAll rebuilds what Effect.catchReason already does with typed narrowing.
+    code: |
+      const syncInvoices = billingClient.sync().pipe(
+        Effect.catchAll((error) => {
+          switch (error.reason._tag) {
+            case "RateLimited":
+              return Effect.succeed(0);
+            default:
+              return Effect.fail(error);
+          }
+        }),
+      );
+    fixed: |
+      const syncInvoices = billingClient.sync().pipe(
+        Effect.catchReason("BillingError", "RateLimited", () => Effect.succeed(0)),
+      );
+passes:
+  - code: |
+      const describeFailure = (error: PaymentError) =>
+        error._tag === "CardDeclined" ? "Your card was declined." : "Payment failed.";

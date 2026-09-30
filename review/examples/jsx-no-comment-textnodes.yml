@@ -1,0 +1,26 @@
+rule: rule:jsx-no-comment-textnodes
+breaks:
+  - why: A `//` comment written as JSX text is rendered on the page as literal text instead of being treated as a comment.
+    code: |
+      export function EmptyCart() {
+        return (
+          <div>
+            // TODO: add a suggested products list
+            <p>Your cart is empty.</p>
+          </div>
+        );
+      }
+    fixed: |
+      export function EmptyCart() {
+        return (
+          <div>
+            {/* TODO: add a suggested products list */}
+            <p>Your cart is empty.</p>
+          </div>
+        );
+      }
+passes:
+  - code: |
+      export function ApiDocsLink() {
+        return <a href="https://api.example.com/docs">https://api.example.com/docs</a>;
+      }

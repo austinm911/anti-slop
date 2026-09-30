@@ -1,0 +1,34 @@
+rule: rule:shape-spread-drops-refinements
+breaks:
+  - why: Spreading the refined schema's shape into a new object keeps its fields but silently drops the date range check.
+    code: |
+      import { z } from "zod";
+
+      const stayDatesSchema = z
+        .object({ checkIn: z.iso.date(), checkOut: z.iso.date() })
+        .refine((stay) => stay.checkIn < stay.checkOut);
+
+      const bookingSchema = z.strictObject({
+        ...stayDatesSchema.shape,
+        guestCount: z.int(),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      const stayDatesSchema = z
+        .object({ checkIn: z.iso.date(), checkOut: z.iso.date() })
+        .refine((stay) => stay.checkIn < stay.checkOut);
+
+      const bookingSchema = stayDatesSchema.extend({
+        guestCount: z.int(),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const addressSchema = z.object({ street: z.string(), city: z.string() });
+
+      const shippingSchema = z.strictObject({
+        ...addressSchema.shape,
+        postalCode: z.string(),
+      });

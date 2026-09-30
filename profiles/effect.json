@@ -1,5 +1,24 @@
 {
-  "description": "Recommended rules plus Effect-specific checks.",
+  "description": "Recommended plus Effect rules from typeonce and dmmulroy.",
   "extends": ["recommended"],
-  "rules": {}
+  "rules": {
+    "rule:no-ambient-nondeterminism": "error",
+    "rule:no-cascading-layer-provide": "error",
+    "rule:no-direct-browser-storage": "error",
+    "rule:no-disable-validation": "error",
+    "rule:no-effect-asvoid": "error",
+    "rule:no-global-json": "error",
+    "rule:no-manual-effect-error-tag": "error",
+    "rule:no-manual-tag-comparison": "error",
+    "rule:no-manual-tagged-construction": "error",
+    "rule:no-nested-effect-array-methods": "error",
+    "rule:no-nested-layer-provide": "error",
+    "rule:no-service-constructor-imports": "error",
+    "rule:no-service-option": "error",
+    "rule:no-shadowed-standard-array-static": "error",
+    "rule:no-silent-error-swallow": "error",
+    "rule:no-static-effect-service-forwarders": "error",
+    "rule:no-switch": "error",
+    "rule:prefer-effect-match": "error"
+  }
 }

@@ -1,0 +1,16 @@
+rule: rule:jsx-no-duplicate-props
+breaks:
+  - why: The same prop is set twice, so the later value silently overrides the first and one of them is dead code.
+    code: |
+      export function EmailField() {
+        return <input type="text" name="email" type="email" />;
+      }
+    fixed: |
+      export function EmailField() {
+        return <input name="email" type="email" />;
+      }
+passes:
+  - code: |
+      export function PriceTag({ amount }: { amount: number }) {
+        return <span className="price" data-amount={amount} aria-label={`Price ${amount}`}>{amount}</span>;
+      }

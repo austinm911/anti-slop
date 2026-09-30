@@ -1,0 +1,44 @@
+rule: rule:require-readable-spacing
+breaks:
+  - why: The return statement sits directly under the setup lines, so the calculation and its result read as one undivided block and the rule asks for a blank line before `return`.
+    code: |
+      export function orderTotal(order: Order): number {
+        const subtotal = sumLineItems(order.lines);
+        const tax = subtotal * order.taxRate;
+        return subtotal + tax;
+      }
+    fixed: |
+      export function orderTotal(order: Order): number {
+        const subtotal = sumLineItems(order.lines);
+        const tax = subtotal * order.taxRate;
+
+        return subtotal + tax;
+      }
+  - why: The statement after the `if` block starts on the next line, so the guard and the main work blur together and the rule requires a blank line after a block.
+    code: |
+      async function sendReceipt(user: User, receipt: Receipt) {
+        if (!user.email) {
+          throw new MissingEmailError(user.id);
+        }
+        await mailer.send(user.email, renderReceipt(receipt));
+      }
+    fixed: |
+      async function sendReceipt(user: User, receipt: Receipt) {
+        if (!user.email) {
+          throw new MissingEmailError(user.id);
+        }
+
+        await mailer.send(user.email, renderReceipt(receipt));
+      }
+passes:
+  - code: |
+      import { db } from "./db";
+      import { logger } from "./logger";
+
+      export async function archiveProject(projectId: string) {
+        const project = await db.projects.find(projectId);
+        const owner = await db.users.find(project.ownerId);
+
+        logger.info("archiving", { projectId, owner: owner.id });
+        await db.projects.archive(projectId);
+      }

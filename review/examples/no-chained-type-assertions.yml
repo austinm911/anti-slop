@@ -1,0 +1,18 @@
+rule: rule:no-chained-type-assertions
+breaks:
+  - why: Asserting through `unknown` into another type throws away what the compiler knew and forces a claim nothing checks.
+    code: |
+      const loadSettings = (raw: string) => {
+        const settings = JSON.parse(raw) as unknown as WorkspaceSettings;
+        return settings.theme;
+      };
+    fixed: |
+      const loadSettings = (raw: string) => {
+        const settings = Schema.decodeUnknownSync(WorkspaceSettings)(JSON.parse(raw));
+        return settings.theme;
+      };
+passes:
+  - code: |
+      const routes = ["/home", "/billing", "/settings"] as const;
+  - code: |
+      const canvas = document.getElementById("chart") as HTMLCanvasElement;

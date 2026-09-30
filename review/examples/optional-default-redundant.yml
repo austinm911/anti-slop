@@ -1,0 +1,25 @@
+rule: rule:optional-default-redundant
+breaks:
+  - why: A default already fills in omitted input, so the .optional() before it adds nothing and misleads readers about the output type.
+    code: |
+      import { z } from "zod";
+
+      export const searchSchema = z.strictObject({
+        query: z.string(),
+        sort: z.enum(["relevance", "newest"]).optional().default("relevance"),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const searchSchema = z.strictObject({
+        query: z.string(),
+        sort: z.enum(["relevance", "newest"]).default("relevance"),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const profileSchema = z.strictObject({
+        displayName: z.string(),
+        bio: z.string().max(280).optional(),
+      });

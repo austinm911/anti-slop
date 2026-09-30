@@ -1,0 +1,32 @@
+rule: rule:no-useless-promise-resolve-reject
+breaks:
+  - why: An async function already wraps its return value in a promise, so returning `Promise.resolve()` adds a redundant layer.
+    code: |
+      export async function loadSettings(cache: Map<string, string>, key: string) {
+        const cached = cache.get(key);
+        if (cached) return Promise.resolve(cached);
+        return fetchSettings(key);
+      }
+    fixed: |
+      export async function loadSettings(cache: Map<string, string>, key: string) {
+        const cached = cache.get(key);
+        if (cached) return cached;
+        return fetchSettings(key);
+      }
+  - why: Inside an async function, `Promise.reject()` is a roundabout way to throw.
+    code: |
+      export async function chargeCard(amount: number) {
+        if (amount <= 0) return Promise.reject(new Error("Amount must be positive"));
+        return gateway.charge(amount);
+      }
+    fixed: |
+      export async function chargeCard(amount: number) {
+        if (amount <= 0) throw new Error("Amount must be positive");
+        return gateway.charge(amount);
+      }
+passes:
+  - code: |
+      export function getCachedUser(cache: Map<string, User>, id: string): Promise<User> {
+        const user = cache.get(id);
+        return user ? Promise.resolve(user) : api.fetchUser(id);
+      }

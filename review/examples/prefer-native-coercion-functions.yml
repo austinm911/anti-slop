@@ -1,0 +1,21 @@
+rule: rule:prefer-native-coercion-functions
+breaks:
+  - why: An arrow that only wraps `Boolean()` adds a function layer when `Boolean` can be passed directly.
+    code: |
+      export function visibleLabels(labels: (string | undefined)[]) {
+        return labels.filter((label) => Boolean(label));
+      }
+    fixed: |
+      export function visibleLabels(labels: (string | undefined)[]) {
+        return labels.filter(Boolean);
+      }
+  - why: A function that only returns `String(value)` duplicates the built-in `String` coercion.
+    code: |
+      const toQueryValue = (value: number) => String(value);
+    fixed: |
+      const toQueryValue = String;
+passes:
+  - code: |
+      export function parsePrices(values: string[]) {
+        return values.map((value) => Number(value.replace("$", "")));
+      }

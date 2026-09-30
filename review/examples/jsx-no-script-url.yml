@@ -1,0 +1,16 @@
+rule: rule:jsx-no-script-url
+breaks:
+  - why: A `javascript:` URL runs code from an attribute, which React is deprecating and which opens a script injection path.
+    code: |
+      export function LogoutLink({ onLogout }: { onLogout: () => void }) {
+        return <a href="javascript:void(0)" onClick={onLogout}>Log out</a>;
+      }
+    fixed: |
+      export function LogoutLink({ onLogout }: { onLogout: () => void }) {
+        return <button type="button" onClick={onLogout}>Log out</button>;
+      }
+passes:
+  - code: |
+      export function SupportLink() {
+        return <a href="mailto:support@example.com">Contact support</a>;
+      }

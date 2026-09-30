@@ -1,0 +1,36 @@
+rule: rule:no-type-erasure
+breaks:
+  - why: Typing the payload as `object` throws away every known field, so later code has to cast or re-check to read `userId` and `event`.
+    code: |
+      function trackEvent(payload: object) {
+        analytics.send(payload);
+      }
+    fixed: |
+      interface AnalyticsEvent {
+        userId: string;
+        event: "signup" | "checkout";
+      }
+
+      function trackEvent(payload: AnalyticsEvent) {
+        analytics.send(payload);
+      }
+  - why: A generic `isRecord` guard only proves the body is some object, so the handler still does not know it has an order shape.
+    code: |
+      async function handleWebhook(request: Request) {
+        const body: unknown = await request.json();
+        if (isRecord(body)) await orders.sync(body);
+      }
+    fixed: |
+      async function handleWebhook(request: Request) {
+        const body: unknown = await request.json();
+        const order = OrderWebhook.parse(body);
+        await orders.sync(order);
+      }
+passes:
+  - code: |
+      interface Tenant {
+        id: string;
+        plan: "free" | "pro";
+      }
+
+      type TenantsById = Record<string, Tenant>;

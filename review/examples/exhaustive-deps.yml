@@ -1,0 +1,30 @@
+rule: rule:exhaustive-deps
+breaks:
+  - why: The effect reads `userId` but leaves it out of the dependency array, so it keeps showing the first user's orders after the prop changes.
+    code: |
+      import { useEffect, useState } from "react";
+
+      export function OrderList({ userId }: { userId: string }) {
+        const [orders, setOrders] = useState<string[]>([]);
+        useEffect(() => {
+          fetchOrders(userId).then(setOrders);
+        }, []);
+        return <ul>{orders.map((id) => <li key={id}>{id}</li>)}</ul>;
+      }
+    fixed: |
+      import { useEffect, useState } from "react";
+
+      export function OrderList({ userId }: { userId: string }) {
+        const [orders, setOrders] = useState<string[]>([]);
+        useEffect(() => {
+          fetchOrders(userId).then(setOrders);
+        }, [userId]);
+        return <ul>{orders.map((id) => <li key={id}>{id}</li>)}</ul>;
+      }
+passes:
+  - code: |
+      import { useCallback } from "react";
+
+      export function useTrackClick(analytics: { track: (event: string) => void }, page: string) {
+        return useCallback(() => analytics.track(`${page}:click`), [analytics, page]);
+      }

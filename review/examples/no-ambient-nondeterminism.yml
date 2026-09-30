@@ -1,0 +1,37 @@
+rule: rule:no-ambient-nondeterminism
+breaks:
+  - why: "`Date.now()` reads the wall clock directly, so the timestamp cannot be controlled with `TestClock` and the service is not deterministic under test."
+    filename: orders.ts
+    code: |
+      export const stampOrder = (orderId: string) => ({
+        orderId,
+        createdAt: Date.now(),
+      });
+    fixed: |
+      import { Clock, Effect } from "effect";
+
+      export const stampOrder = Effect.fn("Orders.stamp")(function* (orderId: string) {
+        const createdAt = yield* Clock.currentTimeMillis;
+        return { orderId, createdAt };
+      });
+  - why: "`Math.random()` pulls from ambient randomness, so retry jitter cannot be seeded or replayed in tests."
+    filename: retry.ts
+    code: |
+      export const jitterMillis = (baseMillis: number) =>
+        baseMillis + Math.floor(Math.random() * 250);
+    fixed: |
+      import { Effect, Random } from "effect";
+
+      export const jitterMillis = Effect.fn("Retry.jitter")(function* (baseMillis: number) {
+        const roll = yield* Random.next;
+        return baseMillis + Math.floor(roll * 250);
+      });
+passes:
+  - filename: invoice.ts
+    code: |
+      export const formatIssuedAt = (issuedAt: string) =>
+        new Date(issuedAt).toLocaleDateString("en-US");
+  - code: |
+      export function LastUpdated() {
+        return <time>{new Date().toLocaleTimeString()}</time>;
+      }

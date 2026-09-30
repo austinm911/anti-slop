@@ -573,7 +573,14 @@ function ExamplesPanel({
               <a href={set.url} rel="noreferrer" target="_blank">
                 {set.label}
               </a>
-              <span>{EXAMPLE_ORIGIN_LABELS[set.origin]}</span>
+              <span>
+                {EXAMPLE_ORIGIN_LABELS[set.origin]}
+                {set.verified === undefined
+                  ? ""
+                  : set.verified
+                    ? " · checked against Oxlint"
+                    : " · not run until vendored"}
+              </span>
             </div>
             {(
               [
@@ -588,6 +595,7 @@ function ExamplesPanel({
                   </div>
                   {(expanded ? cases : cases.slice(0, EXAMPLE_PREVIEW)).map((example, index) => (
                     <div className="example" key={index}>
+                      {example.why ? <p className="example-why">{example.why}</p> : null}
                       <CodeBlock code={example.code} lang="tsx" lineNumbers={false} />
                       {example.fixed ? (
                         <>

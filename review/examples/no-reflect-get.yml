@@ -1,0 +1,13 @@
+rule: rule:no-reflect-get
+breaks:
+  - why: Reflect.get reads a property by a runtime key with no type checking, so a typo or missing field silently returns undefined.
+    code: |
+      const featureEnabled = (flags: FeatureFlags, name: string) =>
+        Reflect.get(flags, name) === true;
+    fixed: |
+      const featureEnabled = (flags: FeatureFlags, name: keyof FeatureFlags) =>
+        flags[name] === true;
+passes:
+  - code: |
+      const invoiceTotal = (invoice: Invoice) =>
+        invoice.lines.reduce((sum, line) => sum + line.amountCents, 0);

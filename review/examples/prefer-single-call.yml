@@ -1,0 +1,35 @@
+rule: rule:prefer-single-call
+breaks:
+  - why: Consecutive `push()` calls on the same array can be one call with several arguments, which is shorter and clearer.
+    code: |
+      export function auditHeaders(requestId: string, userId: string) {
+        const headers: string[] = [];
+        headers.push(`x-request-id: ${requestId}`);
+        headers.push(`x-user-id: ${userId}`);
+        return headers;
+      }
+    fixed: |
+      export function auditHeaders(requestId: string, userId: string) {
+        const headers: string[] = [];
+        headers.push(`x-request-id: ${requestId}`, `x-user-id: ${userId}`);
+        return headers;
+      }
+  - why: Two back-to-back `classList.add()` calls on one element can be merged into a single call.
+    code: |
+      export function markInvalid(input: HTMLInputElement) {
+        input.classList.add("border-red-500");
+        input.classList.add("text-red-700");
+      }
+    fixed: |
+      export function markInvalid(input: HTMLInputElement) {
+        input.classList.add("border-red-500", "text-red-700");
+      }
+passes:
+  - code: |
+      export function collectErrors(fields: { name: string; error?: string }[]) {
+        const errors: string[] = [];
+        for (const field of fields) {
+          if (field.error) errors.push(`${field.name}: ${field.error}`);
+        }
+        return errors;
+      }

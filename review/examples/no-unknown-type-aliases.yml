@@ -1,0 +1,14 @@
+rule: rule:no-unknown-type-aliases
+breaks:
+  - why: Naming `unknown` as `ApiPayload` makes an unparsed value look like a real domain type wherever it is used.
+    code: |
+      type ApiPayload = unknown;
+
+      const handleResponse = (payload: ApiPayload) => queue.push(payload);
+    fixed: |
+      type ApiPayload = { readonly event: string; readonly occurredAt: string };
+
+      const handleResponse = (payload: ApiPayload) => queue.push(payload);
+passes:
+  - code: |
+      type OrderId = string & { readonly brand: "OrderId" };

@@ -1,0 +1,17 @@
+rule: rule:no-runtime-typeof
+breaks:
+  - why: Probing the parsed body with `typeof` checks one field's representation instead of decoding the whole payload into a known type.
+    code: |
+      const readWebhook = async (request: Request) => {
+        const body = await request.json();
+        if (typeof body.orderId !== "string") throw new Error("Invalid webhook");
+        return body.orderId;
+      };
+    fixed: |
+      const readWebhook = async (request: Request) => {
+        const body = Schema.decodeUnknownSync(OrderWebhook)(await request.json());
+        return body.orderId;
+      };
+passes:
+  - code: |
+      const hasWindow = typeof window !== "undefined";

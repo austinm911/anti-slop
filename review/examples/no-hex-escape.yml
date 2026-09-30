@@ -1,0 +1,10 @@
+rule: rule:no-hex-escape
+breaks:
+  - why: The `\x1b` escape is a second spelling for the same character, and the rule standardizes on Unicode escapes so string escapes read one way.
+    code: |
+      const RESET = "\x1b[0m";
+    fixed: |
+      const RESET = "\u001B[0m";
+passes:
+  - code: |
+      const NON_BREAKING_SPACE = " ";

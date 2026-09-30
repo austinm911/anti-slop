@@ -1,0 +1,27 @@
+rule: rule:no-empty
+breaks:
+  - why: The empty `catch` block silently swallows a failed cache write, so nobody learns the cache is broken.
+    code: |
+      async function cacheProfile(profile: { id: string }) {
+        try {
+          await cache.set(profile.id, profile);
+        } catch (error) {}
+      }
+    fixed: |
+      async function cacheProfile(profile: { id: string }) {
+        try {
+          await cache.set(profile.id, profile);
+        } catch (error) {
+          logger.warn("Profile cache write failed", { error });
+        }
+      }
+passes:
+  - code: |
+      function parseSettings(raw: string) {
+        try {
+          return JSON.parse(raw);
+        } catch {
+          // Corrupt settings fall back to defaults below.
+        }
+        return defaultSettings;
+      }

@@ -1,0 +1,21 @@
+rule: rule:no-require-imports
+breaks:
+  - why: A CommonJS `require` call bypasses ES module imports, so the import is untyped and invisible to tree shaking and module tooling.
+    code: |
+      const { readFile } = require("node:fs/promises");
+
+      export async function loadTemplate(name: string) {
+        return readFile(`templates/${name}.html`, "utf8");
+      }
+    fixed: |
+      import { readFile } from "node:fs/promises";
+
+      export async function loadTemplate(name: string) {
+        return readFile(`templates/${name}.html`, "utf8");
+      }
+passes:
+  - code: |
+      export async function loadLocale(locale: string) {
+        const messages = await import(`./locales/${locale}.json`);
+        return messages.default;
+      }

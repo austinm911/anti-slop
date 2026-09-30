@@ -1,0 +1,22 @@
+rule: rule:jsx-no-undef
+breaks:
+  - why: The JSX uses a component that is never imported or declared, so the page crashes with a ReferenceError at render time.
+    code: |
+      export function ProfileHeader({ name }: { name: string }) {
+        return <header><UserAvatar name={name} /></header>;
+      }
+    fixed: |
+      import { UserAvatar } from "./user-avatar";
+
+      export function ProfileHeader({ name }: { name: string }) {
+        return <header><UserAvatar name={name} /></header>;
+      }
+passes:
+  - code: |
+      function Badge({ label }: { label: string }) {
+        return <span className="badge">{label}</span>;
+      }
+
+      export function PlanBadge() {
+        return <Badge label="Pro" />;
+      }

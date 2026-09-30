@@ -1,0 +1,20 @@
+rule: rule:no-danger-with-children
+breaks:
+  - why: An element cannot take both `dangerouslySetInnerHTML` and children, so React throws at render time.
+    code: |
+      export function ArticleBody({ html }: { html: string }) {
+        return <div dangerouslySetInnerHTML={{ __html: html }}>Loading article...</div>;
+      }
+    fixed: |
+      export function ArticleBody({ html }: { html: string }) {
+        return <div dangerouslySetInnerHTML={{ __html: html }} />;
+      }
+passes:
+  - code: |
+      export function ArticleSummary({ summary }: { summary: string }) {
+        return (
+          <section>
+            <p>{summary}</p>
+          </section>
+        );
+      }

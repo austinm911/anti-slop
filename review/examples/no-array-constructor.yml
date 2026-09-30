@@ -1,0 +1,25 @@
+rule: rule:no-array-constructor
+breaks:
+  - why: The `Array` constructor treats a single number argument as a length but several arguments as elements, so a literal is clearer and cannot flip meaning.
+    code: |
+      const weekdays = new Array("Mon", "Tue", "Wed", "Thu", "Fri");
+    fixed: |
+      const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  - why: Calling `new Array()` to make an empty list adds a constructor call where the literal `[]` says the same thing.
+    code: |
+      function collectErrors(results: Array<{ error?: string }>) {
+        const errors = new Array();
+        for (const result of results) if (result.error) errors.push(result.error);
+        return errors;
+      }
+    fixed: |
+      function collectErrors(results: Array<{ error?: string }>) {
+        const errors: string[] = [];
+        for (const result of results) if (result.error) errors.push(result.error);
+        return errors;
+      }
+passes:
+  - code: |
+      function emptySlots(count: number) {
+        return new Array<string | null>(count).fill(null);
+      }

@@ -1,0 +1,16 @@
+rule: rule:no-widen-then-assert
+breaks:
+  - why: The known request object is widened to `unknown` and then asserted back to a narrower type, which launders an unchecked claim through a detour.
+    code: |
+      const draft = { customerId: "cus_42", items: [] };
+      const payload: unknown = draft;
+      const order = payload as NewOrder;
+    fixed: |
+      const draft = { customerId: "cus_42", items: [] };
+      const order = Schema.decodeUnknownSync(NewOrder)(draft);
+passes:
+  - code: |
+      const loadOrder = async (response: Response) => {
+        const body: unknown = await response.json();
+        return Schema.decodeUnknownSync(Order)(body);
+      };

@@ -1,0 +1,16 @@
+rule: rule:no-magic-array-flat-depth
+breaks:
+  - why: A depth of `2` gives no hint about why the data is nested exactly that deep, so the next reader cannot tell if it is still correct.
+    code: |
+      function allPermissions(teams: string[][][]) {
+        return teams.flat(2);
+      }
+    fixed: |
+      function allPermissions(teams: string[][][]) {
+        return teams.flat(2 /* teams -> roles -> permissions */);
+      }
+passes:
+  - code: |
+      function allTags(posts: Array<{ tags: string[] }>) {
+        return posts.map((post) => post.tags).flat();
+      }

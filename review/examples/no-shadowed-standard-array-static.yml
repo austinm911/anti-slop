@@ -1,0 +1,22 @@
+rule: rule:no-shadowed-standard-array-static
+breaks:
+  - why: With `Array` imported from effect, `Array.from` looks like the standard static but refers to the Effect module, so the call is ambiguous or wrong.
+    code: |
+      import { Array } from "effect";
+
+      export const toLineItems = (rows: Iterable<InvoiceRow>) =>
+        Array.map(Array.from(rows), toLineItem);
+    fixed: |
+      import { Array } from "effect";
+
+      export const toLineItems = (rows: Iterable<InvoiceRow>) =>
+        Array.map(globalThis.Array.from(rows), toLineItem);
+passes:
+  - code: |
+      import { Array } from "effect";
+
+      export const toLineItems = (rows: Iterable<InvoiceRow>) =>
+        Array.map(Array.fromIterable(rows), toLineItem);
+  - code: |
+      export const tagList = (tags: string | ReadonlyArray<string>) =>
+        Array.isArray(tags) ? tags : [tags];

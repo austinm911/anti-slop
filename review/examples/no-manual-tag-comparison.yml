@@ -1,0 +1,28 @@
+rule: rule:no-manual-tag-comparison
+breaks:
+  - why: Comparing `_tag` to a string literal by hand skips the exhaustive, type-narrowing helpers Effect provides for tagged values.
+    code: |
+      const isShipped = (order: Order) => order.status._tag === "Shipped";
+    fixed: |
+      const isShipped = (order: Order) => Predicate.isTagged(order.status, "Shipped");
+  - why: A switch on `_tag` gives no exhaustiveness guarantee when a new variant is added to the union.
+    code: |
+      const statusLabel = (status: OrderStatus) => {
+        switch (status._tag) {
+          case "Pending":
+            return "Awaiting payment";
+          case "Shipped":
+            return `Shipped ${status.trackingId}`;
+        }
+      };
+    fixed: |
+      const statusLabel = (status: OrderStatus) =>
+        Match.value(status).pipe(
+          Match.tagsExhaustive({
+            Pending: () => "Awaiting payment",
+            Shipped: ({ trackingId }) => `Shipped ${trackingId}`,
+          }),
+        );
+passes:
+  - code: |
+      const isAdmin = (member: Member) => member.role === "admin";

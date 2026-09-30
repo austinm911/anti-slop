@@ -713,6 +713,12 @@ kbd {
   display: grid;
   gap: 4px;
 }
+.example-why {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
 .example pre.th-code {
   max-height: 240px;
   margin: 0;
@@ -953,4 +959,8 @@ kbd {
   .shortcut-card {
     display: none;
   }
+}
+.profile-header p.profile-categories {
+  margin-top: 4px;
+  color: var(--moss);
 }

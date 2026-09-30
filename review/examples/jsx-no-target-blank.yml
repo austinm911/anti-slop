@@ -1,0 +1,16 @@
+rule: rule:jsx-no-target-blank
+breaks:
+  - why: Opening an external link in a new tab without `rel="noreferrer"` lets the opened page reach back through `window.opener` and leaks the referrer.
+    code: |
+      export function PartnerLink() {
+        return <a href="https://partner.example.com" target="_blank">Visit partner</a>;
+      }
+    fixed: |
+      export function PartnerLink() {
+        return <a href="https://partner.example.com" target="_blank" rel="noreferrer">Visit partner</a>;
+      }
+passes:
+  - code: |
+      export function HelpLink() {
+        return <a href="/help/billing" target="_blank">Billing help</a>;
+      }

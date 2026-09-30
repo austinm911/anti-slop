@@ -1,0 +1,23 @@
+rule: rule:prefer-array-some
+breaks:
+  - why: Filtering the whole array just to check its length builds a throwaway array when `.some()` stops at the first match.
+    code: |
+      export function hasOverdueInvoice(invoices: { dueAt: Date; paid: boolean }[]) {
+        return invoices.filter((invoice) => !invoice.paid && invoice.dueAt < new Date()).length > 0;
+      }
+    fixed: |
+      export function hasOverdueInvoice(invoices: { dueAt: Date; paid: boolean }[]) {
+        return invoices.some((invoice) => !invoice.paid && invoice.dueAt < new Date());
+      }
+  - why: Comparing the result of `.find()` against undefined only asks whether a match exists, which `.some()` says directly.
+    code: |
+      export const isMember = (members: { id: string }[], userId: string) =>
+        members.find((member) => member.id === userId) !== undefined;
+    fixed: |
+      export const isMember = (members: { id: string }[], userId: string) =>
+        members.some((member) => member.id === userId);
+passes:
+  - code: |
+      export function adminEmails(users: { email: string; role: string }[]) {
+        return users.filter((user) => user.role === "admin").map((user) => user.email);
+      }

@@ -1,0 +1,26 @@
+rule: rule:no-typeof
+breaks:
+  - why: The runtime `typeof` check only proves the value is a JavaScript number, not that the request carries a valid amount, so the rule asks for a boundary parse instead.
+    code: |
+      function readRefundAmount(body: RefundRequest) {
+        if (typeof body.amount === "number") return body.amount;
+        throw new InvalidRefundError("amount is required");
+      }
+    fixed: |
+      function readRefundAmount(body: unknown) {
+        return RefundRequestSchema.parse(body).amount;
+      }
+  - why: Branching on `typeof` to tell a message from an error replaces a real discriminant with a primitive label.
+    code: |
+      function describeFailure(failure: string | UploadError) {
+        return typeof failure === "string" ? failure : failure.message;
+      }
+    fixed: |
+      function describeFailure(failure: UploadFailure) {
+        return failure.kind === "message" ? failure.text : failure.error.message;
+      }
+passes:
+  - code: |
+      const defaultSettings = { theme: "light", pageSize: 25 };
+
+      type Settings = typeof defaultSettings;

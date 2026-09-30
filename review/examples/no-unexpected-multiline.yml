@@ -1,0 +1,26 @@
+rule: rule:no-unexpected-multiline
+breaks:
+  - why: Without a semicolon, the line that starts with `[` is parsed as an index into the previous expression instead of a new statement.
+    code: |
+      const total = order.subtotal + order.tax
+      [order.shipping, order.handling].forEach((fee) => charge(fee))
+    fixed: |
+      const total = order.subtotal + order.tax;
+      [order.shipping, order.handling].forEach((fee) => charge(fee));
+  - why: A line that starts with `(` after an expression is parsed as a call of that expression.
+    code: |
+      const client = createApiClient(config)
+      (async () => {
+        await client.connect();
+      })();
+    fixed: |
+      const client = createApiClient(config);
+      (async () => {
+        await client.connect();
+      })();
+passes:
+  - code: |
+      const users = await db
+        .select()
+        .from(accounts)
+        .where(eq(accounts.active, true));

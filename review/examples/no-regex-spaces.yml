@@ -1,0 +1,14 @@
+rule: rule:no-regex-spaces
+breaks:
+  - why: Several literal spaces in a regex are hard to count, so it is unclear how many the pattern actually requires.
+    code: |
+      const SIGNATURE_DIVIDER = /--   Sent from/;
+    fixed: |
+      const SIGNATURE_DIVIDER = /-- {3}Sent from/;
+passes:
+  - code: |
+      const COLLAPSE_WHITESPACE = /\s+/g;
+
+      function tidy(text: string) {
+        return text.replace(COLLAPSE_WHITESPACE, " ");
+      }

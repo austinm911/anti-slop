@@ -26,6 +26,7 @@ export const DELIVERY_LABELS: { [kind in Delivery["kind"]]: string } = {
 };
 
 export const EXAMPLE_ORIGIN_LABELS: { [origin in ExampleSet["origin"]]: string } = {
+  authored: "hand-written",
   "oxlint-docs": "docs",
   "rule-tester": "RuleTester cases",
   "ast-grep-test": "ast-grep tests",

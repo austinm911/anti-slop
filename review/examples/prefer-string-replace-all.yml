@@ -1,0 +1,16 @@
+rule: rule:prefer-string-replace-all
+breaks:
+  - why: A global regex with a plain literal is a harder way to say "replace every occurrence", which `replaceAll()` states directly.
+    code: |
+      export function toSlug(title: string) {
+        return title.toLowerCase().replace(/ /g, "-");
+      }
+    fixed: |
+      export function toSlug(title: string) {
+        return title.toLowerCase().replaceAll(" ", "-");
+      }
+passes:
+  - code: |
+      export function stripLeadingZeros(invoiceNumber: string) {
+        return invoiceNumber.replace(/^0+/, "");
+      }

@@ -1,0 +1,35 @@
+rule: rule:no-direct-browser-storage
+breaks:
+  - why: Reading `localStorage` directly bypasses the Effect storage service, so the call can throw untyped errors and cannot be swapped for an in-memory store in tests.
+    code: |
+      export const loadTheme = (): string =>
+        localStorage.getItem("theme") ?? "light";
+    fixed: |
+      import { Effect } from "effect";
+      import { KeyValueStore } from "effect/unstable/persistence";
+
+      export const loadTheme = Effect.fn("Preferences.loadTheme")(function* () {
+        const store = yield* KeyValueStore.KeyValueStore;
+        return yield* store.get("theme");
+      });
+  - why: Going through `window.sessionStorage` is still direct browser storage access outside the Effect storage modules.
+    code: |
+      export const saveDraft = (draftId: string, body: string) => {
+        window.sessionStorage.setItem(`draft:${draftId}`, body);
+      };
+    fixed: |
+      import { Effect } from "effect";
+      import { KeyValueStore } from "effect/unstable/persistence";
+
+      export const saveDraft = Effect.fn("Drafts.save")(function* (draftId: string, body: string) {
+        const store = yield* KeyValueStore.KeyValueStore;
+        yield* store.set(`draft:${draftId}`, body);
+      });
+passes:
+  - code: |
+      import { BrowserKeyValueStore } from "@effect/platform-browser";
+      import { Layer } from "effect";
+
+      export const PreferencesLive = PreferencesService.layer.pipe(
+        Layer.provide(BrowserKeyValueStore.layerLocalStorage),
+      );

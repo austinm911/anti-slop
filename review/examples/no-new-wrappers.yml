@@ -1,0 +1,21 @@
+rule: rule:no-new-wrappers
+breaks:
+  - why: The `new String` call creates a wrapper object, so `typeof` returns `"object"` and strict equality with a plain string fails.
+    code: |
+      function normalizeEmail(input: string) {
+        return new String(input.trim().toLowerCase());
+      }
+    fixed: |
+      function normalizeEmail(input: string) {
+        return String(input.trim().toLowerCase());
+      }
+  - why: A `new Boolean(false)` object is truthy, so this flag enables the feature even when it should be off.
+    code: |
+      const betaEnabled = new Boolean(process.env.BETA === "1");
+    fixed: |
+      const betaEnabled = Boolean(process.env.BETA === "1");
+passes:
+  - code: |
+      function parseQuantity(raw: string) {
+        return Number(raw);
+      }

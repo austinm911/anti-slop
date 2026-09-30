@@ -1,0 +1,37 @@
+rule: rule:require-default-component-export
+breaks:
+  - why: The file exports InvoiceCard as a named export, but app component files must default-export their one main component.
+    filename: applications/web/billing/invoice-card.tsx
+    code: |
+      export function InvoiceCard({ invoice }: { invoice: Invoice }) {
+        return <article>{invoice.number}</article>;
+      }
+    fixed: |
+      export default function InvoiceCard({ invoice }: { invoice: Invoice }) {
+        return <article>{invoice.number}</article>;
+      }
+  - why: The default export is declared separately from the function, and the rule wants export default on the definition itself.
+    filename: applications/web/billing/invoice-list.tsx
+    code: |
+      function InvoiceList({ invoices }: { invoices: ReadonlyArray<Invoice> }) {
+        return <ul>{invoices.map((invoice) => <li key={invoice.id}>{invoice.number}</li>)}</ul>;
+      }
+
+      export default InvoiceList;
+    fixed: |
+      export default function InvoiceList({ invoices }: { invoices: ReadonlyArray<Invoice> }) {
+        return <ul>{invoices.map((invoice) => <li key={invoice.id}>{invoice.number}</li>)}</ul>;
+      }
+passes:
+  - filename: applications/web/billing/invoice-row.tsx
+    code: |
+      const StatusBadge = ({ paid }: { paid: boolean }) => <span>{paid ? "Paid" : "Due"}</span>;
+
+      export default function InvoiceRow({ invoice }: { invoice: Invoice }) {
+        return (
+          <tr>
+            <td>{invoice.number}</td>
+            <td><StatusBadge paid={invoice.paid} /></td>
+          </tr>
+        );
+      }

@@ -1,0 +1,30 @@
+rule: rule:prefer-top-level-await
+breaks:
+  - why: A top-level promise chain lets startup failures escape as unhandled rejections, while top-level await keeps the module in control of the error.
+    code: |
+      import { createServer } from "./server.ts";
+
+      createServer({ port: 3000 })
+        .then((server) => console.log(`Listening on ${server.url}`))
+        .catch((error) => console.error(error));
+    fixed: |
+      import { createServer } from "./server.ts";
+
+      const server = await createServer({ port: 3000 });
+      console.log(`Listening on ${server.url}`);
+  - why: Wrapping startup in an async IIFE is a workaround that top-level await makes unnecessary.
+    code: |
+      import { migrate } from "./db.ts";
+
+      (async () => {
+        await migrate();
+      })();
+    fixed: |
+      import { migrate } from "./db.ts";
+
+      await migrate();
+passes:
+  - code: |
+      export function loadProfile(userId: string) {
+        return fetch(`/api/users/${userId}`).then((response) => response.json());
+      }

@@ -1,0 +1,34 @@
+rule: rule:no-zod-type-erasure
+breaks:
+  - why: z.unknown() accepts any value, so the schema validates nothing about the payload and the inferred type tells callers nothing.
+    code: |
+      import { z } from "zod";
+
+      export const webhookSchema = z.strictObject({
+        event: z.string(),
+        payload: z.unknown(),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const webhookSchema = z.strictObject({
+        event: z.string(),
+        payload: z.strictObject({ orderId: z.string(), amount: z.number() }),
+      });
+  - why: An empty z.object() strips or ignores every property, so the parsed settings keep no known shape.
+    code: |
+      import { z } from "zod";
+
+      export const settingsSchema = z.object({});
+    fixed: |
+      import { z } from "zod";
+
+      export const settingsSchema = z.object({ locale: z.string(), timezone: z.string() });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const uploadSchema = z.strictObject({
+        file: z.custom<File>((value) => value instanceof File),
+        tags: z.array(z.string()),
+      });

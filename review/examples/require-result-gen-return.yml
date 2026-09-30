@@ -1,0 +1,43 @@
+rule: rule:require-result-gen-return
+breaks:
+  - why: Result.gen panics at runtime when its generator returns a bare value, so the final return must be wrapped in Result.ok.
+    code: |
+      import { Result } from "better-result";
+
+      const signup = Result.gen(function* () {
+        const email = yield* parseEmail(form.email);
+        const user = yield* createUser(email);
+        return user;
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const signup = Result.gen(function* () {
+        const email = yield* parseEmail(form.email);
+        const user = yield* createUser(email);
+        return Result.ok(user);
+      });
+  - why: A generator with no return at all also hands Result.gen a non-Result value when it finishes.
+    code: |
+      import { Result } from "better-result";
+
+      const archive = Result.gen(function* () {
+        const project = yield* findProject(projectId);
+        yield* markArchived(project);
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const archive = Result.gen(function* () {
+        const project = yield* findProject(projectId);
+        yield* markArchived(project);
+        return Result.ok();
+      });
+passes:
+  - code: |
+      import { Result } from "better-result";
+
+      const discount = Result.gen(function* () {
+        const coupon = yield* findCoupon(code);
+        return coupon.expired ? Result.err(new CouponExpired({ code })) : Result.ok(coupon.percent);
+      });

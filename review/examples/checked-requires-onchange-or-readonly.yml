@@ -1,0 +1,20 @@
+rule: rule:checked-requires-onchange-or-readonly
+breaks:
+  - why: A checkbox with a controlled `checked` value and no `onChange` or `readOnly` is frozen, so the user cannot toggle it.
+    code: |
+      export function NewsletterToggle({ subscribed }: { subscribed: boolean }) {
+        return <input type="checkbox" checked={subscribed} />;
+      }
+    fixed: |
+      export function NewsletterToggle({ subscribed, onToggle }: { subscribed: boolean; onToggle: () => void }) {
+        return <input type="checkbox" checked={subscribed} onChange={onToggle} />;
+      }
+passes:
+  - code: |
+      export function TermsAccepted({ accepted }: { accepted: boolean }) {
+        return <input type="checkbox" checked={accepted} readOnly />;
+      }
+  - code: |
+      export function RememberMe() {
+        return <input type="checkbox" name="remember" defaultChecked />;
+      }

@@ -1,0 +1,31 @@
+rule: rule:record-string-unknown
+breaks:
+  - why: Tool arguments arrive as JSON from the model, so a record of z.unknown() promises values the model cannot send and describes nothing useful.
+    code: |
+      import { z } from "zod";
+
+      export const createTicket = defineTool({
+        name: "create_ticket",
+        input: z.strictObject({
+          title: z.string(),
+          metadata: z.record(z.string(), z.unknown()),
+        }),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const createTicket = defineTool({
+        name: "create_ticket",
+        input: z.strictObject({
+          title: z.string(),
+          metadata: z.record(z.string(), z.string()),
+        }),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const providerResponseSchema = z.strictObject({
+        model: z.string(),
+        providerMetadata: z.record(z.string(), z.unknown()),
+      });

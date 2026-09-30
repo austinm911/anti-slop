@@ -1,0 +1,18 @@
+rule: rule:object-strict-method
+breaks:
+  - why: Calling .strict() after z.object() hides the unknown-key policy at the end of the chain when z.strictObject() says it up front.
+    code: |
+      import { z } from "zod";
+
+      export const createProjectSchema = z
+        .object({ name: z.string(), ownerId: z.string() })
+        .strict();
+    fixed: |
+      import { z } from "zod";
+
+      export const createProjectSchema = z.strictObject({ name: z.string(), ownerId: z.string() });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const partnerEventSchema = z.looseObject({ type: z.string(), sentAt: z.iso.datetime() });

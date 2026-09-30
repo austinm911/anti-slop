@@ -1,0 +1,31 @@
+rule: rule:no-global-json
+breaks:
+  - why: "`JSON.parse` returns an unchecked value and throws on bad input, so the webhook body is never validated against a schema."
+    code: |
+      export const readWebhook = (body: string) => {
+        const event: WebhookEvent = JSON.parse(body);
+        return event;
+      };
+    fixed: |
+      import { Schema } from "effect";
+
+      export const readWebhook = (body: string) =>
+        Schema.decodeUnknownEffect(Schema.fromJsonString(WebhookEvent))(body);
+  - why: "`JSON.stringify` skips the schema encoder, so encoded fields such as dates are not serialized the way decoders expect."
+    code: |
+      export const serializeAuditEvent = (event: AuditEvent) =>
+        JSON.stringify(event);
+    fixed: |
+      import { Schema } from "effect";
+
+      export const serializeAuditEvent = (event: AuditEvent) =>
+        Schema.encodeEffect(Schema.fromJsonString(AuditEvent))(event);
+passes:
+  - code: |
+      import { Effect } from "effect";
+      import { HttpClientResponse } from "effect/unstable/http";
+
+      export const fetchOrder = (id: string) =>
+        client.get(`/orders/${id}`).pipe(
+          Effect.flatMap(HttpClientResponse.schemaBodyJson(Order)),
+        );

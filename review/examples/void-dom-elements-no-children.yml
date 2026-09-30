@@ -1,0 +1,21 @@
+rule: rule:void-dom-elements-no-children
+breaks:
+  - why: "`img` is a void element that cannot contain children, so React throws when it tries to render the caption inside it."
+    code: |
+      export function ProductPhoto({ src, caption }: { src: string; caption: string }) {
+        return <img src={src} alt={caption}>{caption}</img>;
+      }
+    fixed: |
+      export function ProductPhoto({ src, caption }: { src: string; caption: string }) {
+        return (
+          <figure>
+            <img src={src} alt={caption} />
+            <figcaption>{caption}</figcaption>
+          </figure>
+        );
+      }
+passes:
+  - code: |
+      export function AddressLines({ lines }: { lines: string[] }) {
+        return <address>{lines.join(", ")}<br /></address>;
+      }

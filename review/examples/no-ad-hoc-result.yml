@@ -1,0 +1,39 @@
+rule: rule:no-ad-hoc-result
+breaks:
+  - why: The function invents its own success and failure objects, so every caller has to learn a private envelope instead of using Result.
+    code: |
+      async function loadInvoice(id: string) {
+        const invoice = await db.invoice.findUnique({ where: { id } });
+        if (!invoice) {
+          return { ok: false, error: new InvoiceNotFound({ id }) };
+        }
+        return { ok: true, value: invoice };
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      async function loadInvoice(id: string) {
+        const invoice = await db.invoice.findUnique({ where: { id } });
+        if (!invoice) {
+          return Result.err(new InvoiceNotFound({ id }));
+        }
+        return Result.ok(invoice);
+      }
+  - why: The error-first tuple is another hand-rolled result shape, which the rule reports once both the success and failure branches appear.
+    code: |
+      function parsePrice(input: string): [Error | null, number | null] {
+        const price = Number(input);
+        return Number.isNaN(price) ? [new InvalidPrice({ input }), null] : [null, price];
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      function parsePrice(input: string) {
+        const price = Number(input);
+        return Number.isNaN(price) ? Result.err(new InvalidPrice({ input })) : Result.ok(price);
+      }
+passes:
+  - code: |
+      function healthCheck() {
+        return { ok: true, value: process.uptime() };
+      }

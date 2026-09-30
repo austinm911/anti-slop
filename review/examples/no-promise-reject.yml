@@ -1,0 +1,38 @@
+rule: rule:no-promise-reject
+breaks:
+  - why: Promise.reject turns an expected validation failure into an untyped rejection that callers can only discover by catching.
+    code: |
+      function chargeCard(amount: number): Promise<Charge> {
+        if (amount <= 0) {
+          return Promise.reject(new InvalidAmount({ amount }));
+        }
+        return payments.charge(amount);
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      async function chargeCard(amount: number) {
+        if (amount <= 0) {
+          return Result.err(new InvalidAmount({ amount }));
+        }
+        return Result.tryPromise(() => payments.charge(amount));
+      }
+  - why: Calling reject inside a Promise executor is an explicit rejection, so the timeout failure leaves the typed Result channel.
+    code: |
+      const waitForUpload = (upload: Upload) =>
+        new Promise<string>((resolve, reject) => {
+          upload.on("done", resolve);
+          upload.on("timeout", () => reject(new UploadTimedOut()));
+        });
+    fixed: |
+      import { Result } from "better-result";
+
+      const waitForUpload = (upload: Upload) =>
+        new Promise<Result<string, UploadTimedOut>>((resolve) => {
+          upload.on("done", (url: string) => resolve(Result.ok(url)));
+          upload.on("timeout", () => resolve(Result.err(new UploadTimedOut())));
+        });
+passes:
+  - code: |
+      const delay = (ms: number) =>
+        new Promise<void>((resolve) => setTimeout(resolve, ms));

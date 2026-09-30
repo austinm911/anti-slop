@@ -1,0 +1,25 @@
+rule: rule:require-safety-comment-for-type-assertion
+breaks:
+  - why: The `as User` cast tells TypeScript to trust the response body without saying what guarantees it, so the rule requires a `SAFETY:` comment stating the checked invariant.
+    code: |
+      async function fetchUser(id: string): Promise<User> {
+        const response = await fetch(`/api/users/${id}`);
+        return (await response.json()) as User;
+      }
+    fixed: |
+      async function fetchUser(id: string): Promise<User> {
+        const response = await fetch(`/api/users/${id}`);
+        // SAFETY: The users endpoint is contract-tested to return the User shape.
+        return (await response.json()) as User;
+      }
+  - why: A trailing comment after the cast comes too late, so the rule still treats the assertion as unjustified.
+    code: |
+      const input = document.getElementById("search") as HTMLInputElement; // SAFETY: rendered below
+    fixed: |
+      // SAFETY: The layout always renders #search as an <input> before this script runs.
+      const input = document.getElementById("search") as HTMLInputElement;
+passes:
+  - code: |
+      export const invoiceStatuses = ["draft", "sent", "paid", "void"] as const;
+
+      export type InvoiceStatus = (typeof invoiceStatuses)[number];

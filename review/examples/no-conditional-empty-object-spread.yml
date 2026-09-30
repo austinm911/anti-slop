@@ -1,0 +1,20 @@
+rule: rule:no-conditional-empty-object-spread
+breaks:
+  - why: Spreading an empty object from a ternary hides the fact that the field is sometimes omitted.
+    code: |
+      const buildQuery = (search: string, cursor: string | undefined) => ({
+        search,
+        ...(cursor ? { cursor } : {}),
+      });
+    fixed: |
+      const buildQuery = (search: string, cursor: string | undefined) => {
+        const query: SearchQuery = { search };
+        if (cursor) query.cursor = cursor;
+        return query;
+      };
+passes:
+  - code: |
+      const withDefaults = (options: Partial<UploadOptions>) => ({
+        ...defaultUploadOptions,
+        ...options,
+      });

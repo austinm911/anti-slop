@@ -1,0 +1,23 @@
+rule: rule:prefer-import-meta-properties
+breaks:
+  - why: Converting `import.meta.url` by hand repeats work that `import.meta.dirname` already provides in current Node and Bun.
+    code: |
+      import path from "node:path";
+      import { fileURLToPath } from "node:url";
+
+      const migrationsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "migrations");
+    fixed: |
+      import path from "node:path";
+
+      const migrationsDir = path.join(import.meta.dirname, "migrations");
+  - why: "`fileURLToPath(import.meta.url)` is a longer way to spell `import.meta.filename`."
+    code: |
+      import { fileURLToPath } from "node:url";
+
+      export const currentScript = fileURLToPath(import.meta.url);
+    fixed: |
+      export const currentScript = import.meta.filename;
+passes:
+  - code: |
+      const templateUrl = new URL("./templates/welcome.html", import.meta.url);
+      export const template = await Bun.file(templateUrl).text();

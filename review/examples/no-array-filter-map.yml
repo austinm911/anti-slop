@@ -1,0 +1,22 @@
+rule: rule:no-array-filter-map
+breaks:
+  - why: Chaining filter and then map over an array walks the list twice and builds a throwaway intermediate array.
+    code: |
+      const overdueInvoiceIds = (invoices: Invoice[]) =>
+        invoices
+          .filter((invoice) => invoice.dueAt < Date.now())
+          .map((invoice) => invoice.id);
+    fixed: |
+      const overdueInvoiceIds = (invoices: Invoice[]) =>
+        invoices
+          .values()
+          .filter((invoice) => invoice.dueAt < Date.now())
+          .map((invoice) => invoice.id)
+          .toArray();
+passes:
+  - code: |
+      const activeEmails = (members: Member[]) =>
+        members.flatMap((member) => (member.active ? [member.email] : []));
+  - code: |
+      const labels = (response: SearchResponse) =>
+        response.hits.filter((hit) => hit.score > 0.5).map((hit) => hit.title);

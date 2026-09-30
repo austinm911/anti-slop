@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import type { CandidateCatalog, RuleCandidate } from "../discovery/types.ts";
@@ -198,6 +198,34 @@ describe("profiles", () => {
     const summaryPath = join(dirname(paths.catalogPath), "summary.md");
     await generateReviewOutputs(await loadReviewState(paths), statePath, summaryPath);
     expect(await readFile(summaryPath, "utf8")).toContain("`effect`: 2 rules, 0 gaps.");
+  });
+
+  test("inherits Oxlint categories and keeps the default plugins they need", async () => {
+    const paths = await fixture([]);
+    await mkdir(paths.profilesDirectory, { recursive: true });
+    await writeFile(
+      join(paths.profilesDirectory, "base.json"),
+      JSON.stringify({ description: "", categories: { correctness: "error" }, rules: {} }),
+    );
+    await writeFile(
+      join(paths.profilesDirectory, "strict.json"),
+      JSON.stringify({
+        description: "",
+        extends: ["base"],
+        categories: { pedantic: "warn" },
+        rules: {},
+      }),
+    );
+    const state = await loadReviewState(paths);
+    const strict = state.profiles.find(({ name }) => name === "strict");
+    const config = JSON.parse(strict?.oxlintConfig ?? "{}");
+    expect(strict?.categories).toEqual({ correctness: "error", pedantic: "warn" });
+    expect(config.categories).toMatchObject({
+      correctness: "error",
+      pedantic: "warn",
+      style: "off",
+    });
+    expect(config.plugins).toEqual(["eslint", "oxc", "typescript", "unicorn"]);
   });
 
   test("refuses duplicate names, unknown bases, and bad names", async () => {

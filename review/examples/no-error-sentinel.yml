@@ -1,0 +1,38 @@
+rule: rule:no-error-sentinel
+breaks:
+  - why: Returning null for a missing user beside a real user hides why the lookup failed and forces every caller to remember a null check.
+    code: |
+      async function findActiveUser(email: string) {
+        const user = await db.user.findUnique({ where: { email } });
+        if (!user || user.disabledAt) {
+          return null;
+        }
+        return user;
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      async function findActiveUser(email: string) {
+        const user = await db.user.findUnique({ where: { email } });
+        if (!user || user.disabledAt) {
+          return Result.err(new UserUnavailable({ email }));
+        }
+        return Result.ok(user);
+      }
+  - why: The undefined branch in the conditional is a failure sentinel sitting next to a parsed success value.
+    code: |
+      const parseQuantity = (input: string) =>
+        /^\d+$/.test(input) ? Number(input) : undefined;
+    fixed: |
+      import { Result } from "better-result";
+
+      const parseQuantity = (input: string) =>
+        /^\d+$/.test(input) ? Result.ok(Number(input)) : Result.err(new InvalidQuantity({ input }));
+passes:
+  - code: |
+      function logCheckout(cart: Cart): void {
+        if (cart.items.length === 0) {
+          return;
+        }
+        analytics.track("checkout_started", { items: cart.items.length });
+      }

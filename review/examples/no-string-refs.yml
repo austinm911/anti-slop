@@ -1,0 +1,30 @@
+rule: rule:no-string-refs
+breaks:
+  - why: String refs are a legacy API removed in React 19, so `this.refs.email` stops resolving to the input.
+    code: |
+      import { Component } from "react";
+
+      export class LoginForm extends Component {
+        focusEmail = () => {
+          (this.refs.email as HTMLInputElement).focus();
+        };
+        render() { return <input ref="email" onBlur={this.focusEmail} />; }
+      }
+    fixed: |
+      import { Component, createRef } from "react";
+
+      export class LoginForm extends Component {
+        email = createRef<HTMLInputElement>();
+        focusEmail = () => {
+          this.email.current?.focus();
+        };
+        render() { return <input ref={this.email} onBlur={this.focusEmail} />; }
+      }
+passes:
+  - code: |
+      import { useRef } from "react";
+
+      export function VideoPlayer({ src }: { src: string }) {
+        const video = useRef<HTMLVideoElement>(null);
+        return <video ref={video} src={src} onClick={() => video.current?.play()} />;
+      }

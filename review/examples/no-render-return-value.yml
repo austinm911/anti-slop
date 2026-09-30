@@ -1,0 +1,21 @@
+rule: rule:no-render-return-value
+breaks:
+  - why: The return value of `ReactDOM.render` is a legacy instance handle that React does not guarantee, so code that stores it will break.
+    code: |
+      import ReactDOM from "react-dom";
+      import { App } from "./app";
+
+      const app = ReactDOM.render(<App />, document.getElementById("root"));
+      window.appInstance = app;
+    fixed: |
+      import { createRoot } from "react-dom/client";
+      import { App } from "./app";
+
+      const container = document.getElementById("root");
+      if (container) createRoot(container).render(<App />);
+passes:
+  - code: |
+      import ReactDOM from "react-dom";
+      import { Banner } from "./banner";
+
+      ReactDOM.render(<Banner />, document.getElementById("banner"));

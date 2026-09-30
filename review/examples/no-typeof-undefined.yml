@@ -1,0 +1,20 @@
+rule: rule:no-typeof-undefined
+breaks:
+  - why: Using `typeof` to check a declared parameter for undefined is longer than a direct comparison and can hide typos in the string.
+    code: |
+      export function formatPrice(amount: number, currency?: string) {
+        if (typeof currency === "undefined") {
+          return `$${amount.toFixed(2)}`;
+        }
+        return `${amount.toFixed(2)} ${currency}`;
+      }
+    fixed: |
+      export function formatPrice(amount: number, currency?: string) {
+        if (currency === undefined) {
+          return `$${amount.toFixed(2)}`;
+        }
+        return `${amount.toFixed(2)} ${currency}`;
+      }
+passes:
+  - code: |
+      export const isBrowser = typeof window !== "undefined";

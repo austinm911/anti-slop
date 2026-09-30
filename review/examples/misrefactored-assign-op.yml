@@ -1,0 +1,27 @@
+rule: rule:misrefactored-assign-op
+breaks:
+  - why: Writing `total += total + price` doubles the running total on every item, which is almost always a botched rewrite of `total += price`.
+    code: |
+      function cartTotal(prices: number[]) {
+        let total = 0;
+        for (const price of prices) {
+          total += total + price;
+        }
+        return total;
+      }
+    fixed: |
+      function cartTotal(prices: number[]) {
+        let total = 0;
+        for (const price of prices) {
+          total += price;
+        }
+        return total;
+      }
+passes:
+  - code: |
+      function applyDiscount(balance: number, discount: number) {
+        let remaining = balance;
+        remaining -= discount;
+        remaining *= 1.08;
+        return remaining;
+      }

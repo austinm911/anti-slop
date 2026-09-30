@@ -1,0 +1,16 @@
+rule: rule:no-non-null-asserted-nullish-coalescing
+breaks:
+  - why: The `!` claims the value is never nullish while `??` handles the nullish case, so one of the two statements about the value is wrong.
+    code: |
+      function displayName(user: { nickname?: string; email: string }) {
+        return user.nickname! ?? user.email;
+      }
+    fixed: |
+      function displayName(user: { nickname?: string; email: string }) {
+        return user.nickname ?? user.email;
+      }
+passes:
+  - code: |
+      function pageSize(query: URLSearchParams) {
+        return Number(query.get("limit") ?? 20);
+      }

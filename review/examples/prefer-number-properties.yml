@@ -1,0 +1,21 @@
+rule: rule:prefer-number-properties
+breaks:
+  - why: The global `isNaN()` coerces its argument first, so strings like "abc" pass through in surprising ways, while `Number.isNaN()` does not coerce.
+    code: |
+      export function isValidQuantity(value: number) {
+        return !isNaN(value) && value > 0;
+      }
+    fixed: |
+      export function isValidQuantity(value: number) {
+        return !Number.isNaN(value) && value > 0;
+      }
+  - why: Global `parseInt` works but the rule keeps number helpers on `Number` so they are grouped and consistent.
+    code: |
+      export const pageFromQuery = (page: string) => parseInt(page, 10) || 1;
+    fixed: |
+      export const pageFromQuery = (page: string) => Number.parseInt(page, 10) || 1;
+passes:
+  - code: |
+      export function toCents(amount: string) {
+        return Math.round(Number.parseFloat(amount) * 100);
+      }

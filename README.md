@@ -235,10 +235,13 @@ on `http://localhost:4317` or `PORT`.
   the autofix output when a test records one. They come from the Oxlint docs
   page for native rules, cached under `discovery/cache/oxlint-docs`, and from
   upstream RuleTester suites, ast-grep tests, and fixture tests. Upstream
-  rarely pairs a broken case with its fix, so write that pair when you vendor
-  a rule.
+  rarely pairs a broken case with its fix, so every profile rule also has a
+  hand-written `review/examples/<rule>.yml` with a break, its fix, and a pass.
+  `bun run review:test` lints the native rules' examples with Oxlint. Custom
+  rules' examples run once the rule is vendored.
 - **Profiles** builds the publishable rule sets in `profiles/*.json`. A profile
-  can extend another. The preview shows the generated `.oxlintrc.json`, the
+  can extend another and enable whole Oxlint `categories`, so `recommended`
+  turns on every correctness rule without listing them. The preview shows the generated `.oxlintrc.json`, the
   ast-grep rules, the install commands, and every gap that blocks publishing. A
   profile named after an ecosystem, such as `effect`, lists matching rules.
 

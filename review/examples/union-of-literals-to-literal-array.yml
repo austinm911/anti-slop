@@ -1,0 +1,20 @@
+rule: rule:union-of-literals-to-literal-array
+breaks:
+  - why: A union of string literals builds one branch per value, while Zod 4 accepts the same values as one literal array with a flatter schema and simpler issues.
+    code: |
+      import { z } from "zod";
+
+      const listingStatusSchema = z.union([
+        z.literal("draft"),
+        z.literal("active"),
+        z.literal("sold"),
+      ]);
+    fixed: |
+      import { z } from "zod";
+
+      const listingStatusSchema = z.literal(["draft", "active", "sold"]);
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const pageSizeSchema = z.union([z.literal("all"), z.int().positive()]);

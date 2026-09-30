@@ -1,0 +1,35 @@
+rule: rule:tool-input-integer-as-number
+breaks:
+  - why: A pull request number is always a whole number, but `z.number()` lets the model pass `12.5` and advertises a plain number in the tool's JSON Schema.
+    code: |
+      import { z } from "zod";
+
+      export const getPullRequest = defineTool({
+        name: "get_pull_request",
+        input: z.strictObject({
+          repo: z.string(),
+          pull_number: z.number(),
+        }),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const getPullRequest = defineTool({
+        name: "get_pull_request",
+        input: z.strictObject({
+          repo: z.string(),
+          pull_number: z.int(),
+        }),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const searchListings = defineTool({
+        name: "search_listings",
+        input: z.strictObject({
+          city: z.string(),
+          max_price: z.number(),
+          limit: z.int().max(50),
+        }),
+      });

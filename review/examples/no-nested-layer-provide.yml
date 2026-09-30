@@ -1,0 +1,24 @@
+rule: rule:no-nested-layer-provide
+breaks:
+  - why: A `Layer.provide` call nested inside another one buries a dependency stage in an argument, which makes the layer graph hard to follow.
+    code: |
+      import { Layer } from "effect";
+
+      export const UserRepoWithDeps = Layer.provide(
+        UserRepoLive,
+        Layer.provide(DatabaseLive, ConfigLive),
+      );
+    fixed: |
+      import { Layer } from "effect";
+
+      const DatabaseWithConfig = Layer.provide(DatabaseLive, ConfigLive);
+
+      export const UserRepoWithDeps = Layer.provide(UserRepoLive, DatabaseWithConfig);
+passes:
+  - code: |
+      import { Layer } from "effect";
+
+      export const ListingsLive = Layer.provide(
+        ListingsRepoLive,
+        Layer.mergeAll(DatabaseLive, SearchIndexLive),
+      );

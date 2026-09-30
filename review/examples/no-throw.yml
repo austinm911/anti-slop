@@ -1,0 +1,30 @@
+rule: rule:no-throw
+breaks:
+  - why: Throwing hides the missing-user failure from the function signature, so callers get no typed error to handle.
+    code: |
+      async function getUser(id: string) {
+        const user = await userRepository.findById(id);
+        if (!user) {
+          throw new UserNotFound({ id });
+        }
+        return user;
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      async function getUser(id: string) {
+        const user = await userRepository.findById(id);
+        if (!user) {
+          return Result.err(new UserNotFound({ id }));
+        }
+        return Result.ok(user);
+      }
+passes:
+  - code: |
+      import { panic } from "better-result";
+
+      function assertMigrated(schemaVersion: number) {
+        if (schemaVersion < CURRENT_SCHEMA_VERSION) {
+          panic(`database schema ${schemaVersion} is out of date`);
+        }
+      }

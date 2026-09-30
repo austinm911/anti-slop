@@ -1,0 +1,28 @@
+rule: rule:prefer-result-await
+breaks:
+  - why: Awaiting the Promise before yielding it skips Result.await, which is the helper that lets an async Result.gen workflow propagate the error.
+    code: |
+      import { Result } from "better-result";
+
+      const checkout = Result.gen(async function* () {
+        const cart = yield* await loadCart(cartId);
+        const payment = yield* await chargeCustomer(cart.total);
+        return Result.ok({ cart, payment });
+      });
+    fixed: |
+      import { Result } from "better-result";
+
+      const checkout = Result.gen(async function* () {
+        const cart = yield* Result.await(loadCart(cartId));
+        const payment = yield* Result.await(chargeCustomer(cart.total));
+        return Result.ok({ cart, payment });
+      });
+passes:
+  - code: |
+      import { Result } from "better-result";
+
+      const order = Result.gen(function* () {
+        const items = yield* parseLineItems(payload.items);
+        const address = yield* parseAddress(payload.shipping);
+        return Result.ok({ items, address });
+      });

@@ -1,0 +1,16 @@
+rule: rule:no-unnecessary-type-constraint
+breaks:
+  - why: Every type parameter already extends `unknown`, so the constraint adds noise without restricting anything.
+    code: |
+      export function groupById<T extends unknown>(items: T[], getId: (item: T) => string) {
+        return new Map(items.map((item) => [getId(item), item]));
+      }
+    fixed: |
+      export function groupById<T>(items: T[], getId: (item: T) => string) {
+        return new Map(items.map((item) => [getId(item), item]));
+      }
+passes:
+  - code: |
+      export function sortByDate<T extends { createdAt: Date }>(rows: T[]) {
+        return [...rows].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+      }

@@ -1,0 +1,17 @@
+rule: rule:no-unknown-returns
+breaks:
+  - why: Returning `Promise<unknown>` hands an unparsed payload to every caller, so each one has to guess and check its structure.
+    code: |
+      async function fetchAccount(accountId: string): Promise<unknown> {
+        const response = await fetch(`/api/accounts/${accountId}`);
+        return response.json();
+      }
+    fixed: |
+      async function fetchAccount(accountId: string): Promise<Account> {
+        const response = await fetch(`/api/accounts/${accountId}`);
+        return Schema.decodeUnknownSync(Account)(await response.json());
+      }
+passes:
+  - code: |
+      const readConfig = (path: string): AppConfig =>
+        Schema.decodeUnknownSync(AppConfig)(JSON.parse(readFileSync(path, "utf8")));

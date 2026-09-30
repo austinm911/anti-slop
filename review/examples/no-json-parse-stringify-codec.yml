@@ -1,0 +1,28 @@
+rule: rule:no-json-parse-stringify-codec
+breaks:
+  - why: A codec that only wraps JSON.parse and JSON.stringify hides transport I/O inside the schema instead of modeling a domain conversion.
+    code: |
+      import { z } from "zod";
+
+      const preferencesSchema = z.strictObject({ theme: z.enum(["light", "dark"]) });
+
+      export const storedPreferences = z.codec(z.string(), preferencesSchema, {
+        decode: (text) => JSON.parse(text),
+        encode: (preferences) => JSON.stringify(preferences),
+      });
+    fixed: |
+      import { Result } from "better-result";
+      import { z } from "zod";
+
+      const preferencesSchema = z.strictObject({ theme: z.enum(["light", "dark"]) });
+
+      export const readPreferences = (stored: string) =>
+        Result.try(() => JSON.parse(stored)).map((value) => preferencesSchema.safeParse(value));
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const createdAt = z.codec(z.iso.datetime(), z.date(), {
+        decode: (iso) => new Date(iso),
+        encode: (date) => date.toISOString(),
+      });

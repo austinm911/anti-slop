@@ -1,0 +1,32 @@
+rule: rule:no-switch
+breaks:
+  - why: A switch over the order status is a hand-written branch ladder that Match from effect can express exhaustively.
+    code: |
+      const statusLabel = (status: "pending" | "shipped" | "delivered") => {
+        switch (status) {
+          case "pending":
+            return "Awaiting shipment";
+          case "shipped":
+            return "On the way";
+          case "delivered":
+            return "Delivered";
+        }
+      };
+    fixed: |
+      import { Match } from "effect";
+
+      const statusLabel = Match.type<"pending" | "shipped" | "delivered">().pipe(
+        Match.when("pending", () => "Awaiting shipment"),
+        Match.when("shipped", () => "On the way"),
+        Match.when("delivered", () => "Delivered"),
+        Match.exhaustive,
+      );
+passes:
+  - code: |
+      import { Match } from "effect";
+
+      const describePayment = (payment: Payment) =>
+        Match.valueTags(payment, {
+          Card: (card) => `Card ending ${card.last4}`,
+          BankTransfer: (transfer) => `Transfer from ${transfer.bankName}`,
+        });

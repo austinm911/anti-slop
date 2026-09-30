@@ -1,0 +1,48 @@
+rule: rule:no-react-state-hooks
+breaks:
+  - why: Tracking the open state with useState spreads component behavior across ad hoc hooks instead of an XState actor.
+    code: |
+      import { useState } from "react";
+
+      export default function FilterPanel() {
+        const [open, setOpen] = useState(false);
+
+        return <button onClick={() => setOpen(!open)}>{open ? "Hide" : "Show"} filters</button>;
+      }
+    fixed: |
+      import { useMachine } from "@xstate/react";
+
+      export default function FilterPanel() {
+        const [state, send] = useMachine(filterPanelMachine);
+        const open = state.matches("open");
+
+        return <button onClick={() => send({ type: "toggle" })}>{open ? "Hide" : "Show"} filters</button>;
+      }
+  - why: React.useEffect fetches data in an effect hook, which the rule bans in favor of an actor that owns the request lifecycle.
+    code: |
+      import * as React from "react";
+
+      export default function OrderHistory({ userId }: { userId: string }) {
+        React.useEffect(() => {
+          void loadOrders(userId);
+        }, [userId]);
+
+        return <OrderTable />;
+      }
+    fixed: |
+      import { useMachine } from "@xstate/react";
+
+      export default function OrderHistory({ userId }: { userId: string }) {
+        const [state] = useMachine(orderHistoryMachine, { input: { userId } });
+
+        return <OrderTable orders={state.context.orders} />;
+      }
+passes:
+  - code: |
+      import { useRef } from "react";
+
+      export default function SearchBox() {
+        const inputRef = useRef<HTMLInputElement>(null);
+
+        return <input ref={inputRef} type="search" placeholder="Search listings" />;
+      }

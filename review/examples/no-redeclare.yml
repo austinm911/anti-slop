@@ -1,0 +1,21 @@
+rule: rule:no-redeclare
+breaks:
+  - why: Declaring `retries` twice with `var` silently reuses the same variable, which hides that the second line overwrites the first.
+    code: |
+      function connect(url: string) {
+        var retries = 3;
+        var retries = 5;
+        return openSocket(url, retries);
+      }
+    fixed: |
+      function connect(url: string) {
+        var retries = 5;
+        return openSocket(url, retries);
+      }
+passes:
+  - code: |
+      function connect(url: string, override?: number) {
+        let retries = 3;
+        if (override !== undefined) retries = override;
+        return openSocket(url, retries);
+      }

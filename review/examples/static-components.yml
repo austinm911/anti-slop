@@ -1,0 +1,26 @@
+rule: rule:static-components
+breaks:
+  - why: Declaring `Row` inside the parent creates a new component type on every render, so React remounts each row and throws away its state.
+    code: |
+      function InvoiceTable({ invoices }: { invoices: Invoice[] }) {
+        function Row({ invoice }: { invoice: Invoice }) {
+          return <tr><td>{invoice.number}</td><td>{invoice.total}</td></tr>;
+        }
+
+        return <table><tbody>{invoices.map((i) => <Row key={i.id} invoice={i} />)}</tbody></table>;
+      }
+    fixed: |
+      function Row({ invoice }: { invoice: Invoice }) {
+        return <tr><td>{invoice.number}</td><td>{invoice.total}</td></tr>;
+      }
+
+      function InvoiceTable({ invoices }: { invoices: Invoice[] }) {
+        return <table><tbody>{invoices.map((i) => <Row key={i.id} invoice={i} />)}</tbody></table>;
+      }
+passes:
+  - code: |
+      function StatusIcon({ status }: { status: "ok" | "error" }) {
+        const Icon = status === "ok" ? CheckIcon : AlertIcon;
+
+        return <Icon aria-label={status} />;
+      }

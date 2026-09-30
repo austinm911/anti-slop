@@ -1,0 +1,25 @@
+rule: rule:no-cascading-layer-provide
+breaks:
+  - why: Two separate `Layer.provide` stages for independent dependencies hide whether one depends on the other and make the layer graph harder to read.
+    code: |
+      import { Layer } from "effect";
+
+      export const OrdersLive = OrdersService.layer.pipe(
+        Layer.provide(DatabaseLive),
+        Layer.provide(PaymentsLive),
+      );
+    fixed: |
+      import { Layer } from "effect";
+
+      export const OrdersLive = OrdersService.layer.pipe(
+        Layer.provide([DatabaseLive, PaymentsLive]),
+      );
+passes:
+  - code: |
+      import { Layer } from "effect";
+
+      const PaymentsWithHttp = PaymentsLive.pipe(Layer.provide(HttpClientLive));
+
+      export const CheckoutLive = CheckoutService.layer.pipe(
+        Layer.provide(PaymentsWithHttp),
+      );

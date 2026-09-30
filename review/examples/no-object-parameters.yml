@@ -1,0 +1,28 @@
+rule: rule:no-object-parameters
+breaks:
+  - why: A parameter typed as the broad `object` accepts anything non-primitive, so the function cannot rely on any field without unchecked access.
+    code: |
+      const sendWelcomeEmail = (recipient: object) => {
+        mailer.send(JSON.stringify(recipient));
+      };
+    fixed: |
+      const sendWelcomeEmail = (recipient: Recipient) => {
+        mailer.send(recipient.email, `Welcome, ${recipient.name}`);
+      };
+  - why: A local alias that resolves to `object` hides the same broad parameter type behind a name.
+    code: |
+      type EventPayload = object;
+
+      function trackEvent(name: string, payload: EventPayload) {
+        analytics.track(name, payload);
+      }
+    fixed: |
+      type EventPayload = { readonly page: string; readonly durationMs: number };
+
+      function trackEvent(name: string, payload: EventPayload) {
+        analytics.track(name, payload);
+      }
+passes:
+  - code: |
+      const formatAddress = (address: { street: string; city: string }) =>
+        `${address.street}, ${address.city}`;

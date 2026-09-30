@@ -1,0 +1,17 @@
+{
+  "description": "Recommended plus oxray's better-result rules for codebases that return Results instead of throwing.",
+  "extends": ["recommended"],
+  "rules": {
+    "rule:no-ad-hoc-result": "error",
+    "rule:no-async-result-try": "error",
+    "rule:no-error-sentinel": "error",
+    "rule:no-promise-catch": "error",
+    "rule:no-promise-reject": "error",
+    "rule:no-result-unwrap": "error",
+    "rule:no-throw": "error",
+    "rule:no-try-catch": "error",
+    "rule:prefer-result-await": "error",
+    "rule:require-result-gen-return": "error",
+    "rule:wrap-throwing-api": "error"
+  }
+}

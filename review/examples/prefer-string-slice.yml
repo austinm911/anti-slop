@@ -1,0 +1,21 @@
+rule: rule:prefer-string-slice
+breaks:
+  - why: "`substr()` is deprecated and `substring()` swaps its arguments in surprising ways, so the rule asks for the consistent `slice()`."
+    code: |
+      export function maskCard(cardNumber: string) {
+        return `**** ${cardNumber.substr(cardNumber.length - 4)}`;
+      }
+    fixed: |
+      export function maskCard(cardNumber: string) {
+        return `**** ${cardNumber.slice(-4)}`;
+      }
+  - why: "`substring()` behaves differently from `slice()` with negative or reversed indexes, so the rule standardizes on `slice()`."
+    code: |
+      export const areaCode = (phone: string) => phone.substring(0, 3);
+    fixed: |
+      export const areaCode = (phone: string) => phone.slice(0, 3);
+passes:
+  - code: |
+      export function initials(name: string) {
+        return name.split(" ").map((part) => part.slice(0, 1).toUpperCase()).join("");
+      }

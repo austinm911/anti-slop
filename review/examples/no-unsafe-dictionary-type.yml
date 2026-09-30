@@ -1,0 +1,23 @@
+rule: rule:no-unsafe-dictionary-type
+breaks:
+  - why: A `Record<string, unknown>` gives callers no contract for what each entry holds, so every read needs an unchecked guess.
+    code: |
+      type UserPreferences = Record<string, unknown>;
+
+      const theme = (preferences: UserPreferences) => preferences.theme;
+    fixed: |
+      type UserPreferences = Record<string, PreferenceValue>;
+
+      const theme = (preferences: UserPreferences) => preferences.theme;
+  - why: An index signature typed `object` says nothing about the values, so each header read needs an unchecked cast.
+    code: |
+      interface HeaderBag {
+        [name: string]: object;
+      }
+    fixed: |
+      interface HeaderBag {
+        [name: string]: string | readonly string[];
+      }
+passes:
+  - code: |
+      const stockBySku: Map<string, number> = new Map();

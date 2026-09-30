@@ -1,0 +1,34 @@
+rule: rule:require-jsdoc-comments
+breaks:
+  - why: This exported function is public API with no JSDoc, so callers get no stated contract in their editor.
+    code: |
+      export function scheduleRenewal(subscription: Subscription) {
+        return queue.enqueue("renewal", { id: subscription.id, at: subscription.renewsAt });
+      }
+    fixed: |
+      /** Queues the renewal at `renewsAt` so billing runs once per period even if the app restarts. */
+      export function scheduleRenewal(subscription: Subscription) {
+        return queue.enqueue("renewal", { id: subscription.id, at: subscription.renewsAt });
+      }
+  - why: A plain line comment describes the method, so tools cannot attach it as documentation and the rule asks for JSDoc.
+    code: |
+      class PaymentClient {
+        // Retries once because the provider drops the first request after a cold start.
+        charge(amount: number) {
+          return this.post("/charges", { amount });
+        }
+      }
+    fixed: |
+      class PaymentClient {
+        /** Retries once because the provider drops the first request after a cold start. */
+        charge(amount: number) {
+          return this.post("/charges", { amount });
+        }
+      }
+passes:
+  - code: |
+      function toCents(amount: number) {
+        return Math.round(amount * 100);
+      }
+
+      const totals = orders.map((order) => toCents(order.total));

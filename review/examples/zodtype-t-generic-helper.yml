@@ -1,0 +1,22 @@
+rule: rule:zodtype-t-generic-helper
+breaks:
+  - why: Typing the parameter as `z.ZodType<T>` keeps only the output type and erases the schema's input type and concrete class.
+    code: |
+      import { z } from "zod";
+
+      export function parseBody<T>(schema: z.ZodType<T>, body: unknown): T {
+        return schema.parse(body);
+      }
+    fixed: |
+      import { z } from "zod";
+
+      export function parseBody<S extends z.ZodType>(schema: S, body: unknown): z.output<S> {
+        return schema.parse(body);
+      }
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export function formResolver<Output, Input>(schema: z.ZodType<Output, Input>) {
+        return (values: Input) => schema.safeParse(values);
+      }

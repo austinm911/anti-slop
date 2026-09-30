@@ -1,0 +1,16 @@
+rule: rule:no-prototype-builtins
+breaks:
+  - why: Calling `hasOwnProperty` on the object itself breaks for objects created with `Object.create(null)` or payloads that define their own `hasOwnProperty` key.
+    code: |
+      function hasOverride(settings: Record<string, string>, key: string) {
+        return settings.hasOwnProperty(key);
+      }
+    fixed: |
+      function hasOverride(settings: Record<string, string>, key: string) {
+        return Object.hasOwn(settings, key);
+      }
+passes:
+  - code: |
+      function isOwnField(record: object, field: string) {
+        return Object.prototype.hasOwnProperty.call(record, field);
+      }

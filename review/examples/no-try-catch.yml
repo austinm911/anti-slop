@@ -1,0 +1,31 @@
+rule: rule:no-try-catch
+breaks:
+  - why: The catch block recovers from the failure with ad hoc control flow instead of capturing it once as a typed Result.
+    code: |
+      function readSettings(raw: string): Settings {
+        try {
+          return JSON.parse(raw);
+        } catch (error) {
+          logger.warn("invalid settings", error);
+          return defaultSettings;
+        }
+      }
+    fixed: |
+      import { Result } from "better-result";
+
+      function readSettings(raw: string) {
+        return Result.try({
+          try: (): Settings => JSON.parse(raw),
+          catch: (cause) => new InvalidSettings({ cause }),
+        });
+      }
+passes:
+  - code: |
+      async function exportReport(reportId: string) {
+        const connection = await pool.connect();
+        try {
+          return await connection.query("select * from reports where id = $1", [reportId]);
+        } finally {
+          connection.release();
+        }
+      }

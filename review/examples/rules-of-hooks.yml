@@ -1,0 +1,36 @@
+rule: rule:rules-of-hooks
+breaks:
+  - why: Calling a hook inside a condition changes the hook order between renders, so React mixes up which state belongs to which hook.
+    code: |
+      import { useState } from "react";
+
+      export function Checkout({ isGuest }: { isGuest: boolean }) {
+        if (isGuest) {
+          const [email, setEmail] = useState("");
+          return <input value={email} onChange={(event) => setEmail(event.target.value)} />;
+        }
+        return <p>Signed in</p>;
+      }
+    fixed: |
+      import { useState } from "react";
+
+      export function Checkout({ isGuest }: { isGuest: boolean }) {
+        const [email, setEmail] = useState("");
+        if (isGuest) {
+          return <input value={email} onChange={(event) => setEmail(event.target.value)} />;
+        }
+        return <p>Signed in</p>;
+      }
+passes:
+  - code: |
+      import { useEffect, useState } from "react";
+
+      export function useOnlineStatus() {
+        const [online, setOnline] = useState(navigator.onLine);
+        useEffect(() => {
+          const update = () => setOnline(navigator.onLine);
+          window.addEventListener("online", update);
+          return () => window.removeEventListener("online", update);
+        }, []);
+        return online;
+      }

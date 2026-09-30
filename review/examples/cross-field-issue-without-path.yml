@@ -1,0 +1,31 @@
+rule: rule:cross-field-issue-without-path
+breaks:
+  - why: The issue is about the booking dates but has no path, so the form cannot show the error next to the field the user must fix.
+    code: |
+      import { z } from "zod";
+
+      const bookingSchema = z.strictObject({ checkIn: z.date(), checkOut: z.date() })
+        .superRefine((booking, ctx) => {
+          if (booking.checkOut <= booking.checkIn) {
+            ctx.addIssue({ code: "custom", message: "Check-out must be after check-in" });
+          }
+        });
+    fixed: |
+      import { z } from "zod";
+
+      const bookingSchema = z.strictObject({ checkIn: z.date(), checkOut: z.date() })
+        .superRefine((booking, ctx) => {
+          if (booking.checkOut <= booking.checkIn) {
+            ctx.addIssue({ path: ["checkOut"], code: "custom", message: "Check-out must be after check-in" });
+          }
+        });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      const contactSchema = z.object({ email: z.string(), phone: z.string(), address: z.string() })
+        .superRefine((contact, ctx) => {
+          if (!contact.email && !contact.phone && !contact.address) {
+            ctx.addIssue({ code: "custom", message: "Provide at least one way to reach you" });
+          }
+        });

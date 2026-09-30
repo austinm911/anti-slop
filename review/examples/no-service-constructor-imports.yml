@@ -1,0 +1,30 @@
+rule: rule:no-service-constructor-imports
+breaks:
+  - why: Importing the `makeInvoiceService` constructor into runtime code wires its dependencies by hand instead of letting the Layer carry its requirements to the composition root.
+    filename: checkout.ts
+    code: |
+      import { makeInvoiceService } from "./invoice-service.ts";
+
+      const invoices = makeInvoiceService(database, mailer);
+      export const checkout = (cartId: string) => invoices.issue(cartId);
+    fixed: |
+      import { InvoiceService } from "./invoice-service.ts";
+
+      export const checkout = Effect.fn("Checkout.run")(function* (cartId: string) {
+        const invoices = yield* InvoiceService;
+        return yield* invoices.issue(cartId);
+      });
+passes:
+  - filename: invoice-service.test.ts
+    code: |
+      import { makeInvoiceService } from "./invoice-service.ts";
+
+      test("issues an invoice", async () => {
+        const service = makeInvoiceService(fakeDatabase, fakeMailer);
+        expect(await service.issue("cart-1")).toBeDefined();
+      });
+  - filename: runtime.ts
+    code: |
+      import { makeExecutionMemo } from "alchemy/Runtime/ExecutionMemo";
+
+      export const memo = makeExecutionMemo();

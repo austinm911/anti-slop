@@ -1,0 +1,16 @@
+rule: rule:no-reflect-apply
+breaks:
+  - why: Reflect.apply calls the handler through an untyped side door, so argument and return types are no longer checked.
+    code: |
+      const runHandler = (handler: WebhookHandler, event: WebhookEvent) =>
+        Reflect.apply(handler.handle, handler, [event]);
+    fixed: |
+      const runHandler = (handler: WebhookHandler, event: WebhookEvent) =>
+        handler.handle(event);
+passes:
+  - code: |
+      const handlers: Record<EventKind, (event: WebhookEvent) => Promise<void>> = {
+        "invoice.paid": markInvoicePaid,
+        "invoice.failed": notifyBilling,
+      };
+      const dispatch = (event: WebhookEvent) => handlers[event.kind](event);

@@ -1,0 +1,29 @@
+rule: rule:no-disable-validation
+breaks:
+  - why: "Passing `disableValidation: true` builds an `Invoice` without checking its fields, so bad data reaches the rest of the app looking valid."
+    code: |
+      import { Schema } from "effect";
+
+      class Invoice extends Schema.Class<Invoice>("Invoice")({
+        id: Schema.String,
+        total: Schema.Number,
+      }) {}
+
+      export const toInvoice = (row: InvoiceRow) =>
+        new Invoice({ id: row.id, total: row.total }, { disableValidation: true });
+    fixed: |
+      import { Schema } from "effect";
+
+      class Invoice extends Schema.Class<Invoice>("Invoice")({
+        id: Schema.String,
+        total: Schema.Number,
+      }) {}
+
+      export const toInvoice = (row: InvoiceRow) =>
+        new Invoice({ id: row.id, total: row.total });
+passes:
+  - code: |
+      import { Schema } from "effect";
+
+      export const decodeInvoice = (body: unknown) =>
+        Schema.decodeUnknownEffect(Invoice)(body, { errors: "all" });

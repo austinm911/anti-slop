@@ -1,0 +1,18 @@
+rule: rule:no-implied-eval
+verify: false
+reason: Oxlint implements this rule as type-aware, so it needs type information that the single-file check does not provide.
+breaks:
+  - why: Passing a string to `setTimeout` makes the runtime evaluate it as code, which has the same injection and performance risks as `eval`.
+    code: |
+      export function scheduleRefresh(widgetId: string) {
+        setTimeout(`refreshWidget("${widgetId}")`, 1000);
+      }
+    fixed: |
+      export function scheduleRefresh(widgetId: string) {
+        setTimeout(() => refreshWidget(widgetId), 1000);
+      }
+passes:
+  - code: |
+      export function startHeartbeat(send: () => void) {
+        return setInterval(send, 30_000);
+      }

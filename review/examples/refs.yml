@@ -1,0 +1,28 @@
+rule: rule:refs
+breaks:
+  - why: Reading `ref.current` during render uses a value React does not track, so the output can go stale and the rule reports the access.
+    code: |
+      function SearchBox() {
+        const inputRef = useRef<HTMLInputElement>(null);
+        const hasFocus = inputRef.current === document.activeElement;
+
+        return <input ref={inputRef} className={hasFocus ? "focused" : ""} />;
+      }
+    fixed: |
+      function SearchBox() {
+        const [hasFocus, setHasFocus] = useState(false);
+
+        return (
+          <input onFocus={() => setHasFocus(true)} onBlur={() => setHasFocus(false)} className={hasFocus ? "focused" : ""} />
+        );
+      }
+passes:
+  - code: |
+      function ChatLog({ messages }: { messages: Message[] }) {
+        const bottomRef = useRef<HTMLDivElement>(null);
+        useEffect(() => {
+          bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, [messages]);
+
+        return <div>{messages.map((m) => <MessageRow key={m.id} message={m} />)}<div ref={bottomRef} /></div>;
+      }

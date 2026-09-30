@@ -41,14 +41,19 @@ export type Delivery =
   | { kind: "unsupported"; reason: string }
   | { kind: "guidance" };
 
-/** One snippet a rule reports or accepts. `fixed` is the autofix output when a test records it. */
-export type RuleExample = { code: string; fixed?: string };
+/**
+ * One snippet a rule reports or accepts. `fixed` is the corrected code, `why` says what the rule
+ * protects, and `filename` overrides the checked file name for rules that depend on it.
+ */
+export type RuleExample = { code: string; fixed?: string; why?: string; filename?: string };
 
-/** Examples recovered from one upstream docs page or test file. */
+/** Examples recovered from one upstream docs page or test file, or written for review. */
 export type ExampleSet = {
-  origin: "oxlint-docs" | "rule-tester" | "ast-grep-test" | "bun-test";
+  origin: "authored" | "oxlint-docs" | "rule-tester" | "ast-grep-test" | "bun-test";
   label: string;
   url: string;
+  /** Authored sets only: whether a test runs them against the rule. */
+  verified?: boolean;
   breaks: RuleExample[];
   passes: RuleExample[];
 };
@@ -96,9 +101,23 @@ export type ReviewRule = {
   profiles: string[];
 };
 
+export const OXLINT_CATEGORIES = [
+  "correctness",
+  "suspicious",
+  "pedantic",
+  "perf",
+  "restriction",
+  "style",
+  "nursery",
+] as const;
+export type OxlintCategory = (typeof OXLINT_CATEGORIES)[number];
+export type ProfileCategories = { [category in OxlintCategory]?: Severity };
+
 export type ProfileFile = {
   description: string;
   extends?: string[];
+  /** Whole Oxlint categories to enable, on top of the listed rules. */
+  categories?: ProfileCategories;
   rules: { [ruleKey: string]: Severity };
 };
 
@@ -112,6 +131,8 @@ export type CompiledProfile = {
   own: { [ruleKey: string]: Severity };
   /** Every rule after resolving `extends`. */
   resolved: { [ruleKey: string]: Severity };
+  /** Enabled Oxlint categories after resolving `extends`. */
+  categories: ProfileCategories;
   oxlintConfig: string;
   astGrepRules: string[];
   install: { commands: string; scripts: string };

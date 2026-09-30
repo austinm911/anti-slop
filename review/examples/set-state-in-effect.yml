@@ -1,0 +1,26 @@
+rule: rule:set-state-in-effect
+breaks:
+  - why: The effect synchronously copies derived data into state, which forces an extra render and can be computed during render instead.
+    code: |
+      function ContactCard({ contact }: { contact: Contact }) {
+        const [fullName, setFullName] = useState("");
+        useEffect(() => {
+          setFullName(`${contact.firstName} ${contact.lastName}`);
+        }, [contact.firstName, contact.lastName]);
+        return <h2>{fullName}</h2>;
+      }
+    fixed: |
+      function ContactCard({ contact }: { contact: Contact }) {
+        const fullName = `${contact.firstName} ${contact.lastName}`;
+        return <h2>{fullName}</h2>;
+      }
+passes:
+  - code: |
+      function OnlineBadge({ userId }: { userId: string }) {
+        const [online, setOnline] = useState(false);
+        useEffect(() => {
+          return presence.subscribe(userId, (status) => setOnline(status === "online"));
+        }, [userId]);
+
+        return <span>{online ? "Online" : "Away"}</span>;
+      }

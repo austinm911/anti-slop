@@ -1,0 +1,29 @@
+rule: rule:preserve-manual-memoization
+breaks:
+  - why: The `useMemo` dependency list leaves out `status`, so the compiler cannot keep the manual memoization without changing when it recomputes.
+    code: |
+      function TicketList({ tickets, status }: { tickets: Ticket[]; status: TicketStatus }) {
+        const visible = useMemo(
+          () => tickets.filter((ticket) => ticket.status === status),
+          [tickets],
+        );
+        return <TicketTable tickets={visible} />;
+      }
+    fixed: |
+      function TicketList({ tickets, status }: { tickets: Ticket[]; status: TicketStatus }) {
+        const visible = useMemo(
+          () => tickets.filter((ticket) => ticket.status === status),
+          [tickets, status],
+        );
+        return <TicketTable tickets={visible} />;
+      }
+passes:
+  - code: |
+      function SaveButton({ draftId, onSaved }: { draftId: string; onSaved: () => void }) {
+        const save = useCallback(async () => {
+          await drafts.publish(draftId);
+          onSaved();
+        }, [draftId, onSaved]);
+
+        return <button onClick={save}>Publish</button>;
+      }

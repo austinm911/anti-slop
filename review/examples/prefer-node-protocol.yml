@@ -1,0 +1,19 @@
+rule: rule:prefer-node-protocol
+breaks:
+  - why: A bare `fs` import can be shadowed by an npm package, while the `node:` prefix makes it clear this is the built-in module.
+    code: |
+      import { readFile } from "fs/promises";
+      import path from "path";
+
+      export const loadConfig = () => readFile(path.join(process.cwd(), "app.json"), "utf8");
+    fixed: |
+      import { readFile } from "node:fs/promises";
+      import path from "node:path";
+
+      export const loadConfig = () => readFile(path.join(process.cwd(), "app.json"), "utf8");
+passes:
+  - code: |
+      import { z } from "zod";
+      import { createHash } from "node:crypto";
+
+      export const Checksum = z.string().transform((value) => createHash("sha256").update(value).digest("hex"));

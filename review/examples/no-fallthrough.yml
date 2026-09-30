@@ -1,0 +1,35 @@
+rule: rule:no-fallthrough
+breaks:
+  - why: The `trial` case has no `break`, so trial users silently fall into the paid branch and get charged.
+    code: |
+      function onPlanChange(plan: "trial" | "paid", accountId: string) {
+        switch (plan) {
+          case "trial":
+            startTrial(accountId);
+          case "paid":
+            chargeCard(accountId);
+            break;
+        }
+      }
+    fixed: |
+      function onPlanChange(plan: "trial" | "paid", accountId: string) {
+        switch (plan) {
+          case "trial":
+            startTrial(accountId);
+            break;
+          case "paid":
+            chargeCard(accountId);
+            break;
+        }
+      }
+passes:
+  - code: |
+      function isWeekend(day: string) {
+        switch (day) {
+          case "Sat":
+          case "Sun":
+            return true;
+          default:
+            return false;
+        }
+      }

@@ -1,0 +1,25 @@
+rule: rule:zinfer-instead-of-zoutput
+breaks:
+  - why: "`z.infer` does not say whether the type is the parsed output or the accepted input, which starts to matter once the schema gains a transform."
+    code: |
+      import { z } from "zod";
+      import { invoiceSchema } from "./schemas";
+
+      export type Invoice = z.infer<typeof invoiceSchema>;
+    fixed: |
+      import { z } from "zod";
+      import { invoiceSchema } from "./schemas";
+
+      export type Invoice = z.output<typeof invoiceSchema>;
+passes:
+  - code: |
+      import { z } from "zod";
+      import { invoiceSchema } from "./schemas";
+
+      export type InvoiceFormValues = z.input<typeof invoiceSchema>;
+  - filename: schemas.ts
+    code: |
+      import { z } from "zod";
+
+      export const invoiceSchema = z.strictObject({ id: z.string(), total: z.number() });
+      export type Invoice = z.infer<typeof invoiceSchema>;

@@ -1,0 +1,52 @@
+rule: rule:no-silent-error-swallow
+breaks:
+  - why: Replacing a failed profile lookup with Effect.void throws the error away, so callers never learn the user was missing.
+    code: |
+      import { Effect } from "effect";
+
+      const loadProfile = (userId: string) =>
+        ProfileRepository.findById(userId).pipe(
+          Effect.catchTag("ProfileNotFound", () => Effect.void),
+        );
+    fixed: |
+      import { Effect, Option } from "effect";
+
+      const loadProfile = (userId: string) =>
+        ProfileRepository.findById(userId).pipe(
+          Effect.map(Option.some),
+          Effect.catchTag("ProfileNotFound", () => Effect.succeed(Option.none())),
+        );
+  - why: Each handler in this catchTags object discards its error with Effect.void, so failed webhook deliveries vanish without a trace.
+    code: |
+      import { Effect } from "effect";
+
+      const deliver = (event: WebhookEvent) =>
+        WebhookClient.send(event).pipe(
+          Effect.catchTags({
+            Timeout: () => Effect.void,
+            RemoteRejected: () => {
+              return Effect.void;
+            },
+          }),
+        );
+    fixed: |
+      import { Effect } from "effect";
+
+      const deliver = (event: WebhookEvent) =>
+        WebhookClient.send(event).pipe(
+          Effect.catchTags({
+            Timeout: () => DeliveryQueue.retryLater(event),
+            RemoteRejected: (error) =>
+              Effect.fail(new DeliveryFailed({ eventId: event.id, cause: error })),
+          }),
+        );
+passes:
+  - code: |
+      import { Effect } from "effect";
+
+      const syncInventory = (sku: string) =>
+        InventoryApi.fetch(sku).pipe(
+          Effect.catchTag("RateLimited", (error) =>
+            Effect.logWarning("Inventory sync throttled", error.retryAfter),
+          ),
+        );

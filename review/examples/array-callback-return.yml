@@ -1,0 +1,20 @@
+rule: rule:array-callback-return
+breaks:
+  - why: The `map` callback uses a block body without returning anything, so every entry in the result is `undefined`.
+    code: |
+      export function customerEmails(customers: { email: string }[]): string[] {
+        return customers.map((customer) => {
+          customer.email.toLowerCase();
+        });
+      }
+    fixed: |
+      export function customerEmails(customers: { email: string }[]): string[] {
+        return customers.map((customer) => {
+          return customer.email.toLowerCase();
+        });
+      }
+passes:
+  - code: |
+      export function activeOrders(orders: { id: string; status: string }[]) {
+        return orders.filter((order) => order.status === "active");
+      }

@@ -7,6 +7,67 @@ import type { ExampleSet, ReviewRule, RuleExample, Sighting } from "./types.ts";
 
 type Cases = Pick<ExampleSet, "breaks" | "passes">;
 
+/** Hand-written examples, one YAML file per rule, named after the rule. */
+export const AUTHORED_DIRECTORY = "review/examples";
+
+export type AuthoredExamples = Cases & {
+  rule: string;
+  /** `false` when a native rule needs context a single file cannot give, with the reason. */
+  verify?: false;
+  reason?: string;
+};
+
+export function authoredPath(root: string, ruleKey: string): string {
+  return join(root, AUTHORED_DIRECTORY, `${ruleKey.replace(/^rule:/, "")}.yml`);
+}
+
+export function parseAuthoredExamples(content: string, path: string): AuthoredExamples {
+  const parsed: unknown = yaml.load(content);
+  const fail = (problem: string) => new Error(`${path}: ${problem}`);
+  if (typeof parsed !== "object" || parsed === null) throw fail("expected a mapping");
+  const field = (name: string): unknown => Reflect.get(parsed, name);
+  const rule = field("rule");
+  if (typeof rule !== "string") throw fail("`rule` must be a rule key");
+  const examples = (name: "breaks" | "passes"): RuleExample[] => {
+    const list = field(name);
+    if (!Array.isArray(list) || list.length === 0)
+      throw fail(`\`${name}\` needs at least one entry`);
+    return list.map((entry: unknown, index) => {
+      if (typeof entry !== "object" || entry === null)
+        throw fail(`${name}[${index}] must be a mapping`);
+      const text = (key: string): string | undefined => {
+        const value: unknown = Reflect.get(entry, key);
+        if (value === undefined) return undefined;
+        if (typeof value !== "string") throw fail(`${name}[${index}].${key} must be text`);
+        return value;
+      };
+      const code = text("code");
+      if (code === undefined) throw fail(`${name}[${index}] needs \`code\``);
+      const fixed = text("fixed");
+      const why = text("why");
+      const filename = text("filename");
+      if (name === "breaks" && fixed === undefined) throw fail(`breaks[${index}] needs \`fixed\``);
+      return {
+        code: normalizeCode(code),
+        ...(fixed !== undefined ? { fixed: normalizeCode(fixed) } : {}),
+        ...(why !== undefined ? { why: why.trim() } : {}),
+        ...(filename !== undefined ? { filename } : {}),
+      };
+    });
+  };
+  const verify = field("verify");
+  const reason = field("reason");
+  if (verify !== undefined && verify !== false) throw fail("`verify` may only be false");
+  if (verify === false && typeof reason !== "string")
+    throw fail("`verify: false` needs a `reason`");
+  return {
+    rule,
+    breaks: examples("breaks"),
+    passes: examples("passes"),
+    ...(verify === false ? { verify, reason: String(reason) } : {}),
+  };
+}
+
 /**
  * Recovers the snippets a rule reports and accepts from its Oxlint docs page and every linked
  * test file. Foreign code is parsed, never executed.
@@ -17,6 +78,21 @@ export async function loadRuleExamples(
   cacheDirectory: string,
 ): Promise<ExampleSet[]> {
   const sets: ExampleSet[] = [];
+  const authoredFile = authoredPath(root, rule.key);
+  const authored = await readFile(authoredFile, "utf8").then(
+    (content) => parseAuthoredExamples(content, authoredFile),
+    () => undefined,
+  );
+  if (authored) {
+    sets.push({
+      origin: "authored",
+      label: `${AUTHORED_DIRECTORY}/${authoredFile.split("/").at(-1)}`,
+      url: `https://github.com/${FIRST_PARTY_REPOSITORY}/blob/main/${AUTHORED_DIRECTORY}/${authoredFile.split("/").at(-1)}`,
+      verified: rule.delivery.kind === "native" && authored.verify !== false,
+      breaks: authored.breaks,
+      passes: authored.passes,
+    });
+  }
   if (rule.delivery.kind === "native") {
     const docs = await loadDocsExamples(rule.delivery.docsUrl, cacheDirectory).catch(
       () => undefined,

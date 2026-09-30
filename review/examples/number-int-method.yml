@@ -1,0 +1,24 @@
+rule: rule:number-int-method
+breaks:
+  - why: Starting from z.number() and adding .int() later builds a broad number schema first, while z.int() states the integer contract directly.
+    code: |
+      import { z } from "zod";
+
+      export const lineItemSchema = z.strictObject({
+        sku: z.string(),
+        quantity: z.number().int().min(1),
+      });
+    fixed: |
+      import { z } from "zod";
+
+      export const lineItemSchema = z.strictObject({
+        sku: z.string(),
+        quantity: z.int().min(1),
+      });
+passes:
+  - code: |
+      import { z } from "zod";
+
+      export const paginationSchema = z.strictObject({
+        page: z.coerce.number().int().positive(),
+      });

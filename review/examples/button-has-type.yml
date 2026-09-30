@@ -1,0 +1,24 @@
+rule: rule:button-has-type
+breaks:
+  - why: A button without an explicit type defaults to submit, so clicking it inside a form submits the form by accident.
+    code: |
+      export function CancelButton({ onCancel }: { onCancel: () => void }) {
+        return <button onClick={onCancel}>Cancel</button>;
+      }
+    fixed: |
+      export function CancelButton({ onCancel }: { onCancel: () => void }) {
+        return (
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        );
+      }
+passes:
+  - code: |
+      export function SaveProfileForm({ onSave }: { onSave: () => void }) {
+        return (
+          <form onSubmit={onSave}>
+            <button type="submit">Save profile</button>
+          </form>
+        );
+      }

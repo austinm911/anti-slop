@@ -1,0 +1,16 @@
+rule: rule:prefer-array-flat-map
+breaks:
+  - why: Calling `.map()` and then `.flat()` walks the array twice when `.flatMap()` does the same work in one call.
+    code: |
+      export function allLineItems(orders: { items: string[] }[]) {
+        return orders.map((order) => order.items).flat();
+      }
+    fixed: |
+      export function allLineItems(orders: { items: string[] }[]) {
+        return orders.flatMap((order) => order.items);
+      }
+passes:
+  - code: |
+      export function flattenMatrix(rows: number[][][]) {
+        return rows.flat(2);
+      }

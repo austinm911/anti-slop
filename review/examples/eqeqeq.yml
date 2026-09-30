@@ -1,0 +1,25 @@
+rule: rule:eqeqeq
+breaks:
+  - why: Loose equality coerces types, so a status code of `"200"` from a string header compares equal to the number `200` without anyone noticing.
+    code: |
+      function isSuccess(response: { status: number | string }) {
+        return response.status == 200;
+      }
+    fixed: |
+      function isSuccess(response: { status: number | string }) {
+        return response.status === 200;
+      }
+  - why: The loose `!=` hides whether the check is meant to exclude only `undefined` or also `null` and other coerced values.
+    code: |
+      function hasCoupon(order: { couponCode?: string }) {
+        return order.couponCode != undefined;
+      }
+    fixed: |
+      function hasCoupon(order: { couponCode?: string }) {
+        return order.couponCode !== undefined;
+      }
+passes:
+  - code: |
+      function isAdmin(user: { role: "admin" | "member" }) {
+        return user.role === "admin";
+      }

@@ -1,0 +1,20 @@
+rule: rule:jsx-key
+breaks:
+  - why: Elements rendered from a list have no `key`, so React cannot track which item changed and may reuse the wrong row state.
+    code: |
+      export function InvoiceRows({ invoices }: { invoices: { id: string; total: number }[] }) {
+        return <tbody>{invoices.map((invoice) => <tr><td>{invoice.total}</td></tr>)}</tbody>;
+      }
+    fixed: |
+      export function InvoiceRows({ invoices }: { invoices: { id: string; total: number }[] }) {
+        return (
+          <tbody>
+            {invoices.map((invoice) => <tr key={invoice.id}><td>{invoice.total}</td></tr>)}
+          </tbody>
+        );
+      }
+passes:
+  - code: |
+      export function Breadcrumbs({ trail }: { trail: string[] }) {
+        return <nav>{trail.map((label) => <a key={label} href={`/${label}`}>{label}</a>)}</nav>;
+      }

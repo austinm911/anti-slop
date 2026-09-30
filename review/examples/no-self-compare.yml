@@ -1,0 +1,16 @@
+rule: rule:no-self-compare
+breaks:
+  - why: Comparing `price` to itself is only false for `NaN`, which is an obscure way to test for it and often a typo for comparing against another value.
+    code: |
+      function isValidPrice(price: number) {
+        return price === price;
+      }
+    fixed: |
+      function isValidPrice(price: number) {
+        return !Number.isNaN(price);
+      }
+passes:
+  - code: |
+      function priceChanged(previous: number, next: number) {
+        return previous !== next;
+      }

@@ -1,0 +1,26 @@
+rule: rule:no-service-option
+breaks:
+  - why: "`Effect.serviceOption` makes the metrics dependency optional, so a missing layer silently turns metrics off instead of failing at composition time."
+    code: |
+      import { Effect, Option } from "effect";
+
+      export const recordCheckout = Effect.fn("Checkout.record")(function* (orderId: string) {
+        const metrics = yield* Effect.serviceOption(Metrics);
+        if (Option.isSome(metrics)) {
+          yield* metrics.value.increment("checkout.completed", { orderId });
+        }
+      });
+    fixed: |
+      import { Effect } from "effect";
+
+      export const recordCheckout = Effect.fn("Checkout.record")(function* (orderId: string) {
+        const metrics = yield* Metrics;
+        yield* metrics.increment("checkout.completed", { orderId });
+      });
+passes:
+  - code: |
+      import { Layer } from "effect";
+
+      export const CheckoutLive = CheckoutService.layer.pipe(
+        Layer.provide(MetricsLive),
+      );

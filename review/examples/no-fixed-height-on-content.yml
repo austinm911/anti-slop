@@ -1,0 +1,33 @@
+rule: rule:no-fixed-height-on-content
+breaks:
+  - why: The button text sits inside a fixed h-10 box, so larger fonts or wrapped labels overflow instead of growing the button.
+    code: |
+      export default function SaveButton() {
+        return <button className="h-10 px-4 text-sm">Save changes</button>;
+      }
+    fixed: |
+      export default function SaveButton() {
+        return <button className="px-4 py-2 text-sm">Save changes</button>;
+      }
+  - why: A heading with a fixed h-8 clips its text when the title wraps onto a second line.
+    code: |
+      export default function InvoiceHeader({ title }: { title: string }) {
+        return <h2 className="h-8 text-lg font-semibold">{title}</h2>;
+      }
+    fixed: |
+      export default function InvoiceHeader({ title }: { title: string }) {
+        return <h2 className="min-h-8 text-lg font-semibold">{title}</h2>;
+      }
+passes:
+  - code: |
+      export default function UserAvatar({ src }: { src: string }) {
+        return <img className="h-10 w-10 rounded-full" src={src} alt="" />;
+      }
+  - code: |
+      export default function RevenueChart() {
+        return (
+          <div className="h-64 w-full">
+            <canvas id="revenue" />
+          </div>
+        );
+      }

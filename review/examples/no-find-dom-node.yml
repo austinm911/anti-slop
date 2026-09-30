@@ -1,0 +1,31 @@
+rule: rule:no-find-dom-node
+breaks:
+  - why: "`findDOMNode` breaks component abstraction and is removed in React 19, so the scroll call fails at runtime."
+    code: |
+      import { Component } from "react";
+      import { findDOMNode } from "react-dom";
+
+      export class ChatLog extends Component {
+        componentDidMount() {
+          findDOMNode(this)?.scrollIntoView();
+        }
+        render() { return <div className="chat-log" />; }
+      }
+    fixed: |
+      import { Component, createRef } from "react";
+
+      export class ChatLog extends Component {
+        container = createRef<HTMLDivElement>();
+        componentDidMount() {
+          this.container.current?.scrollIntoView();
+        }
+        render() { return <div ref={this.container} className="chat-log" />; }
+      }
+passes:
+  - code: |
+      import { useRef } from "react";
+
+      export function SearchBox() {
+        const input = useRef<HTMLInputElement>(null);
+        return <input ref={input} onFocus={() => input.current?.select()} />;
+      }
