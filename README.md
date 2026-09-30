@@ -205,23 +205,45 @@ before triage, especially when an existing source reports new additions.
 
 ## Review discovered candidates
 
-The local review app keeps generated discovery facts separate from human
-decisions. It reads `discovery/candidates.json`, appends decisions to
-`review/events.jsonl`, projects current state to `review/state.json`, and
-regenerates `docs/generated/review-summary.md`.
+The local review app groups discovery candidates into rules. Sightings of one
+rule merge across sources and plugin scopes, so `typescript/no-unused-vars` in
+one config and `no-unused-vars` in another are one rule. This repository's
+registry rules appear as **Shipped**. Decisions are keyed by rule, append to
+`review/events.jsonl`, and survive upstream file moves. A decision is flagged
+when the rule changes upstream after it was recorded.
+
+Classify rules with Jev before reviewing. It needs `TYPESAFE_API_KEY` and caches
+answers in `review/classification.json`, so a rerun only pays for new or changed
+rules:
 
 ```bash
+bun run review:classify
 bun run review
 ```
 
-Open `http://localhost:4317` if the browser does not open automatically. Start
-in **Inbox**: keep promising candidates for deeper evaluation, reject weak
-evidence, or defer blocked decisions. The **Kept** queue then offers adopt,
-adapt, native-rule, and reject outcomes. Decisions do not modify or promote
-rules; admission still requires every condition in
-[`docs/admission-standard.md`](docs/admission-standard.md).
+Jev answers the domain, category, ecosystem, and whether a rule is tied to its
+source repository. Answers below 0.5 confidence stay **Unsorted**.
 
-Keyboard shortcuts: `J`/`K` navigate, `E` keeps, `R` rejects, and `D` defers.
+`bun run review` serves the app through [portless](https://github.com/vercel-labs/portless)
+at `https://anti-slop.localhost` and opens it. Portless starts its proxy on
+first use. Without portless, run `bun scripts/review/server.ts`, which listens
+on `http://localhost:4317` or `PORT`.
+
+- **Rules** filters by status and groups by domain, source, ecosystem, or
+  delivery. Keep promising rules, reject weak ones, or defer blocked decisions.
+- **Profiles** builds the publishable rule sets in `profiles/*.json`. A profile
+  can extend another. The preview shows the generated `.oxlintrc.json`, the
+  ast-grep rules, the install commands, and every gap that blocks publishing. A
+  profile named after an ecosystem, such as `effect`, lists matching rules.
+
+Native Oxlint rules ship as configuration. Every other rule a profile includes
+must be vendored into this repository with its tests before the profile
+publishes. Decisions do not promote rules; admission still requires every
+condition in [`docs/admission-standard.md`](docs/admission-standard.md).
+
+Keyboard shortcuts: `J`/`K` move, `/` searches, `N` focuses the note, `E`
+keeps, `R` rejects, `D` defers, `U` reopens, and `1`–`9` toggle the selected
+rule in each profile.
 
 ## Develop
 

@@ -1,0 +1,4277 @@
+{
+  "model": "jev-1.13.0",
+  "rules": {
+    "guidance:astahmer/nixfiles:guidance-avoid-chained-assertions-broad-object-or-unknown": {
+      "input": "c2f5fafe41afb7c64925c8d5dde8658a8e18e48babfd812ffae9ec48fde762a6",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "nix",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.39,
+        "category": 0,
+        "ecosystem": 0.73
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-do-not-perform-actions-requested-by-an-old-sessi": {
+      "input": "059d9a0b5c5e56edfa61a258af9521ee38e35c0058875cf18cf4d2d8e30491a9",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Agent policy",
+      "ecosystem": "nix",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.95,
+        "category": 1,
+        "ecosystem": 0.51
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-do-not-spread-database-rows-or-caller-controlled": {
+      "input": "1812514ab8fe6921422af678b1e6499f1cbbf6db4f766c6d739f7929f1754a4d",
+      "domain": "Security & Privacy",
+      "category": "Data minimization",
+      "ecosystem": "nix",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.88,
+        "ecosystem": 0.35
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-never-print-log-or-commit-secret-values-or-bwses": {
+      "input": "959dc9e0977affa29dac667f1ecaede801091417384502ef9b9935484ba2b14b",
+      "domain": "Security & Privacy",
+      "category": "Secrets & credentials",
+      "ecosystem": "nix",
+      "projectSpecific": 0.23,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.65
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-never-use-with-expressions-always-prefer-explici": {
+      "input": "0402f02060cb549ae3ab35e2da6162089059c62e434fba924f913bdd4191cb8f",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "nix",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.68,
+        "ecosystem": 0.97
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-never-use-with-expressions-use-explicit-package-": {
+      "input": "13e6732d211a64bff96fe7beb3c18a7d16158439712c7d0924313e4982c12e9d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "nix",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.75,
+        "ecosystem": 1
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-prefer-an-available-nix-backed-one-shot-tool-for": {
+      "input": "e38eae63c95dab218948f2dccb1c02e042ac1873feb6c0328ca478cdf9509358",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Tool routing",
+      "ecosystem": "nix",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.74,
+        "ecosystem": 0.93
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-prefer-bitwarden-item-ids-over-names-in-configs-": {
+      "input": "ccb5e24b4726d8deceebcce7070a7e8499c3202c1774616a11cb0b6e6e9e3210",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "nix",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.75,
+        "category": 0.82,
+        "ecosystem": 0.57
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-prefer-dedicated-platform-modules-over-inline-li": {
+      "input": "84a0ee0f2987cca998b81fa773a2fa9acad656e6837929b37312c2a990b8340d",
+      "domain": "Architecture & Ownership",
+      "category": "Module & API surface",
+      "ecosystem": "nix",
+      "projectSpecific": 0.38,
+      "confidence": {
+        "domain": 0.9,
+        "category": 0.68,
+        "ecosystem": 1
+      }
+    },
+    "guidance:astahmer/nixfiles:guidance-prefer-focused-modules-over-architecture-churn-u": {
+      "input": "2abfc193ce6a73b0d0d4683f8fd48e04a42a3bc5dcefaca1c1fbce71ca6a4ac7",
+      "domain": "Architecture & Ownership",
+      "category": "Module & API surface",
+      "ecosystem": "nix",
+      "projectSpecific": 0.4,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0.79,
+        "ecosystem": 1
+      }
+    },
+    "guidance:dmmulroy/anti-slop:guidance-do-not-replace-the-package-manager-or-rewrite-un": {
+      "input": "75aa1979994d88030d4572f8080015072390d98357121f9869f2b74667ccecea",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Build & dependencies",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.12,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0.65,
+        "ecosystem": 0.44
+      }
+    },
+    "guidance:dmmulroy/anti-slop:oxc/no-accumulating-spread": {
+      "input": "b5177dfcf82b3fc01bf9f9a34d36e59055b737c72d4c374d40325139e2770dd5",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.27,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.39,
+        "ecosystem": 0.64
+      }
+    },
+    "guidance:rayhanadev/oxray:guidance-do-not-call-result-unwrap-or-unwrap": {
+      "input": "a9e7c502dcff5d0f5bd5b4f81cc9610bd9eea8ab55c8b89da0a6dedeb9d15f90",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.54,
+        "category": 0.88,
+        "ecosystem": 0.57
+      }
+    },
+    "guidance:rayhanadev/oxray:guidance-do-not-return-nullable-failure-sentinels-or-hand": {
+      "input": "af2a2fe8f0b48f2f2d9c781082d15fdcb6b2058122416e62efc551a98df57518",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.37,
+        "category": 0.56,
+        "ecosystem": 0.42
+      }
+    },
+    "guidance:rayhanadev/oxray:guidance-do-not-use-throw-try-catch-promise-reject-or-cat": {
+      "input": "9694748c53f36b30efcb2aa2fdf45bdbf0f1efca55df5e5953ddd5c0984f299a",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "node_bun",
+      "projectSpecific": 0.04,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0.98,
+        "ecosystem": 0.49
+      }
+    },
+    "guidance:rayhanadev/oxray:guidance-do-not-vendor-complete-third-party-rule-collecti": {
+      "input": "14129f141f786e12c81e1d159ade3b6e07185490fbf2fc83668f261b9bce34ba",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Agent policy",
+      "ecosystem": "node_bun",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.44,
+        "category": 0.95,
+        "ecosystem": 0.57
+      }
+    },
+    "guidance:rayhanadev/oxray:guidance-prefer-bun-file-over-node-fs-s-readfile-writefil": {
+      "input": "5b0e9b415aa0e61894d9eb46add40e4e1b390a5e4ca241f94d854cfdb91ea950",
+      "domain": "Failures, Effects & I/O",
+      "category": "Network, filesystem & storage",
+      "ecosystem": "node_bun",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.59,
+        "category": 0.99,
+        "ecosystem": 0.99
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-concatenated-classes": {
+      "input": "7cca33aaffba9f60df50a92cf969be792d123fdcf78e50c03116cc6b9e192cb8",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.99,
+        "ecosystem": 0.9
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-conflicting-classes": {
+      "input": "11930db7c55f7944b58bf3febdb79376417bef8b161e993e91e5855ff3439a41",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.99,
+        "ecosystem": 0.93
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-deprecated-classes": {
+      "input": "28f7882ee9c02d92e1f6293270004bf9c84ba1da340cb99b126776ee031d6326",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.14,
+      "confidence": {
+        "domain": 0.98,
+        "category": 1,
+        "ecosystem": 0.94
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-duplicate-classes": {
+      "input": "f783fb5fdc735c50a7712a6c008daf319beaf9f1a176365fda77cdde0862beef",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0.99,
+        "ecosystem": 0.93
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-restricted-classes": {
+      "input": "d4691c782f1ca70436b2450284b0638bb489f99e52ae72569baee5e5b7cd3431",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.18,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0.99,
+        "ecosystem": 0.93
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:better-tailwindcss/no-unknown-classes": {
+      "input": "8794480d541bebf35e7740032c676eabd17ba29bdb7fcbf97bf696c95ebd5f0f",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "other",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.99,
+        "ecosystem": 0.93
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-console": {
+      "input": "bfaff97fc2600e9e4b10ae8a3e6b31bace9c69ac794029285d641a9d5429e236",
+      "domain": "Failures, Effects & I/O",
+      "category": "Observability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0.93,
+        "ecosystem": 1
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-empty": {
+      "input": "b438d3bf388c48578f31f62ad584dd50b74548444a6f5c077af552d0ffe5f810",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-empty-function": {
+      "input": "d14689407fdfabd28849057f6bc46cc482671d6954a9c04037c45144f34c8756",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0.54,
+        "ecosystem": 1
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-eq-null": {
+      "input": "5c6703211fa07c83b697a78c1fd94066a0a02e6ad9bc3f03ccf2e1cf70cf1e96",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.84,
+        "ecosystem": 1
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-img-element": {
+      "input": "17b9131b262c4986328e8197bfd3fbb40ea5827e40c2b1680c44ffd48ce20b75",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.74,
+        "category": 0.38,
+        "ecosystem": 0.92
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-shadow": {
+      "input": "0f5fc1778f11db2a91e11e52d20f7141eb45505ce5e904aedf97adee6aa9f4c1",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.41,
+        "ecosystem": 0.97
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-underscore-dangle": {
+      "input": "9dd6a3e51b061cbc71f7d4dec449ac98eae9d3d387c504bec9c8845e793e5eee",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0.82,
+        "ecosystem": 0.92
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:no-unused-vars": {
+      "input": "910fa8e2b919e6da52b05b777f4e54531f267d5b871b2ef75230ab81aa2ba19a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 1,
+        "category": 0.99,
+        "ecosystem": 1
+      }
+    },
+    "guidance:typeonce-dev/ai-automation:require-yield": {
+      "input": "899d6369da74ec7ab2ac0ef41f625d0bbc86fcb0040b0db3070d53d2e6695bc0",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.59,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:approx-constant": {
+      "input": "d2f7efe90d00f9b39ce0d9700b03b2d1ae185ca8682260f73aa9d2c3b2781f1a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.48,
+        "category": 0,
+        "ecosystem": 0.77
+      }
+    },
+    "rule:array-callback-return": {
+      "input": "61a8d2fe987edc4b04ec7a597883211275ff1887ab97fbe94f3ecef355813cf5",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:array-type": {
+      "input": "b8eea1a527a3a31b195f5ba4f49f19668f8b2d9e0499a1df7d699e7ffcb2fde7",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.75,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:bad-bitwise-operator": {
+      "input": "17dc7aa87dcbae24c4c69011137acefd544cd88d25a1a955759c757ec8cb4251",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.83,
+        "category": 0,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:bad-char-at-comparison": {
+      "input": "c7ef360e67da0fbd17bde3a525fc21606ada003decb0719858ff7eb5a9b4dc6b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.71,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:bad-comparison-sequence": {
+      "input": "e71e0d593baaf8efc18f57f26a9b530cb004f0c268fb0dde6602bcf5962bca7d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:bad-min-max-func": {
+      "input": "1a8c17ce6ee756448e23e31f0cbe4bc095af9eeaef49190214310d0d0c765890",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.73,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:bad-object-literal-comparison": {
+      "input": "3c49e5d4b6749335a88ffd2f7c6e6192a1e5d8d41f49023ed05e3952e0110403",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:bad-replace-all-arg": {
+      "input": "5faaa1d6e19561240e7a42823521456906f1928c6b23fa35c261cae7116aff82",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.64,
+        "category": 0,
+        "ecosystem": 0.88
+      }
+    },
+    "rule:button-has-type": {
+      "input": "dfc81790f2e0676f453e8690eb695a4c37ad03ff53cd1790fef940260b2ba1a9",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0.9,
+        "ecosystem": 1
+      }
+    },
+    "rule:catch-error-name": {
+      "input": "af9d2ad4eb4b8de04e93761e9177e90d764d4a09e811429d5a8223ca6a2249f1",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0.95,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:checked-requires-onchange-or-readonly": {
+      "input": "f52e4e4845a42b4d590ea4b20702117ba802e0218bb623bc24e9100208812392",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.56,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:comment-explains-why": {
+      "input": "4cc2ad4a94b301892f0b44d4822fd188106dac5828eb4a8002bd39af58d3557e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.27,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.45
+      }
+    },
+    "rule:comment-ste100": {
+      "input": "a119f071409a78384ebd1dd6b4b4d1bfc690649b4581149a005c2bc62bef6723",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "other",
+      "projectSpecific": 0.39,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.45
+      }
+    },
+    "rule:comment-ste100-heuristics": {
+      "input": "60359e7d4e9dfa47e0d1f3d5601920c29543ccf65bd2e93a3231e119474efdcc",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "other",
+      "projectSpecific": 0.46,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.47
+      }
+    },
+    "rule:commented-out-code-requires-reason": {
+      "input": "795155fbdc703c8d793c7d906255ed67af10daa5f4d452a547f4580f1cd025fb",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "other",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 1,
+        "category": 0.84,
+        "ecosystem": 0.51
+      }
+    },
+    "rule:complex-file-header": {
+      "input": "d58a38ea58ee886efd1f43c4a139ad3a2ca9933ecc3cadfddcca436035fcd62b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.22,
+      "confidence": {
+        "domain": 0.94,
+        "category": 1,
+        "ecosystem": 0.53
+      }
+    },
+    "rule:consistent-empty-array-spread": {
+      "input": "701ab24be522077af9170c3f8a519194d238d1d6b599e71290bc65def8e2f5fb",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.8,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:consistent-function-scoping": {
+      "input": "456a466b9fcbe4b3f650ec63156b4c028d3579a77749218dcc389a1e2ef07fb9",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.62,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:const-comparisons": {
+      "input": "7528a9922585ce92933708b83cf5038f86544bda3d1e321c895962fd9b2f489d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.8,
+        "category": 0.46,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:constants-file-organization": {
+      "input": "fcca252ccc5c6bdf04de8bfe31f00212a3412415b4b7fe8770489af32c693131",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.23,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0,
+        "ecosystem": 0.62
+      }
+    },
+    "rule:constructor-super": {
+      "input": "84d5ba36007e9a44eac95c53dab9cb4bfc372890c1ae20e69ba62395282ebc37",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.75,
+        "category": 0,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:cross-field-issue-without-path": {
+      "input": "a1b35e567ed0850bb70a7517efbe068eb100d86c7d36fc1efec14d5e6f80cdda",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.19,
+      "confidence": {
+        "domain": 0.66,
+        "category": 0.72,
+        "ecosystem": 1
+      }
+    },
+    "rule:curly": {
+      "input": "f7a1bab3457ae18194869047b5c1da2da284f2eaa83fcd48c893fa34595942c5",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:display-name": {
+      "input": "41e50f1f36dbc53cee557e866b97a06327376341b1936248bf918d33caad880d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.85,
+        "category": 0.84,
+        "ecosystem": 1
+      }
+    },
+    "rule:domain-knowledge-in-agents": {
+      "input": "9e94a0f04a112cc035f768aea8e2315e341d276f5ec748023c9746f7c34abe28",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "other",
+      "projectSpecific": 0.75,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0.99,
+        "ecosystem": 0.46
+      }
+    },
+    "rule:double-comparisons": {
+      "input": "8eb5dd69a122b533a73b384d079a61d8bdea631bbd3c0f4e3c5093b697627f4b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0.87,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:ensure-relay-types": {
+      "input": "7cc54eaa55cc0e7f69aae767fcd57ab1aded9a3319bcb5c296cccdc2c8d60ac5",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "other",
+      "projectSpecific": 0.25,
+      "confidence": {
+        "domain": 0.86,
+        "category": 0,
+        "ecosystem": 0.57
+      }
+    },
+    "rule:enum-file-organization": {
+      "input": "b3ba417632cc0aab74d71a58d2f5402828840599191fae61e0fe27daa0752c6a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.28,
+      "confidence": {
+        "domain": 0.63,
+        "category": 0,
+        "ecosystem": 0.73
+      }
+    },
+    "rule:eqeqeq": {
+      "input": "e3c9791697ede584482f6d65e40153d692bf9cef4df43aee9239c735ee4ca922",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.76,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:error-boundaries": {
+      "input": "6575877a92f4c611e2ead0b6e4175b4e3903b956840c2802adcb8ef119e0ec5f",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.32,
+        "category": 0.39,
+        "ecosystem": 1
+      }
+    },
+    "rule:errors-file-organization": {
+      "input": "11376aaf467637642bb5f44fcb69d8d6c8ae64db44000eea0d7ce77d3ecc5e0a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.3,
+      "confidence": {
+        "domain": 0.6,
+        "category": 0,
+        "ecosystem": 0.53
+      }
+    },
+    "rule:exhaustive-deps": {
+      "input": "0290284f4946961828577ab0afe652e53535e62cf02c0ad35dce61c3dfc685fa",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:export": {
+      "input": "23d682253554b5a8afb6864c6bd3de2ed16b530ecb44fe65fea93a4ac3771241",
+      "domain": "Architecture & Ownership",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.58,
+        "category": 0,
+        "ecosystem": 0.68
+      }
+    },
+    "rule:file-organization": {
+      "input": "ee1ff4f045764c63e25a1df8aa849350e7f4deb3832b517a243ef0a9bc8ab757",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "zod",
+      "projectSpecific": 0.47,
+      "confidence": {
+        "domain": 0.43,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:filename-case": {
+      "input": "9044cd9dd16fd97d8b763c203fcc0dc95d2dc65b1434458e75b83e76511eb262",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0.84,
+        "ecosystem": 0.77
+      }
+    },
+    "rule:filename-match-export": {
+      "input": "5df62c41b32004f99c42291f04112c937e4cfcce3b49c60507f4fc01deee8a8d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.95,
+        "category": 1,
+        "ecosystem": 0.76
+      }
+    },
+    "rule:for-direction": {
+      "input": "b757c261689a40f510ba97572ceafc4c438dd0d3a3a0870d17a96bf8521ebcdf",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.56,
+        "category": 0,
+        "ecosystem": 0.68
+      }
+    },
+    "rule:getter-return": {
+      "input": "1fee5e9bcdc8bbf4d35f98aeb6e1b3509117acdd574e9b92a5623cf33d2d2cc9",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:globals": {
+      "input": "66ba84e5f529bfd257c918d039d0791e0c0e46ae43763d80e980b7d1e2a86eae",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:immutability": {
+      "input": "3b29ed1703db8fe6377d5c8db8d6097d322a5b5f220e759f00f3f0c44e999033",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.57,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:incompatible-library": {
+      "input": "fd74007189ffb38d3790718e3a00ebc58f9f62951f797baf57326207099e7507",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Build & dependencies",
+      "ecosystem": "react",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.54,
+        "category": 0.57,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:json-parse-argument-of-safeparse": {
+      "input": "16f72bbdea935f08a5f400ed5aa51dcdf5809f7cc97e58aeb61b9d9d71090224",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "zod",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.58,
+        "category": 0.73,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-key": {
+      "input": "fcd3b8cc83fca27786872b1b603be01542d0c00c4183b764ca4db03fb4136d6a",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.33,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-no-comment-textnodes": {
+      "input": "31717e92e68f6358277db73bfaa439fe475ff918fccbc468f775f47f2b6a6572",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.48,
+        "category": 0.76,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-no-duplicate-props": {
+      "input": "0245770d1b3a0a842b46ad20b409e247b6fecc7f6e1637d50b0eaa8dcaebe65a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.04,
+      "confidence": {
+        "domain": 0.37,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-no-script-url": {
+      "input": "25a8bfd292792ee1663b7d1202a048462a6b3f00363ad84dfd2889029ae39f3e",
+      "domain": "Security & Privacy",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-no-target-blank": {
+      "input": "78af4174c686c344854e622e1b619cb98863303ad10c5ba239639642b6afd050",
+      "domain": "Security & Privacy",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-no-undef": {
+      "input": "f39884c031e9290d81f6c59996659480bb05900550d1a335a94e157f601ccee3",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.75,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:jsx-props-no-spread-multi": {
+      "input": "1237ba60441f6bb5bf0d00289d5c77994a9958b17bce8bc316122df2262b113f",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.63,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:lint-suppression-requires-reason": {
+      "input": "0a497fdd8df20fbf16a3e55346f24a303c0c3a65c18c5b4e98e1fcdc009c5f22",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "other",
+      "projectSpecific": 0.19,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.61,
+        "ecosystem": 0.7
+      }
+    },
+    "rule:misrefactored-assign-op": {
+      "input": "c82b689689a1e808fe671759ce91d525e0f6b70f782942f463e8c12f644c4c08",
+      "domain": "Program Logic & Control Flow",
+      "category": "Mutation & sequencing",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0.43,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:missing-throw": {
+      "input": "e047ae2c012529dd5f97c2ed7ccb8114016481686749ebec0654bab4e6a90cd2",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-abusive-eslint-disable": {
+      "input": "5e8ef74ac8f95b2ee499bf33a49347fb6ceaf76c541c6fe9071f19221e53865d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.74,
+        "category": 0,
+        "ecosystem": 0.63
+      }
+    },
+    "rule:no-accumulating-spread": {
+      "input": "22d46f3486e8a3d8cf8962988b036be6108a1cc98b6d4cc4943f782854a0dadb",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.73,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-ad-hoc-result": {
+      "input": "1aa318c39690bb0ff94768b4a8fc3c1a91f81bb8d670ce6322fa3dc9554860ff",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.18,
+      "confidence": {
+        "domain": 0.49,
+        "category": 0,
+        "ecosystem": 0.64
+      }
+    },
+    "rule:no-ambient-nondeterminism": {
+      "input": "8ea612ea65512c8fe475bfafc900f8b5cdee696572d62a0a27643dffc95bdade",
+      "domain": "Failures, Effects & I/O",
+      "category": "Capabilities & nondeterminism",
+      "ecosystem": "effect",
+      "projectSpecific": 0.16,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-api-backend-imports": {
+      "input": "0228b2efec4962d6e50446b16633d2615e33ac876273a9b1f93b743a7e0bec05",
+      "domain": "Architecture & Ownership",
+      "category": "Dependency boundaries",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.43,
+      "confidence": {
+        "domain": 1,
+        "category": 0.82,
+        "ecosystem": 0.48
+      }
+    },
+    "rule:no-api-repository-imports": {
+      "input": "229ce96136e8133815f3c7a1c6ba21d6ec174a1cd96926714807c4875b8a5cb3",
+      "domain": "Architecture & Ownership",
+      "category": "Dependency boundaries",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.51,
+      "confidence": {
+        "domain": 1,
+        "category": 0.84,
+        "ecosystem": 0.64
+      }
+    },
+    "rule:no-array-constructor": {
+      "input": "ea258108a01bc8540aef5cb1005eaffaf2d40256deaf32dbc071e843e3779af7",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-array-filter-map": {
+      "input": "12891a0d9918359fe9b378f5703237563d4015cfb825537753af5bd8b298654a",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0.89,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-async-promise-executor": {
+      "input": "21fea69c9f50c1790363526732b1cce7b3e2cdd2bef3aff479cd18a2fe6a2f83",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.74,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-async-result-try": {
+      "input": "af79f966c2cb1ee5a5a4cdbe742ca6d847c2a3c0182850f8d517a8bb6cb7334b",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "other",
+      "projectSpecific": 0.39,
+      "confidence": {
+        "domain": 0.86,
+        "category": 0.89,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:no-banned-type-assertions": {
+      "input": "7ca45327b490781f753751e41cd682b663280da4149430fdd4d30edffaa0a488",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.88
+      }
+    },
+    "rule:no-cascading-layer-provide": {
+      "input": "88f5169a6bba06e342ddf5e3d36031655ff08d89ad58a77acfbc30d19448891f",
+      "domain": "Architecture & Ownership",
+      "category": "Services & provisioning",
+      "ecosystem": "effect",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.89,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-case-declarations": {
+      "input": "c742b58a10b8d16c013cc0d82993fe29b91ce7aced116c70f685977b8c5c471a",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.48,
+        "category": 0.86,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-chained-type-assertions": {
+      "input": "520540877a6f6f266d9e6c4723614fd758fff04853487a44ec262ff5b1ca7ed2",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.83,
+        "category": 0.9,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-children-prop": {
+      "input": "89c49e96c707ff46a3a02ef4d9d47bb5197d01f64f1cdc250302ec3572c13ee9",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.57,
+        "category": 0.8,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-class-assign": {
+      "input": "0386549ae44f3542662d6ef8203b27091fc6b5f7d259a6a3a56690aca90b747e",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:no-comments": {
+      "input": "a4911e559aec747fe661eab5b4b4ff4c17b0cecf24adac82422462efc9f4e38e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 1,
+        "category": 0.98,
+        "ecosystem": 0.47
+      }
+    },
+    "rule:no-compare-neg-zero": {
+      "input": "d279d3b69ee2a48e922c2a8ec0aba047ad6a45e3a14c54d0aa3308bc7e871d5b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.9,
+        "category": 0.43,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-cond-assign": {
+      "input": "666a036b30ca95a1db77deffbf0938f3ce48b16cac8a7fbddd8cf3a72b917ba6",
+      "domain": "Program Logic & Control Flow",
+      "category": "Mutation & sequencing",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.57,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-conditional-empty-object-spread": {
+      "input": "cd20fa93d8930a13c7607afb1cbfd7be832de32f8d6e51f445f0f522bdcc23fc",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.84,
+        "category": 0.51,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-console": {
+      "input": "1e253baed53c3e336821d2a02eac6fd3e330cc341b15df24bf2bcdcc064ba5da",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.47,
+        "category": 0,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:no-const-assign": {
+      "input": "eb644ae95ec78cb58cea3ffd602e59a1841e2bc9945d58d78ab05beafcb54c1d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-constant-binary-expression": {
+      "input": "77ce09c0aa1797a0c4c5aebdd19bf8247afa87fce6f30fb98c06562522105c4b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0.86,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-constant-condition": {
+      "input": "ac26690486597f0d6160cfdb372de9663d61a0ee3f1450b30193854b2d4d6e5a",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 1,
+        "category": 0.77,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-control-regex": {
+      "input": "a04f4caf9c506c393c13c131cf9777a13f09cabcc387d3183b77ee64575351cf",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.33,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-css-modules": {
+      "input": "c3c065b9bcfe3b72165db7fe7217cfc361605a4eb03ba7db68a9507b2abb56e6",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.94,
+        "ecosystem": 0.56
+      }
+    },
+    "rule:no-danger-with-children": {
+      "input": "6d4d9a47e19d7f098fa70534667f08a2599bd81dcffbc0a85a2f31bffb3bf253",
+      "domain": "Security & Privacy",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.62,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-debugger": {
+      "input": "43dd685d1ac334529a301cb5beee9e57c4eaee811fa3e3ce82c2a67155215aee",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.39,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-delete-var": {
+      "input": "e5ac90f276f13b2351d6ef550bff72e05e9e3cb42dd800c55c8a903f48782e8e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.58,
+        "category": 0.78,
+        "ecosystem": 0.82
+      }
+    },
+    "rule:no-direct-browser-storage": {
+      "input": "5a5a5ec60ccb4e2f281a54a3dcda8da1781866fdb408422c10411ea58c6735a0",
+      "domain": "Failures, Effects & I/O",
+      "category": "Network, filesystem & storage",
+      "ecosystem": "effect",
+      "projectSpecific": 0.16,
+      "confidence": {
+        "domain": 0.79,
+        "category": 0.96,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-direct-fetch": {
+      "input": "075c2511e9ecfadf43259c8a6fdc26c2da4cd91dbd16dd4feccf9d9eedc9f350",
+      "domain": "Architecture & Ownership",
+      "category": "Dependency boundaries",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.49,
+      "confidence": {
+        "domain": 0.84,
+        "category": 0.45,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-direct-mutation-state": {
+      "input": "c6345b1810cebd8d95fac1cfb2fa1011e72cafe442cd00fd7b9cc0d1946e2108",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-direct-xstate-create-machine": {
+      "input": "ab2058ddc7f99c9ab33d2c2b2645a147f3e81905bcfed63b92b981db10af1cbf",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.38,
+      "confidence": {
+        "domain": 0.69,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-direct-xstate-use-selector": {
+      "input": "76edefa6e5cc8dfffe02fe0ddff31145292e3903975df7d849f08922154b9d8e",
+      "domain": "Architecture & Ownership",
+      "category": "Repository & asset ownership",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.71,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.76,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-disable-validation": {
+      "input": "a354db14be446444a1873cb8122067fb9f64c12c7d8380ddae908882ee52169d",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "effect",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.54,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-dupe-class-members": {
+      "input": "e3fc107b05b80952e17da2756a0f58901c6c47913f9a5a51aa36e13b4f2251ae",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-dupe-else-if": {
+      "input": "796041f2229c80a4bf540e537175930bee5bb97752ee24e3ae4a5e3b19c0b4d5",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0.89,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-dupe-keys": {
+      "input": "118a0b377847a60534af2db84cff39484dba0f7a6f8084b089ece80ea78ba9d8",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:no-duplicate-case": {
+      "input": "2007fac91f8db3fe58e0723802e6f401a5f9639c07b78a8733b0a95b694afde3",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.97,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:no-duplicate-enum-values": {
+      "input": "40e9709eb63521f2b0a50922c8730938592bf061a96c8c707624049e9e24b813",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.54,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-effect-asvoid": {
+      "input": "e8a085a698f08997c85f23869301a0f1d17a547d5ada9814b9a088edfbd563f7",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "effect",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.35,
+        "category": 0.83,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-empty": {
+      "input": "9533a93d5f43b71297185383a1d87da012e778f20d554e36dccd07907813dc7a",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.53,
+        "category": 0,
+        "ecosystem": 0.85
+      }
+    },
+    "rule:no-empty-character-class": {
+      "input": "f035e51600ecc83ebd0f7101cee01a24947adee4cd3dc324636f8a271920de3f",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:no-empty-function": {
+      "input": "c31c9cc42e625540a9826dbdf550b0bb1bdcde159779000f6399c60be65ae35b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0.49,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-empty-object-type": {
+      "input": "632a00e21aef154532f116b704954092c762782c7a432896b923b83221ec245d",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.78,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-empty-pattern": {
+      "input": "6e6465c79c1881f0967925fd7edddaccdd07f556c4d62a90a4e8df2a9bb6d7c2",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.88,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:no-empty-static-block": {
+      "input": "863b929a2c0545f9d33b8034fbf45e4c363c2326e1a7689d40aafcf42d035a51",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.69,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:no-eq-null": {
+      "input": "686373da34f2291d34f3174213d78fcd3fbd02a0225bc61ce06a696ec8eb0742",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.76,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-error-sentinel": {
+      "input": "a3596a1f8d3611be9989576317cd266ad355c10b4acaa2201bdb2b0cee6dec47",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.35,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0.61,
+        "ecosystem": 0.74
+      }
+    },
+    "rule:no-ex-assign": {
+      "input": "654979f8b972657216a585d05a087601c12f5e9afa1a0000abc9c2c4ee79a3da",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.77,
+        "category": 0,
+        "ecosystem": 0.73
+      }
+    },
+    "rule:no-explicit-any": {
+      "input": "f054774cb289e83b616f13e027f12a02b04288f2517071b73e9c41c049d200a5",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 1,
+        "category": 0.99,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-explicit-function-return-type": {
+      "input": "0e49284767c918916472420b4a00c6e145e7120f362c1f4b6015b807a44061b3",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0.97,
+        "ecosystem": 0.75
+      }
+    },
+    "rule:no-exported-function-expressions": {
+      "input": "12dc277161a8aa1a33d1d39f2a1eb8b99ce15de4ac5dfe0e555f4cfd77c427b1",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:no-extra-bind": {
+      "input": "6730a6344fb333edc1a006242605dd4971f933803b67962ffab9234ce218c04b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.5,
+        "category": 0.81,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-extra-boolean-cast": {
+      "input": "c0a6d478ec068d7ae67194ef78a194ac9201717b74bc2bb887d24cca0b885f12",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.79,
+        "category": 0.98,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:no-extra-non-null-assertion": {
+      "input": "3aaec6fdfc85fa058449534086240b68b2c8ce147e145eb0cfee90bd24253d2e",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.43,
+        "category": 0.77,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-fallthrough": {
+      "input": "e2f2e9954a6528c6db15e3935eec54eb5ef7861781f40ce1f6246039a3b4776c",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 1,
+        "category": 0.99,
+        "ecosystem": 0.82
+      }
+    },
+    "rule:no-file-local-generic-record-guard": {
+      "input": "1736745fd331506bcf1b6d74b81b443ec682366ffc77db8536c0f2a551405ef1",
+      "domain": "Architecture & Ownership",
+      "category": "Repository & asset ownership",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.36,
+      "confidence": {
+        "domain": 0.39,
+        "category": 0.73,
+        "ecosystem": 0.73
+      }
+    },
+    "rule:no-find-dom-node": {
+      "input": "58c3957d5362288efc6ba590886d642a0c2782762167c9e869ca7338e7a3944a",
+      "domain": "UI & Presentation",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.3,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-fixed-height-on-content": {
+      "input": "aae8ee5c28b238a90c9c7a55527c31f718db143679a7618167e44fcef0eb0a30",
+      "domain": "UI & Presentation",
+      "category": "Layout & behavior",
+      "ecosystem": "react",
+      "projectSpecific": 0.17,
+      "confidence": {
+        "domain": 1,
+        "category": 0.43,
+        "ecosystem": 0.72
+      }
+    },
+    "rule:no-func-assign": {
+      "input": "a93a3eb0b13575b05ae7cdb5cfa661833f4e5a948c7fa5ca8246da8412a15610",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.69,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-global-assign": {
+      "input": "f7921e01efef16f13e77efe093abe78ab1aeeb59a08b191da3897a56e7a3c6e6",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-global-json": {
+      "input": "ce3e1b1e78607a59003fe539993468324655487cec128d5c51fbd3fd67c6ae45",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "effect",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0.97,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-hex-escape": {
+      "input": "7715384cf97797881b80e5f7528d795e7d83960d9a9df1e7c1f52385edb2017c",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-img-element": {
+      "input": "859b28ffbb17db44e216d06e6d2ddfa657d7f9d8cf4d0ee8bd9086dfb2c37aa9",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0.57,
+        "ecosystem": 0.43
+      }
+    },
+    "rule:no-implied-eval": {
+      "input": "da8dcb3426d382e5cd40fd8a54e6c7dbbc1cbeab73407f3a2b0b5914d38b47ab",
+      "domain": "Security & Privacy",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-import-assign": {
+      "input": "74e89799963be4d1c76b87970bee1ca8707bc6af3c7d3896a5285453276a2840",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.44,
+        "category": 0,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-in-operator": {
+      "input": "c50696006d8d1ba04e7abff13cfcffaa583700df8abdc532034dc0ce38e17b66",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.29,
+      "confidence": {
+        "domain": 0.74,
+        "category": 0.18,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:no-instanceof": {
+      "input": "2daf8ff09fab0d185d3564f37afd8b6fb7c9f7708c7705a3b322afe2ac33027b",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.53,
+        "category": 0.43,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-invalid-fetch-options": {
+      "input": "4ce787437a6a727badb8924e194290caefbf73e1038de8c187ca473f27c72bdf",
+      "domain": "Failures, Effects & I/O",
+      "category": "Network, filesystem & storage",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.67,
+        "category": 0.62,
+        "ecosystem": 0.6
+      }
+    },
+    "rule:no-invalid-regexp": {
+      "input": "642353f9171d885ad0eec247d5f6d4b074e806aa25a1d34e272f882ace805dcc",
+      "domain": "Unsorted",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:no-irregular-whitespace": {
+      "input": "91c9d09fdf7cf834d4ae049fc685ec4f9efe8f8f5413a6d54dc695bd11ffc885",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0,
+        "ecosystem": 0.72
+      }
+    },
+    "rule:no-is-mounted": {
+      "input": "4c1b76db8d0064187025bd75dbe191382d06b93df578f89a505c445315de1fb7",
+      "domain": "State & Reactivity",
+      "category": "Lifecycle",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.72,
+        "category": 0.89,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-json-parse-stringify-codec": {
+      "input": "52f6ab543793ea3a8bec22d26b7e841a9fc347f6ea4f0c64c6a2da50b68e21c5",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "zod",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.83,
+        "category": 1,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-jsx-style": {
+      "input": "223c417de8f3cb55111e75651855991e70b5688138d8830a65b4b3c7a483dcff",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "react",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-known-value-widening": {
+      "input": "5fc2ec6add64176967a420b002af0a280ef1b5ed61ab3b0cd5d4775e6a734452",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 1,
+        "category": 0.99,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-let": {
+      "input": "ab50c224411e543c632e2cad139d13da8238b61746b593ddea1568e396ea3e8d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Mutation & sequencing",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.52,
+        "category": 0.81,
+        "ecosystem": 0.85
+      }
+    },
+    "rule:no-loss-of-precision": {
+      "input": "d5dc46c9fb7e2b53239e7989e3a5fd018295d1fac3fb8fa06a1f0ac61694a7db",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.6,
+        "category": 0,
+        "ecosystem": 0.78
+      }
+    },
+    "rule:no-magic-array-flat-depth": {
+      "input": "b80bf08695cef852b395b91ba97de97cbfdbeaa6558757669d7a89c62e38fa6f",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:no-manual-effect-error-tag": {
+      "input": "7fc9fb6c05447e78762e97c01de7dac9c0a84fe2829e8c2b984ac570920fa269",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "effect",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0.89,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-manual-tag-comparison": {
+      "input": "6da3a35cbe300e8aa5d22a48c88d730243b060e368ad003ae0314a3a0bb1cf09",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "effect",
+      "projectSpecific": 0.28,
+      "confidence": {
+        "domain": 0.93,
+        "category": 1,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-manual-tagged-construction": {
+      "input": "f1850f3f41f528eb2939ce0433032654ed92d8b858ef4ffca37fa7573bee2e7d",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "effect",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.86,
+        "category": 0.51,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-misleading-character-class": {
+      "input": "a8f6ac3618a72ffbaebdcc4dd932302c311a9b61782e4a347d072f7017a8ee9d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.66,
+        "category": 0,
+        "ecosystem": 0.85
+      }
+    },
+    "rule:no-misused-new": {
+      "input": "9154a13ee77339e09c3c87d0af7421c90b04fe37ad405147dccc907301e6c968",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.37,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-mixed-jsdoc-line-prefix": {
+      "input": "487129f444b8da5f9720f0c9303d56668ead8d21e5c3ca0beef42213ae3dc623",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-module-mocking": {
+      "input": "2fa7d9a60912fa07f13b64d6b4799922147c0ec841097ccd8a3064816e1749d3",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Testing & verification",
+      "ecosystem": "other",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.93,
+        "category": 1,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-multiple-function-params": {
+      "input": "688b38c74af8053555a6b5b471be6199dd97c13760f4ac3948bb495e5caaee01",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.76,
+        "category": 0,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-multiple-xstate-hooks": {
+      "input": "d226d21f5ac13fdc21797f3d11e7b80452ffbe86422500c782a7f5b512f06f44",
+      "domain": "State & Reactivity",
+      "category": "Machine construction",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0.71,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-namespace": {
+      "input": "39e8876c314316a653b88c208f63e87779a6befd61292ad01e013b4f6157f5db",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0.34,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-nested-effect-array-methods": {
+      "input": "bba1c2f1a97f84e43dd01d3b93870708448b0f9131bcb47808dc4acd88e64051",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "effect",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.52,
+        "category": 0.6,
+        "ecosystem": 0.77
+      }
+    },
+    "rule:no-nested-layer-provide": {
+      "input": "b0475d90b17d595e3af8c80a64c817e2a4ab08b33b5d4aae856243978ea62797",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "effect",
+      "projectSpecific": 0.2,
+      "confidence": {
+        "domain": 0.63,
+        "category": 0.81,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-new-native-nonconstructor": {
+      "input": "bfab511d5de891bfd80c58e52a93c6393b1765b824088778bb6b46f9dd05d694",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.56,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:no-new-wrappers": {
+      "input": "e703b9e4da75e28bbc698f851011ba52202a753188354492f4618aedcc364a71",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.44,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-non-null-asserted-nullish-coalescing": {
+      "input": "fb2c646b5329e81fee258a55b1bb00e7b1ba9d3c298a9206f884d02a94a72b6d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.64,
+        "category": 0.93,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-non-null-asserted-optional-chain": {
+      "input": "fc3250ab510dbc1f8244521578f920046e4e6f070875de6938a6e8627b16730d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.44,
+        "category": 0.87,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-non-route-layout-files": {
+      "input": "9f505e7510d4ab8aef124758281b2b524f50b1c236710437f9bcd912e8dc0710",
+      "domain": "UI & Presentation",
+      "category": "File conventions",
+      "ecosystem": "other",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.97,
+        "category": 0.77,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-nonoctal-decimal-escape": {
+      "input": "a068550929b3debd5829e38cdf997728d077d9e37f0881d39cbf6358beec6f98",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.53,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-obj-calls": {
+      "input": "6e743697cee014f98582ca74d649d61e857b7984be8a62069288ffaf6bfc05bd",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.62,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-object-parameters": {
+      "input": "c64bf9fd18b25106aa967a8c342ae8916804d68588b3c3a476a44d5e8f90d504",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 1,
+        "category": 0.71,
+        "ecosystem": 0.55
+      }
+    },
+    "rule:no-only-tests": {
+      "input": "55bcbf9e6ecec5e06531e5dfb1b2b7539ed328049065df390d76f57d6daac0b0",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Testing & verification",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.98,
+        "ecosystem": 0.6
+      }
+    },
+    "rule:no-optional-function-parameters": {
+      "input": "a7bed6537d7734f9cc26fbf65171d8d05afe729d1942331e3c577927cc30eb5e",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0.86,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-promise-catch": {
+      "input": "c6d40e75df1864e2dbb9481907d8d655ac83364d8bc90fa8dea540a4399787c1",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.44,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0.98,
+        "ecosystem": 0.8
+      }
+    },
+    "rule:no-promise-reject": {
+      "input": "3ce10ba66c14ade3c7d278085edf21c57efa534abe4ebed65c86bf7ace3a2980",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.32,
+      "confidence": {
+        "domain": 0.83,
+        "category": 0.95,
+        "ecosystem": 0.67
+      }
+    },
+    "rule:no-prototype-builtins": {
+      "input": "afe8ea0c78cfdaec13fb4de8f482d279e75fcbfe91bd694b0522e9b7e6f5b41f",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.31,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-react-component-inner-functions": {
+      "input": "e83c707ba2f88669bd0eca36ed5beaaecfb0009296270016101296396a0b6e71",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "react",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.63,
+        "category": 0.93,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-react-non-component-function-exports": {
+      "input": "8f69d85bce8821af8cb87476e835d278d8d75260c8d79a95c83fc533827bfe25",
+      "domain": "Architecture & Ownership",
+      "category": "Module & API surface",
+      "ecosystem": "react",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.49,
+        "category": 0.99,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-react-state-hooks": {
+      "input": "5196449d6678efe4c897898309de0f5952302a73e8864fcd8413fa4810a34c61",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-record-string-unknown": {
+      "input": "ffee8e425e4e623ba62af4644cb5082e7f9d5635f5b03fedf2f43e5a779a5337",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.48,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-redeclare": {
+      "input": "6874f915e132e1c0115d1740552f1d7e53adc55bc6147f7bbe0f241102e14700",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.78,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-reduce-accumulator-copy": {
+      "input": "c6c3cd91d4114e828a0366485b9b1db54393634e0bc2c35ca4922917d7626062",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.57,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-reexport-only-modules": {
+      "input": "860bf9309cb47b1dda788e86a0871ba1e92f37753b3cbf67e72cf5b20bdba0ba",
+      "domain": "Architecture & Ownership",
+      "category": "Module & API surface",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.5,
+      "confidence": {
+        "domain": 0.62,
+        "category": 0.99,
+        "ecosystem": 0.5
+      }
+    },
+    "rule:no-reflect-apply": {
+      "input": "9d3f329fe0ad54c11413d5907cc52859bfa28045bd77a6e475ab6ece667f6804",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0.82,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-reflect-get": {
+      "input": "96446939726d7f418ba8d3f5e40186d8b99ad7d369fa2b9a884fe0433c87ecd9",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.99,
+        "category": 1,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-regex-spaces": {
+      "input": "30c1cf2f3c0d5ff97afcd4a3b8d16f7a8cd70304a9fe7f5870c7c979890f05f0",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-render-return-value": {
+      "input": "40341d1d472ca1580a77a5287f82e1057c5674cf1551e53d0fcb4cc8f99b96e3",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.49,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-require-imports": {
+      "input": "165548a1e31e2efd7a09a165342190f74c9843da313a397a9916fc4821920319",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.29,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-result-unwrap": {
+      "input": "81dc8bd9c11f8ae53aea17e07bf8d8e6c8c4f9d8f58ef68c1b4b8325fe64b3c4",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.19,
+      "confidence": {
+        "domain": 0.54,
+        "category": 0.54,
+        "ecosystem": 0.68
+      }
+    },
+    "rule:no-return-local-alias-function": {
+      "input": "7ae88303f9574552ac00f4401dadd072532afe44908cd23a4f810e8074d7ad5a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0.93,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-runtime-typeof": {
+      "input": "241de7cf399697c866fcf219417632d6d799e5322dee172292fcaf3492dd1271",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 1,
+        "category": 0.91,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-self-assign": {
+      "input": "63eae396998063f8f08b30b39e9d553cab4a48ae52466aee1615d534ef32c0b6",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.82,
+        "ecosystem": 0.85
+      }
+    },
+    "rule:no-self-compare": {
+      "input": "bcc356047b2499cbdf67e2748b1d9eabb7fb7fbde20df3f474125beaa11c75bf",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0.89,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:no-service-constructor-imports": {
+      "input": "1c6dde45de30aed9a5036bbefd79baa8cab4633771bd5ffd01c7541fbff50bb6",
+      "domain": "Architecture & Ownership",
+      "category": "Services & provisioning",
+      "ecosystem": "effect",
+      "projectSpecific": 0.17,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.88,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-service-option": {
+      "input": "12e44356d72a6c6c3a70a6060cbd870742c057f9e04b8a2f7c9a7db9e1cfb7f8",
+      "domain": "Architecture & Ownership",
+      "category": "Services & provisioning",
+      "ecosystem": "effect",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.92,
+        "category": 1,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-setter-return": {
+      "input": "a9314875b2dfccf552901e50043dce777a840e6685b27c16f4d4d940162a6bd9",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.64,
+        "category": 0.26,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:no-shadow": {
+      "input": "b1a0604045e87435391bf8be3d1e110ca502af94ef845a6e4ffe25dfc28bb6c9",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.71,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:no-shadow-restricted-names": {
+      "input": "1bc8f47e2055eaebaf5d6a882ca4d92080e6d173d59960d8da9e87dd65e8e4d5",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.88,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-shadowed-standard-array-static": {
+      "input": "e2a9911c35c4d8a7333c7a29bbc4dbe231afe4bc00964e952d63d883a0683e6e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "effect",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.67,
+        "category": 0.3,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-shape-in-symbol-names": {
+      "input": "74392e2202569ea6d63136b9fb7eea591e1089147176e42ee57ebf23db9739f5",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.9,
+        "category": 1,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-silent-error-swallow": {
+      "input": "31c431cbb03e435e62ae1a1ab5dec56947ad702a97cf326eca372ff5d165505a",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "effect",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 1,
+        "category": 0.89,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-single-use-private-functions": {
+      "input": "a4e72e71486d1d48ee7bb3c081a276feb2951bf9903987c783b368812ae8a973",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 1,
+        "category": 0.4,
+        "ecosystem": 0.44
+      }
+    },
+    "rule:no-single-use-xstate-actions": {
+      "input": "ce41966c156debd947c68852d36d7c98d062b1a3a89218b6d2f84a6fc9afcdc6",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.68,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-single-use-xstate-guards": {
+      "input": "8f69d1884b93dfbd4b4d6a9bf9ff5653cf906984cf90e3e4f2b305388a60bdcd",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.77,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-sparse-arrays": {
+      "input": "7342865be8d077ce8189472fdb3f5920c738717af197b304916bbe6225071fe1",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.72,
+        "category": 0,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:no-sql-type-parameter": {
+      "input": "600304efc1aebd69657e828d69692094c5bd9a4f2de7ac52e1e653211a4d6a91",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.14,
+        "ecosystem": 0.49
+      }
+    },
+    "rule:no-static-effect-service-forwarders": {
+      "input": "1f9597b1c597d560e26c4832092884d3d7f402c208443f1590442bd1b15a5e51",
+      "domain": "Architecture & Ownership",
+      "category": "Services & provisioning",
+      "ecosystem": "effect",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.59,
+        "category": 0.89,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-string-refs": {
+      "input": "aabda0af7bad95957684584d1e7fa736f5fc7b397a5ec2496de9c54413057836",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.35,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-svg-files": {
+      "input": "ab87ffadf96fed355e785e047e9fbbe1999383553ea893559491b1d64dee02a9",
+      "domain": "UI & Presentation",
+      "category": "File conventions",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.79,
+        "category": 0.68,
+        "ecosystem": 0.75
+      }
+    },
+    "rule:no-switch": {
+      "input": "d28dd8b9cbb7eea7010e6566fbc343060da3b6b93f1aa5c8ffc5db8f976d5580",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "effect",
+      "projectSpecific": 0.27,
+      "confidence": {
+        "domain": 0.96,
+        "category": 1,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-this-before-super": {
+      "input": "76f269c207d8ad4a778503288437198e3b77d87323cd074f244a04e2629bd98d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Mutation & sequencing",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0.61,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-throw": {
+      "input": "7a33bf320c4ab92732bec14b2c6c5a8d3cb6e126109af79d9a3c52ffea56085a",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "other",
+      "projectSpecific": 0.18,
+      "confidence": {
+        "domain": 0.81,
+        "category": 0.96,
+        "ecosystem": 0.48
+      }
+    },
+    "rule:no-throw-literal": {
+      "input": "e2d60f38cf4a39e501dc65256c41a03b7ec3702d840ae487f139c7dd040f0ba0",
+      "domain": "Failures, Effects & I/O",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.31,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-throw-local-alias-function": {
+      "input": "6ccb50d13fd2be082781371cf73377557b36d003fe5ef097f4bbb9d37a800f4a",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Indirection & locality",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.95,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-try-catch": {
+      "input": "c06a4463db54da9bff4081b3cf4db9f960dda618a0e35bcf12fbc6080f21be19",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.44,
+      "confidence": {
+        "domain": 0.59,
+        "category": 0,
+        "ecosystem": 0.53
+      }
+    },
+    "rule:no-type-assertion": {
+      "input": "a297c2161d8a5e983c016ff3b3c88678bae1724baca7a827ede586512ff51699",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 1,
+        "category": 0.98,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:no-type-erasure": {
+      "input": "49b1b065270ba98bb4307f21ce2cdb2084a80cbe93a6912ea8afe297d952e15b",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 1,
+        "category": 0.83,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:no-typeof": {
+      "input": "955b9346cc43257fa83daa4c03494a23665159508e146365393e88b1fbee1199",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.73,
+        "ecosystem": 0.67
+      }
+    },
+    "rule:no-typeof-object": {
+      "input": "40100e128595588165f60a7a7c8a94c0d24ab6a0561ca86e9c627961cf93189b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0.64,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-typeof-undefined": {
+      "input": "bc2ea3d7c8a8b0da0fdd5628ac05b5c433919990de6ef0ba5e4ea5e94494774d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.48,
+        "category": 0.22,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-undef": {
+      "input": "e4f05ed844cee8a55b23c6df3494c109ba58cc1c43a215f843e25fe4a7742d07",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0.37,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-underscore-dangle": {
+      "input": "557f2dfde2392c6e0dde04f35c9864266987b01ce466eeca700d1293283fb172",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.92,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-unescaped-entities": {
+      "input": "a4ff54c8a801127bf1d1ab2679658576a1f088f8d3ab94940af400a287db55b7",
+      "domain": "UI & Presentation",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-unexpected-multiline": {
+      "input": "2f7f2b2b161b5ff54878839071b6a7919bd6e48702fcb1627896725bdc6e7612",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0,
+        "ecosystem": 0.87
+      }
+    },
+    "rule:no-unknown-parameters": {
+      "input": "0e86dd6c7aa8698afc7d0a43fe887a4f3934f72b2d203994b3496667d2500e61",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 1,
+        "category": 0.89,
+        "ecosystem": 0.81
+      }
+    },
+    "rule:no-unknown-property": {
+      "input": "c310686045f6f22e6c2fade4dd37be6d55aad77b31333b946601c7fa5a0bbd92",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.79,
+        "category": 0.49,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-unknown-returns": {
+      "input": "3f848a9a9679a568fcd52e844ae498d0616c8f53e4d7825e2f0a18ee64a6a29e",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 1,
+        "category": 0.27,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-unknown-type-aliases": {
+      "input": "cc4911a5c4cd2365d795ac6eee4da5b1040b1c3eb3caaf83a3e78c3d42530cb7",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.73,
+        "ecosystem": 0.72
+      }
+    },
+    "rule:no-unnecessary-parameter-property-assignment": {
+      "input": "913130b125d29826cda409815d4f800a056447b164554c0bd4d0d0920c388325",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.71,
+        "category": 0.42,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-unnecessary-slice-end": {
+      "input": "7d3603754b137bc90e2eed3e1db3bc8b837a6129c46c3538b86e22333e683689",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.58,
+        "category": 0.82,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:no-unnecessary-type-constraint": {
+      "input": "8c4de9ec479378865c81d2a578b4017ba0a4404a7c9bb9b64253b35ebf04f15e",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-unreachable": {
+      "input": "eb46f62efac123ec1a0a8a74a5c608e1642daafde0ecc8783ede4f4b5dc31c5a",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.71,
+        "category": 0.56,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:no-unsafe-declaration-merging": {
+      "input": "5ba0f7678294b2c74e15cb9046b32448a0bb909ea17be5301a45307cfe59ac76",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:no-unsafe-dictionary-type": {
+      "input": "022bba3d690a5c6904d7da37054b7665ad2e01fe84cd8158937b06e10452c706",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.12,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-unsafe-finally": {
+      "input": "64920677e13c93c6e7c2cb7bbbc745ac1c449b70e5e6d279cdb0f692780fcf8c",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:no-unsafe-function-type": {
+      "input": "2221d921f1df7ff5e10ebe850c11e20860c3d24d31e549d14fd973f605212381",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.3,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-unsafe-negation": {
+      "input": "32e58d85a59e41fdc04cbe72da01928e39a7ca11ac7c5d230630d62e5aa0896f",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-unsafe-optional-chaining": {
+      "input": "30427b4ec015688a496a8a0226db980d46542afe0cb1bf513ae1d917ae01706d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.78,
+        "category": 0.85,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:no-unused-expressions": {
+      "input": "56e6da73788917bede57e0ad7a23ce6630b44b89f740c39c861f6b1b206ad7ad",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0.84,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-unused-labels": {
+      "input": "f7e36f3c1569c7ef431e85cb2d5059d27f929c8cdeecd9f0d4335a8d88861114",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.9,
+        "category": 0.97,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:no-unused-private-class-members": {
+      "input": "b6d1a40df672c8dd9daffb4d80e6e83e5164d368a86fa42c0688216afb173538",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 1,
+        "category": 0.95,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:no-unused-vars": {
+      "input": "da6b3f0955683beb65fffae67c6e1d448226d2981d312b71effaa65039e72c58",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 1,
+        "category": 0.98,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:no-useless-backreference": {
+      "input": "4b95a82134b67d8e7d09895b8aca4713c9f81aa0ba96711c2142baf3942ed5ce",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.84,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:no-useless-catch": {
+      "input": "173835d2757ac66c2b1ee54d80a39862f3f08b5b406ce73b4cd2d70fb6ab0aa4",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0.92,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:no-useless-escape": {
+      "input": "5ea627196fa4e312a7fe8a7f61b046bd7749c9dc284b52185a41ca8a87fd6823",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:no-useless-promise-resolve-reject": {
+      "input": "70322a99bebb4175ba711889c10bfcc9a0df529916b64078eb6d7db946297d79",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.79,
+        "category": 0.98,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-useless-rename": {
+      "input": "b33f080edb1f57fe041a4438029de8b5e4f55ca8ad4bc2dbdd209cd6c20444fe",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.93,
+        "ecosystem": 0.88
+      }
+    },
+    "rule:no-useless-spread": {
+      "input": "b6425be166858d72b38fbf35ae51d830559f3d2b98fd30fafa560b04d32126de",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.64,
+        "category": 0.88,
+        "ecosystem": 0.88
+      }
+    },
+    "rule:no-var": {
+      "input": "50b5bb7838463a966845501594d7d3c64e647422a7d0bee4468e26e9b973c38e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 0.88
+      }
+    },
+    "rule:no-warning-comments": {
+      "input": "ec64a8e5cc24b96aa1474eada89bd33c0886f117d5ad4531c5bdfc77b4e67a14",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.88,
+        "ecosystem": 0.74
+      }
+    },
+    "rule:no-widen-then-assert": {
+      "input": "a27300073a3d44a78f43878d323d02202da2348ad8f92c3ff747cd832f419c21",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0.86,
+        "ecosystem": 0.74
+      }
+    },
+    "rule:no-with": {
+      "input": "bee9630b5676a418aabcc2c615c60c02abfc81f520412585d80824a9a74efe70",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.37,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:no-wrapper-object-types": {
+      "input": "9e9108370173c4e0d54aa4ec79de26890b2c99f86e5546fb58b858bbecd683fa",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.7,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:no-xstate-derived-boolean-context": {
+      "input": "7f1f431c8cf5828177d55365840cd4fa4050352e83308e02846f04cb776da1ca",
+      "domain": "State & Reactivity",
+      "category": "Machine construction",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.14,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0.47,
+        "ecosystem": 1
+      }
+    },
+    "rule:no-zod-type-erasure": {
+      "input": "f7b529cc872274817357b7a1a066ec43b7ad7661f35aa4d35cb0b66132a66a27",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 1,
+        "category": 0.77,
+        "ecosystem": 1
+      }
+    },
+    "rule:number-arg-out-of-range": {
+      "input": "1fd1525e53cc4085f8e2fc03fe315518147aedd99bf16de55f7f90de2eb753a9",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:number-int-method": {
+      "input": "7ac14bf0b4a880b5f29b35c206fba2c66749be34075de46a656ec1b0f0dfadd5",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "zod",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0.93,
+        "ecosystem": 1
+      }
+    },
+    "rule:numeric-separators-style": {
+      "input": "71ee8b17a8e62b8e4f6c3ccff0764fb0cb6c63b9381b3f078a72a0148268879e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 1,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:object-shorthand": {
+      "input": "b772bed80b1ac0eda7f9ef995693a4069b2c66ff2f7de1fccb4b85fa8de96b9d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:object-strict-method": {
+      "input": "24f80cf7aed869952abdd33e0cf08170a5b9ff49cc7904f9ef41934920049670",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "zod",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0.97,
+        "ecosystem": 1
+      }
+    },
+    "rule:optional-default-redundant": {
+      "input": "e9390286c7fd2394ae01af522e2b8cb18566a9ff7941057cb9e67fe8eca068d0",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0.99,
+        "ecosystem": 1
+      }
+    },
+    "rule:pipe-max-arguments": {
+      "input": "4ae0ec075bed0231a8a0ef4c12582e781922b989b806feecb3317a439258aa6d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 1,
+        "category": 0.46,
+        "ecosystem": 0.77
+      }
+    },
+    "rule:prefer-array-flat-map": {
+      "input": "fc04755511faaf997f1a8240ef3a6fbbb87fe70603cb3304c6c71f30f54a2e58",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.63,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:prefer-array-index-of": {
+      "input": "72b4993834acf41b19d574da4aa279c3d28af8cbf5f17c61b0625b225d64fa3b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:prefer-array-some": {
+      "input": "782f068d2010176ac9e333c8d42a98f61654730cef70eb1ff10100a8ea361b3f",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0.19,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-arrow-callback": {
+      "input": "ca9e822a624c82e2b61a16de33c5581e1df1335e4e790b8aba264cd801e113b4",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:prefer-as-const": {
+      "input": "cac1dbf237b0759d6f6b670efb59072a1896846a1bed1c5f9b04244162258e4d",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.74,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:prefer-at": {
+      "input": "2e4534fbc84872188400746110b094374a2f3c15b64e34ad1cc91fc6417b29fc",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.76,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:prefer-const": {
+      "input": "e75cc489f99063c1e1fc83ae13b812a0fdd956b4381b8a566c8cb7891e1b60b9",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:prefer-dom-node-append": {
+      "input": "4c0c712919ec4c4bbe1878c3a32fe4a082db20e07b2151b164a64c039b1070fb",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.35,
+        "category": 0,
+        "ecosystem": 0.41
+      }
+    },
+    "rule:prefer-effect-array-match": {
+      "input": "519fad31139f6034ff89de865f8440a16dd29eb44ef234eaee1fe76a32aa0893",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "effect",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.6,
+        "category": 0.82,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-effect-match": {
+      "input": "75451a914c783228e7bde395aba83616912a494e7fa27356fc000f415563f73d",
+      "domain": "Program Logic & Control Flow",
+      "category": "Branching & matching",
+      "ecosystem": "effect",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.76,
+        "category": 1,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-import-meta-properties": {
+      "input": "90319be82d2f9cf92f530363274ea8d3f38dac430e7c4bf811c4c8e90dc25f8d",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.87,
+        "category": 0,
+        "ecosystem": 0.83
+      }
+    },
+    "rule:prefer-namespace-keyword": {
+      "input": "8f6c833dd54a345fb0ebc017879f7d0d2f73090614f456890b23476196640540",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.83,
+        "category": 0.5,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-native-coercion-functions": {
+      "input": "074d0b54c0105af2e8829d31f64c7ee2a2055f9d5956bbf6773847a57c00e8b7",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.73,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:prefer-node-protocol": {
+      "input": "337f63dd38ae40f48c4b39dd5e3c923b8bf7fa249f812d6afdffe37ca7859512",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "node_bun",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.36,
+        "category": 0,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:prefer-number-properties": {
+      "input": "4833880d1635bd56e99d63cec427477142c9b551da86af5588c1e665973b7ceb",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.93,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:prefer-object-has-own": {
+      "input": "78d619ea97507669de0b64d7d823147ac792d51453a531eb3d0a7f46074795e4",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.65,
+        "category": 0,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:prefer-option-from-nullable": {
+      "input": "b3ed9a3f9f74bbe397a7c9ff1a7c7832c24b77b0fa05fbff15ceb7d4a681acd4",
+      "domain": "Program Logic & Control Flow",
+      "category": "Nullability & collections",
+      "ecosystem": "other",
+      "projectSpecific": 0.2,
+      "confidence": {
+        "domain": 0.81,
+        "category": 0.43,
+        "ecosystem": 0.67
+      }
+    },
+    "rule:prefer-optional-catch-binding": {
+      "input": "17b9503ce185d7f64d2e14ab6c62a5e718f5111a0f5014bcb7139f505199d68b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.67,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:prefer-rest-params": {
+      "input": "f22e3013fb52d14720bef5f9746f825a7b30e1fb23b741634e710e67a2383ed6",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.91,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-result-await": {
+      "input": "d04114566e6f7904f38f9d10ec530cce33d21015db578b0c9277a7a67426d9fa",
+      "domain": "Program Logic & Control Flow",
+      "category": "Redundant operations",
+      "ecosystem": "other",
+      "projectSpecific": 0.44,
+      "confidence": {
+        "domain": 0.68,
+        "category": 0.21,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:prefer-set-size": {
+      "input": "469d8e4523dffc3f83429830093024521ea97538d61dd0aad1361e5b4ccbe8f4",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.5,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:prefer-single-call": {
+      "input": "610018942f2f9490d14fbd8fa31d1f5f94a9a60ad4bd0007620924b67f0f781b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:prefer-spread": {
+      "input": "6c5ee2e31863c6770980ec6cdeb818177e364c474847dbb7f4ba56daa19e196b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.77,
+        "category": 0,
+        "ecosystem": 0.97
+      }
+    },
+    "rule:prefer-string-raw": {
+      "input": "0646bde563ab58d01e7cf1ece03d6d8586acaf3f75426a2c81926e02ae61bc44",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:prefer-string-replace-all": {
+      "input": "0de6501d22c5d7ded1fc8a05e3aced3d450421a5bbbfbd60aceadad4c6d3bf4c",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.69,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:prefer-string-slice": {
+      "input": "c9f0d86c9910debdfe45fc671053562e8691c4ec40f2ac3ca4d744d685cd7cd0",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.55,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:prefer-structured-clone": {
+      "input": "445a6da5893f43abde7442bee11e8818d49c163dfa1f9260b4559e7230d3bd6b",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.51,
+        "category": 0.51,
+        "ecosystem": 0.9
+      }
+    },
+    "rule:prefer-top-level-await": {
+      "input": "c3b95d5d94e63a7ba2fb2bee78e60c44f8538887c26c05d60d93362a0d865586",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.04,
+      "confidence": {
+        "domain": 0.58,
+        "category": 0,
+        "ecosystem": 0.94
+      }
+    },
+    "rule:prefer-typed-schema-apis": {
+      "input": "820bd96ab1c69e1e73d4faed2560b4f7ef177cc543719743cb977b804adcb984",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "effect",
+      "projectSpecific": 0.17,
+      "confidence": {
+        "domain": 1,
+        "category": 0.51,
+        "ecosystem": 1
+      }
+    },
+    "rule:preserve-caught-error": {
+      "input": "00bfbe52dc5bd50ce244605a02039ddd0519c328d05e9170af27b32a8759d069",
+      "domain": "Failures, Effects & I/O",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 0.45,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:preserve-manual-memoization": {
+      "input": "a2e6f4c59265008050125befbd659b86bbba4a130cf459178ad88bd9a745b4c3",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.57,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:private-function-prefix": {
+      "input": "1f234f8b11ac4bba2316bd4fcca9975799624bc719d47409346ff6b583230f13",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Naming & visibility",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.99,
+        "category": 1,
+        "ecosystem": 0.91
+      }
+    },
+    "rule:purity": {
+      "input": "d036e2b088065a0e6a4b03dd465e728460b47bea3a35780a0faecc6ffa062cc8",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.57,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:react-in-jsx-scope": {
+      "input": "8583725d2b37ca5d8a6275057695509911863293e6f57bbd7985964961b26ad8",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Scope & dead code",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.67,
+        "category": 0.42,
+        "ecosystem": 1
+      }
+    },
+    "rule:record-string-unknown": {
+      "input": "a6a685402469a80a369d81cb6b220dca693b0ac1850cc0e8876509d38d594daf",
+      "domain": "Type & Data Contracts",
+      "category": "Boundary decoding & serialization",
+      "ecosystem": "zod",
+      "projectSpecific": 0.17,
+      "confidence": {
+        "domain": 1,
+        "category": 0.53,
+        "ecosystem": 1
+      }
+    },
+    "rule:refs": {
+      "input": "d981fb96766568248d5e6ff77c028cec5bd366efb33cb164bd2e948d27184551",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.42,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:require-approved-ui-primitives": {
+      "input": "99f473b25245b9c2bfa7015fa7c0c23242d4ce8d94449798a0d6079254a1b287",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "other",
+      "projectSpecific": 0.26,
+      "confidence": {
+        "domain": 0.98,
+        "category": 1,
+        "ecosystem": 0.78
+      }
+    },
+    "rule:require-cn-for-classname-composition": {
+      "input": "209d15bc1789c909923ec2a6b558c5fae88da1203ff0eb70ecc4784db679a3a5",
+      "domain": "UI & Presentation",
+      "category": "Styling & tokens",
+      "ecosystem": "react",
+      "projectSpecific": 0.6,
+      "confidence": {
+        "domain": 0.8,
+        "category": 0.94,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:require-context-service-in-services": {
+      "input": "73c3f6f335d890e205d252108a056818acaa81d8f1b5eaa5f1c2a8317e17fb09",
+      "domain": "Architecture & Ownership",
+      "category": "Services & provisioning",
+      "ecosystem": "other",
+      "projectSpecific": 0.67,
+      "confidence": {
+        "domain": 1,
+        "category": 0.97,
+        "ecosystem": 0.57
+      }
+    },
+    "rule:require-default-component-export": {
+      "input": "a2a37f7a8a01899d1aa68404e64bd62f80c146880f6e365ddf47a75b28542677",
+      "domain": "UI & Presentation",
+      "category": "File conventions",
+      "ecosystem": "react",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.49,
+        "category": 0.86,
+        "ecosystem": 0.84
+      }
+    },
+    "rule:require-jsdoc-comments": {
+      "input": "4cf8344a8b4a856fac576cd437984a2b12dd938aa6e35a3e87425b52398b2e04",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.18,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:require-readable-spacing": {
+      "input": "1b008ec0fbb5a81604ca8e0ffefd8541b7b3fe81e67a814a131e99edb8089f1e",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.18,
+      "confidence": {
+        "domain": 1,
+        "category": 0.57,
+        "ecosystem": 0.68
+      }
+    },
+    "rule:require-render-return": {
+      "input": "e4dc8735ce062dfc75edf1a8232aa5d15ee53457c5ff1593baaa352d5588daea",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.59,
+        "category": 0.84,
+        "ecosystem": 1
+      }
+    },
+    "rule:require-result-gen-return": {
+      "input": "b01dfdd30e70edd65b8355d1623eb79902bca23c7435f258d7359d805d22cfc2",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "other",
+      "projectSpecific": 0.34,
+      "confidence": {
+        "domain": 0.42,
+        "category": 0.69,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:require-safety-comment-for-type-assertion": {
+      "input": "54fd22afc37a46497e7870c5fb5f56d9a7e352551c4c50130b751488aaa0300f",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0.99,
+        "ecosystem": 0.76
+      }
+    },
+    "rule:require-tagged-error": {
+      "input": "a4a74d41d51143d835e3889d91082f467db00f67981febceefca357efd7564f2",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "other",
+      "projectSpecific": 0.62,
+      "confidence": {
+        "domain": 0.83,
+        "category": 0.74,
+        "ecosystem": 0.82
+      }
+    },
+    "rule:require-tsx-in-ui-folders": {
+      "input": "3c20b10d98ff3383b5be6da61f3a4dccdc4a1f493f31f907d2c9e14602ed6735",
+      "domain": "UI & Presentation",
+      "category": "File conventions",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.58,
+      "confidence": {
+        "domain": 0.74,
+        "category": 1,
+        "ecosystem": 0.52
+      }
+    },
+    "rule:require-use-effect-arguments": {
+      "input": "182f96f8016f0b9eff3a990471a8d689c0cfb22861d2b11e08edd982db3a717a",
+      "domain": "State & Reactivity",
+      "category": "Lifecycle",
+      "ecosystem": "react",
+      "projectSpecific": 0.19,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0.89,
+        "ecosystem": 0.99
+      }
+    },
+    "rule:require-xstate-event-satisfies": {
+      "input": "1a32492f329a8dab87db46957eebb2845b0012e1573574d0a33ad102b6ec49e6",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "xstate",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.78,
+        "category": 0.62,
+        "ecosystem": 1
+      }
+    },
+    "rule:require-yield": {
+      "input": "05766dcbdfce9765c37f1ab569adcf1fccd3592a2cc7e7b551cd3548dfdf981e",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.82,
+        "category": 0,
+        "ecosystem": 0.85
+      }
+    },
+    "rule:rules-of-hooks": {
+      "input": "61410ce9bc9a6882fa0c7161f932afd99de5882a91745ad6875accab06c2689f",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.9,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:schemas-file-organization": {
+      "input": "37220d2edb08e5e65a56349645e72aabd2f1da2179ba7ffac4815772d084f714",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.4,
+      "confidence": {
+        "domain": 0.39,
+        "category": 0,
+        "ecosystem": 0.33
+      }
+    },
+    "rule:set-state-in-effect": {
+      "input": "1bd2eac8ddccdf2baa85b7e7f32508b8b7b9f999171ee461b551523441b7b538",
+      "domain": "State & Reactivity",
+      "category": "Lifecycle",
+      "ecosystem": "react",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.93,
+        "ecosystem": 1
+      }
+    },
+    "rule:set-state-in-render": {
+      "input": "c1552ec9e30ec4a8bccce2dc10b453c55de62ba71a99ddb685801adbfaf3e3f5",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:shape-spread-drops-refinements": {
+      "input": "83b913e348ad140381eb2d8d3b3fd8b0054c5d3798c87b65c77ab6795543f802",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.13,
+      "confidence": {
+        "domain": 1,
+        "category": 1,
+        "ecosystem": 1
+      }
+    },
+    "rule:sort-enums": {
+      "input": "97651b951bd2fdc61d4ae31815aa9e3fc0b075a477467f6a61a88f788833e6f9",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0,
+        "ecosystem": 0.86
+      }
+    },
+    "rule:sort-heritage-clauses": {
+      "input": "7f2992b5d6ffa77bb7b5e029dbd863367c554fbf34eb26602afd6211b6321000",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.95,
+        "category": 0,
+        "ecosystem": 0.5
+      }
+    },
+    "rule:sort-interfaces": {
+      "input": "0cc2157b634005a7868273e7ceb439773f6f453183fdfd328a9bdcc33fe26b37",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:sort-jsx-props": {
+      "input": "86f7dab423adaa02dd753ec1560774d34e5b45f8a30667c776a394cadc560c8b",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Documentation & readability",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.98,
+        "category": 0.48,
+        "ecosystem": 0.93
+      }
+    },
+    "rule:sort-object-types": {
+      "input": "2455eb20901efe896475c3a7f38a8feb9e858b59883e5a43a6857a38b85289e6",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 0.96,
+        "category": 0,
+        "ecosystem": 0.92
+      }
+    },
+    "rule:sort-objects": {
+      "input": "672be39d658143a5ad4dbcd10d13050910b79d2a69be25283c1887b50d28645c",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.07,
+      "confidence": {
+        "domain": 1,
+        "category": 0,
+        "ecosystem": 0.89
+      }
+    },
+    "rule:static-components": {
+      "input": "994a8cc83dfc4271279c13ca70df1ff89770e599b3ffccb49d05547643be321c",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.7,
+        "category": 0.97,
+        "ecosystem": 1
+      }
+    },
+    "rule:text-encoding-identifier-case": {
+      "input": "749b3b282df16a856b46b5ca3992c421f2d38469f76e2154bd8ab590a87a81ea",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.42,
+        "category": 0,
+        "ecosystem": 0.63
+      }
+    },
+    "rule:throwing-zod-refine": {
+      "input": "852bae5c4b357d7713731699394b8c8a80baff779bc0bea490d19a7d3e4d3e65",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "zod",
+      "projectSpecific": 0.15,
+      "confidence": {
+        "domain": 0.57,
+        "category": 0.79,
+        "ecosystem": 1
+      }
+    },
+    "rule:tool-input-integer-as-number": {
+      "input": "5b9255a5a90a98528995549c0a0a06b3723bff645c02bc92f3e398a969599f9b",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.11,
+      "confidence": {
+        "domain": 1,
+        "category": 0.99,
+        "ecosystem": 1
+      }
+    },
+    "rule:tool-input-not-strict": {
+      "input": "1cd0848d421e6fae021eafb2bbb1ed2f1f1fd919e7089bd1a10b78ba7755064b",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 1,
+        "category": 0.86,
+        "ecosystem": 1
+      }
+    },
+    "rule:trim-after-string-constraint": {
+      "input": "83349a85b1817c2f4af5135eaa7a73256d2f07a11941a49a26698084ec1eaff5",
+      "domain": "Type & Data Contracts",
+      "category": "Schema semantics",
+      "ecosystem": "zod",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.88,
+        "category": 0.96,
+        "ecosystem": 1
+      }
+    },
+    "rule:triple-slash-reference": {
+      "input": "b92fcf9b6ff60af423a34e8b08eeeaa1e9d11ca0deec5ccf2ad270807fcc953c",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.38,
+        "category": 0,
+        "ecosystem": 0.98
+      }
+    },
+    "rule:types-file-organization": {
+      "input": "4bc1f9bbf9f49cc42fc187cab7285ad4058fde72a555417efe9829b20ead1d25",
+      "domain": "Maintainability & Code Clarity",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.38,
+      "confidence": {
+        "domain": 0.61,
+        "category": 0,
+        "ecosystem": 0.76
+      }
+    },
+    "rule:uninvoked-array-callback": {
+      "input": "557cac18d308351faa809c1afea873b9f71b9576df94e830d21a4255617dce8b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.89,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:union-of-literals-to-literal-array": {
+      "input": "7ceadf6c8cf7a49af4457b4170e63c0af4ac551485ffc5fa58604e9f57f67cb7",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "zod",
+      "projectSpecific": 0.1,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.63,
+        "ecosystem": 1
+      }
+    },
+    "rule:unsupported-syntax": {
+      "input": "58e2dccf2a70bf258a65daa4840a5c7074b6099ef7556a7eb2b5a234f5f098b2",
+      "domain": "Engineering Process & Agent Operations",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.08,
+      "confidence": {
+        "domain": 0.32,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:use-isnan": {
+      "input": "87e72220a6dc7025afe1231277cb6a5da5f9a17336edb1292f392acd30d6ac1b",
+      "domain": "Program Logic & Control Flow",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.72,
+        "category": 0,
+        "ecosystem": 0.96
+      }
+    },
+    "rule:use-memo": {
+      "input": "87832a8e68a6b28176ebebfd92219314cdd5d3b8c9aa7c3f3d3f2de0ce6d82ed",
+      "domain": "State & Reactivity",
+      "category": "Unsorted",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.64,
+        "category": 0,
+        "ecosystem": 1
+      }
+    },
+    "rule:valid-typeof": {
+      "input": "791e409f811f0e737503e988244ab01c57942aadc0820bd8db1eba457b09b8f0",
+      "domain": "Type & Data Contracts",
+      "category": "Unsorted",
+      "ecosystem": "any_typescript",
+      "projectSpecific": 0.06,
+      "confidence": {
+        "domain": 0.69,
+        "category": 0,
+        "ecosystem": 0.95
+      }
+    },
+    "rule:void-dom-elements-no-children": {
+      "input": "582a66600004ed5205a0610e2ea0f4c18ab999e034dd7a00d2e10223fd926b96",
+      "domain": "UI & Presentation",
+      "category": "Components & primitives",
+      "ecosystem": "react",
+      "projectSpecific": 0.05,
+      "confidence": {
+        "domain": 0.86,
+        "category": 0.61,
+        "ecosystem": 1
+      }
+    },
+    "rule:wrap-throwing-api": {
+      "input": "e01ecea166d39d2d93361fa43666b3cc476a1271d57cee749f46a7c76f546b40",
+      "domain": "Failures, Effects & I/O",
+      "category": "Failure channels",
+      "ecosystem": "other",
+      "projectSpecific": 0.42,
+      "confidence": {
+        "domain": 0.92,
+        "category": 0.89,
+        "ecosystem": 0.3
+      }
+    },
+    "rule:zinfer-instead-of-zoutput": {
+      "input": "ee8ae2e8acf61d2efcde9a4cae706c3e6acdb7400df866b76fbfe3867566c717",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "zod",
+      "projectSpecific": 0.12,
+      "confidence": {
+        "domain": 0.94,
+        "category": 0.95,
+        "ecosystem": 1
+      }
+    },
+    "rule:zod3-string-format-method": {
+      "input": "68f79e52b975149410eb1bf9245e6806f8aa8953783027cf0fd81a5bb4506c16",
+      "domain": "Type & Data Contracts",
+      "category": "Schema API direction & evolution",
+      "ecosystem": "zod",
+      "projectSpecific": 0.09,
+      "confidence": {
+        "domain": 0.95,
+        "category": 1,
+        "ecosystem": 1
+      }
+    },
+    "rule:zodtype-annotation-instead-of-satisfies": {
+      "input": "fd9f05f3d6e7d205f1c491faace507f292e89161295464f376337c17e3c776e8",
+      "domain": "Type & Data Contracts",
+      "category": "Type evidence & escape hatches",
+      "ecosystem": "zod",
+      "projectSpecific": 0.12,
+      "confidence": {
+        "domain": 0.99,
+        "category": 0.55,
+        "ecosystem": 1
+      }
+    },
+    "rule:zodtype-t-generic-helper": {
+      "input": "683069df6bf317b91f404fba6b878045f349abd80262c5349c98c2510e5cf039",
+      "domain": "Type & Data Contracts",
+      "category": "API signatures & inference",
+      "ecosystem": "zod",
+      "projectSpecific": 0.12,
+      "confidence": {
+        "domain": 1,
+        "category": 0.59,
+        "ecosystem": 1
+      }
+    }
+  }
+}

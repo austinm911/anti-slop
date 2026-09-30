@@ -1,0 +1,6 @@
+{
+  "description": "Hint-level conventions. Keep out of blocking checks.",
+  "rules": {
+    "rule:no-mixed-jsdoc-line-prefix": "warn"
+  }
+}

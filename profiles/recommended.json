@@ -1,0 +1,9 @@
+{
+  "description": "Correctness rules for any TypeScript codebase.",
+  "rules": {
+    "rule:no-file-local-generic-record-guard": "error",
+    "rule:no-record-string-unknown": "warn",
+    "rule:no-return-local-alias-function": "error",
+    "rule:no-throw-local-alias-function": "error"
+  }
+}

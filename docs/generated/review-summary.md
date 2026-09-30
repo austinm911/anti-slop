@@ -2,17 +2,27 @@
 
 # Rule review summary
 
-- Total: 162
-- Unreviewed: 161
+- Rules: 356
+- Shipped: 5
+- Unreviewed: 351
 - Kept: 0
-- Decided: 1
+- Deferred: 0
+- Rejected: 0
+
+## Profiles
+
+- `effect`: 4 rules, 0 gaps. Recommended rules plus Effect-specific checks.
+- `preferences`: 1 rules, 0 gaps. Hint-level conventions. Keep out of blocking checks.
+- `recommended`: 4 rules, 0 gaps. Correctness rules for any TypeScript codebase.
 
 ## Kept for evaluation
 
 _None._
 
-## Decided
+## Deferred
 
-| Rule              | Semantic home                         | Decision | Rationale                                                          |
-| ----------------- | ------------------------------------- | -------- | ------------------------------------------------------------------ |
-| `as_mjf19n4n3v0z` | UI & Presentation / Layout & behavior | reject   | Project-specific SwiftUI guidance, not a portable structural rule. |
+_None._
+
+## Rejected
+
+_None._

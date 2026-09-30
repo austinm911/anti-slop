@@ -1,20 +1,16 @@
-import type { RuleCandidate } from "../discovery/types.ts";
+import type { ArtifactKind, RuleCandidate } from "../discovery/types.ts";
+import type { ECOSYSTEMS } from "./taxonomy.ts";
 
-export const REVIEW_ACTIONS = [
-  "keep",
-  "reject",
-  "defer",
-  "adopt",
-  "adapt",
-  "native",
-  "merge",
-  "reopen",
-] as const;
-
+export const REVIEW_ACTIONS = ["keep", "reject", "defer", "reopen"] as const;
 export type ReviewAction = (typeof REVIEW_ACTIONS)[number];
 
-export const REVIEW_STATUSES = ["unreviewed", "kept", "decided"] as const;
+export const REVIEW_STATUSES = ["unreviewed", "kept", "deferred", "rejected", "shipped"] as const;
 export type ReviewStatus = (typeof REVIEW_STATUSES)[number];
+
+export const SEVERITIES = ["error", "warn"] as const;
+export type Severity = (typeof SEVERITIES)[number];
+
+export type Ecosystem = keyof typeof ECOSYSTEMS;
 
 export type TaxonomyPath = {
   domain: string;
@@ -23,44 +19,97 @@ export type TaxonomyPath = {
 
 export type ReviewEvent = {
   eventId: string;
-  candidateId: string;
-  candidateRevision: string;
+  ruleKey: string;
+  revision: string;
   action: ReviewAction;
   rationale: string;
   createdAt: string;
-  mergeTargetId?: string;
 };
 
-export type CandidateReview = {
+/** How a rule reaches a consumer's lint configuration once a profile includes it. */
+export type Delivery =
+  | {
+      kind: "first-party";
+      tier: "correctness" | "preference";
+      astGrepRules: string[];
+      oxlintRules: { [ruleId: string]: unknown };
+    }
+  | { kind: "native"; ruleId: string; plugin: string; docsUrl: string }
+  | { kind: "vendor-oxlint"; candidateId: string }
+  | { kind: "vendor-ast-grep"; candidateId: string }
+  | { kind: "unsupported"; reason: string }
+  | { kind: "guidance" };
+
+export type Classification = {
+  input: string;
+  domain: string;
+  category: string;
+  ecosystem: Ecosystem;
+  projectSpecific: number;
+  confidence: { domain: number; category: number; ecosystem: number };
+};
+
+export type ClassificationCache = {
+  model: string;
+  rules: { [ruleKey: string]: Classification };
+};
+
+/** A sighting is one candidate from one source. The first-party origin marks this repository's own rules. */
+export type Sighting = RuleCandidate & { origin: "first-party" | "upstream" };
+
+export type RuleReview = {
   status: ReviewStatus;
-  action?: ReviewAction;
   rationale?: string;
   updatedAt?: string;
-  mergeTargetId?: string;
+  /** The rule changed upstream after the decision was recorded. */
+  stale: boolean;
 };
 
-export type ReviewCandidate = RuleCandidate & {
+export type ReviewRule = {
+  key: string;
+  name: string;
+  description: string;
+  kinds: ArtifactKind[];
+  sources: string[];
+  sightings: Sighting[];
+  revision: string;
+  delivery: Delivery;
   taxonomy: TaxonomyPath;
-  review: CandidateReview;
-  evidence: {
-    testCoverage: "none" | "linked" | "dedicated";
-    failedConditionCount: number;
-  };
+  ecosystem: Ecosystem | "unsorted";
+  projectSpecific?: number;
+  classified: boolean;
+  testCoverage: "none" | "linked" | "dedicated";
+  review: RuleReview;
+  profiles: string[];
+};
+
+export type ProfileFile = {
+  description: string;
+  extends?: string[];
+  rules: { [ruleKey: string]: Severity };
+};
+
+export type ProfileGap = { ruleKey: string; reason: string };
+
+export type CompiledProfile = {
+  name: string;
+  description: string;
+  extends: string[];
+  /** Rules this profile lists directly, excluding inherited ones. */
+  own: { [ruleKey: string]: Severity };
+  /** Every rule after resolving `extends`. */
+  resolved: { [ruleKey: string]: Severity };
+  oxlintConfig: string;
+  astGrepRules: string[];
+  install: { commands: string; scripts: string };
+  gaps: ProfileGap[];
 };
 
 export type ReviewState = {
   generatedAt: string;
   catalogGeneratedAt: string;
-  candidates: ReviewCandidate[];
-  domains: Array<{
-    domain: string;
-    count: number;
-    categories: Array<{ category: string; count: number }>;
-  }>;
-  counts: {
-    total: number;
-    unreviewed: number;
-    kept: number;
-    decided: number;
-  };
+  classificationModel?: string;
+  rules: ReviewRule[];
+  profiles: CompiledProfile[];
+  counts: { [status in ReviewStatus]: number } & { total: number };
 };

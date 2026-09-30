@@ -1,0 +1,5 @@
+{
+  "description": "Recommended rules plus Effect-specific checks.",
+  "extends": ["recommended"],
+  "rules": {}
+}

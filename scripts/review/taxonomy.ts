@@ -1,6 +1,3 @@
-import type { RuleCandidate } from "../discovery/types.ts";
-import type { TaxonomyPath } from "./types.ts";
-
 export const TAXONOMY = [
   {
     domain: "Type & Data Contracts",
@@ -77,72 +74,23 @@ export const TAXONOMY = [
   },
 ] as const;
 
-type TaxonomyRule = {
-  path: TaxonomyPath;
-  matches: RegExp;
-};
+export const UNSORTED = { domain: "Unsorted", category: "Unsorted" } as const;
 
-const RULES: TaxonomyRule[] = [
-  {
-    path: path(0, 0),
-    matches: /assert|widen|erasure|unsafe-dictionary|banned-type|record-string-unknown/,
-  },
-  { path: path(0, 1), matches: /parameter|return-type|infer|generic-helper|multiple-function/ },
-  {
-    path: path(0, 2),
-    matches: /json|typeof|validation|decode|encode|parse-argument|direct-fetch|browser-storage/,
-  },
-  {
-    path: path(0, 3),
-    matches: /schema|refinement|strict|optional-default|tool-input|constraint|issue-without-path/,
-  },
-  { path: path(0, 4), matches: /zod|literal-array|number-int|object-strict|typed-schema-api/ },
-  { path: path(1, 0), matches: /switch|match|early-return|avoid-else/ },
-  { path: path(1, 1), matches: /null|nullable|option|array-match|array-method/ },
-  { path: path(1, 2), matches: /no-let|sequenc|pipe-max/ },
-  { path: path(1, 3), matches: /empty|asvoid|require-yield|conditional.*spread/ },
-  { path: path(2, 0), matches: /throw|try-catch|silent-error|failure|error-swallow/ },
-  { path: path(2, 1), matches: /nondetermin|random|ambient-time|capabilit/ },
-  { path: path(2, 2), matches: /fetch|storage|filesystem|bun-file|effect-platform/ },
-  { path: path(2, 3), matches: /console|logg|observab/ },
-  { path: path(3, 0), matches: /backend-import|repository-import|dependency-boundar/ },
-  { path: path(3, 1), matches: /service|layer-provide|context-service/ },
-  { path: path(3, 2), matches: /reexport|exporting|module|api-surface|single-use-private/ },
-  { path: path(3, 3), matches: /tsx-in-ui|svg-file|asset-ownership|platform-module/ },
-  { path: path(4, 0), matches: /create-machine/ },
-  { path: path(4, 1), matches: /derived-boolean|state-normal/ },
-  { path: path(4, 2), matches: /xstate.*event|selector|single-use-xstate/ },
-  { path: path(4, 3), matches: /react-state-hook|multiple-xstate|exhaustive-deps|lifecycle/ },
-  { path: path(5, 0), matches: /fixed-height|modal|menubarextra|layout/ },
-  { path: path(5, 1), matches: /tailwind|css-module|jsx-style|classname|design-token/ },
-  { path: path(5, 2), matches: /ui-primitive|img-element|component-export/ },
-  { path: path(5, 3), matches: /route-layout|default-component|react-in-jsx|ui-folder/ },
-  { path: path(6, 0), matches: /symbol-name|prefix|underscore|filename|naming/ },
-  { path: path(6, 1), matches: /shadow|unused|dead-code|scope/ },
-  { path: path(6, 2), matches: /single-use|inner-function|indirection|locality/ },
-  {
-    path: path(6, 3),
-    matches: /comment|jsdoc|destructur|dot-notation|with-expression|readability/,
-  },
-  { path: path(7, 0), matches: /secret|credential|token/ },
-  { path: path(7, 1), matches: /redact|data-minimi|privacy|copy-prompts/ },
-  { path: path(7, 2), matches: /bitwarden|sensitive-config/ },
-  { path: path(8, 0), matches: /mock|test-actual|verification/ },
-  { path: path(8, 1), matches: /\bjj\b|version-control|change-scope/ },
-  { path: path(8, 2), matches: /package-manager|devshell|nodejs|dependency|nix-package|fnm/ },
-  { path: path(8, 3), matches: /readbro|rtk|grep|sqlite|diagnostic|tool-routing/ },
-];
+/** Libraries or runtimes a rule depends on. Profiles such as `effect` select by this. */
+export const ECOSYSTEMS = {
+  any_typescript: "Applies to any JavaScript or TypeScript codebase",
+  effect: "Effect (effect-ts) programs, such as Effect.gen, Layer, Schema, or Context",
+  react: "React components, hooks, or JSX",
+  xstate: "XState state machines and actors",
+  zod: "Zod schemas",
+  node_bun: "Node.js or Bun runtime APIs",
+  nix: "Nix configuration",
+  other: "Another specific library, framework, or tool",
+} as const;
 
-const FALLBACK = path(8, 4);
-
-export function classifyCandidate(candidate: RuleCandidate): TaxonomyPath {
-  const text = `${candidate.name} ${candidate.description}`.toLowerCase();
-  return RULES.find(({ matches }) => matches.test(text))?.path ?? FALLBACK;
-}
-
-function path(domainIndex: number, categoryIndex: number): TaxonomyPath {
-  const entry = TAXONOMY[domainIndex];
-  const category = entry?.categories[categoryIndex];
-  if (!entry || !category) throw new Error("Invalid taxonomy path definition");
-  return { domain: entry.domain, category };
+export function slug(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
 }
