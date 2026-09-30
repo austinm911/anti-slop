@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import reviewApp from "../../review/index.html";
+import { checkoutRoot, loadRuleExamples } from "./examples.ts";
 import { createProfile, setProfileRule } from "./profiles.ts";
 import {
   generateReviewOutputs,
@@ -127,10 +128,7 @@ async function mutate(
 
 async function readRuleEvidence(rule: ReviewRule) {
   const files = rule.sightings.flatMap((sighting) => {
-    const base =
-      sighting.origin === "first-party"
-        ? root
-        : join(cacheDirectory, sighting.source.repository.replace("/", "--"));
+    const base = checkoutRoot(sighting, root, cacheDirectory);
     return [
       ...new Set([
         ...sighting.artifact.implementationPaths,
@@ -147,6 +145,7 @@ async function readRuleEvidence(rule: ReviewRule) {
   });
   return {
     ruleKey: rule.key,
+    examples: await loadRuleExamples(rule, root, cacheDirectory),
     files: await Promise.all(
       files.slice(0, 12).map(async ({ absolute, ...file }) => {
         try {

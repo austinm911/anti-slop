@@ -63,8 +63,16 @@ export function languageForPath(path: string): string {
   return LANGUAGE_BY_EXTENSION[path.split(".").at(-1) ?? ""] ?? "plaintext";
 }
 
-export function CodeBlock({ code, lang }: { code: string; lang: string }) {
+export function CodeBlock({
+  code,
+  lang,
+  lineNumbers = true,
+}: {
+  code: string;
+  lang: string;
+  lineNumbers?: boolean;
+}) {
   // The highlighter escapes source text, so its HTML is safe to insert.
-  const { html } = highlighter.highlight(code, { lang, lineNumbers: true });
+  const { html } = highlighter.highlight(code, { lang, lineNumbers });
   return <div className="code-pane" dangerouslySetInnerHTML={{ __html: html }} />;
 }

@@ -34,11 +34,24 @@ export type Delivery =
       astGrepRules: string[];
       oxlintRules: { [ruleId: string]: unknown };
     }
-  | { kind: "native"; ruleId: string; plugin: string; docsUrl: string }
+  /** `fix` is the `oxlint --rules` fix capability, such as `fixable_fix` or `none`. */
+  | { kind: "native"; ruleId: string; plugin: string; docsUrl: string; fix: string }
   | { kind: "vendor-oxlint"; candidateId: string }
   | { kind: "vendor-ast-grep"; candidateId: string }
   | { kind: "unsupported"; reason: string }
   | { kind: "guidance" };
+
+/** One snippet a rule reports or accepts. `fixed` is the autofix output when a test records it. */
+export type RuleExample = { code: string; fixed?: string };
+
+/** Examples recovered from one upstream docs page or test file. */
+export type ExampleSet = {
+  origin: "oxlint-docs" | "rule-tester" | "ast-grep-test" | "bun-test";
+  label: string;
+  url: string;
+  breaks: RuleExample[];
+  passes: RuleExample[];
+};
 
 export type Classification = {
   input: string;

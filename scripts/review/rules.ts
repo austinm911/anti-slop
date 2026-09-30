@@ -6,7 +6,7 @@ import type { Delivery, Sighting } from "./types.ts";
 
 export const FIRST_PARTY_REPOSITORY = "austinm911/anti-slop";
 
-export type NativeRule = { plugin: string; name: string; docsUrl: string };
+export type NativeRule = { plugin: string; name: string; docsUrl: string; fix: string };
 
 /** Oxlint config plugin names differ from the scope names `oxlint --rules` reports. */
 const CONFIG_PLUGIN_NAMES: { [scope: string]: string } = {
@@ -35,11 +35,16 @@ export async function loadNativeRules(oxlintBinary: string): Promise<Map<string,
     process.exited,
   ]);
   if (exitCode !== 0) throw new Error("Could not list native Oxlint rules");
-  const rules = JSON.parse(stdout) as Array<{ scope: string; value: string; docs_url: string }>;
+  const rules = JSON.parse(stdout) as Array<{
+    scope: string;
+    value: string;
+    docs_url: string;
+    fix: string;
+  }>;
   return new Map(
-    rules.map(({ scope, value, docs_url }) => [
+    rules.map(({ scope, value, docs_url, fix }) => [
       `${scope}/${value}`,
-      { plugin: scope, name: value, docsUrl: docs_url },
+      { plugin: scope, name: value, docsUrl: docs_url, fix },
     ]),
   );
 }
@@ -169,6 +174,7 @@ export function chooseDelivery(
         ruleId: nativeConfigId(native),
         plugin: nativeConfigPlugin(native),
         docsUrl: native.docsUrl,
+        fix: native.fix,
       };
     }
   }

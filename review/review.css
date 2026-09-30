@@ -672,6 +672,63 @@ kbd {
   font: var(--text-xs) var(--mono);
 }
 
+/* Examples: rust rule for code the rule reports, moss for code it accepts. */
+.example-set + .example-set {
+  margin-top: 16px;
+}
+.example-source {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font: 500 var(--text-xs) var(--mono);
+}
+.example-source span {
+  color: var(--muted);
+}
+.example-group {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.example-label {
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+.example-label b {
+  font: 500 var(--text-label) var(--mono);
+  color: var(--muted);
+}
+.example-group.breaks > .example-label {
+  color: var(--rust);
+}
+.example-group.passes > .example-label {
+  color: var(--moss);
+}
+.example-label.fixed {
+  margin-top: 4px;
+  color: var(--slate);
+}
+.example {
+  display: grid;
+  gap: 4px;
+}
+.example pre.th-code {
+  max-height: 240px;
+  margin: 0;
+  padding: 9px 12px;
+  border-left: 3px solid var(--moss);
+  border-radius: 4px;
+  font: var(--text-sm) / 1.55 var(--mono);
+  overflow: auto;
+}
+.example-group.breaks .example pre.th-code {
+  border-left-color: #c46a5e;
+}
+.example-group.breaks .example-label.fixed + .code-pane pre.th-code {
+  border-left-color: var(--slate);
+}
+
 /* Decision dock */
 .decision-dock {
   padding: 12px 16px 14px;

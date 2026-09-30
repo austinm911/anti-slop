@@ -231,6 +231,12 @@ on `http://localhost:4317` or `PORT`.
 
 - **Rules** filters by status and groups by domain, source, ecosystem, or
   delivery. Keep promising rules, reject weak ones, or defer blocked decisions.
+- **Examples** in the inspector show code each rule reports and accepts, with
+  the autofix output when a test records one. They come from the Oxlint docs
+  page for native rules, cached under `discovery/cache/oxlint-docs`, and from
+  upstream RuleTester suites, ast-grep tests, and fixture tests. Upstream
+  rarely pairs a broken case with its fix, so write that pair when you vendor
+  a rule.
 - **Profiles** builds the publishable rule sets in `profiles/*.json`. A profile
   can extend another. The preview shows the generated `.oxlintrc.json`, the
   ast-grep rules, the install commands, and every gap that blocks publishing. A

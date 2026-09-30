@@ -1,5 +1,11 @@
 import type { ArtifactKind } from "../scripts/discovery/types.ts";
-import type { Delivery, ReviewRule, ReviewState, ReviewStatus } from "../scripts/review/types.ts";
+import type {
+  Delivery,
+  ExampleSet,
+  ReviewRule,
+  ReviewState,
+  ReviewStatus,
+} from "../scripts/review/types.ts";
 
 export const STATUS_FILTERS: Array<{ id: ReviewStatus | "all"; label: string; key?: string }> = [
   { id: "unreviewed", label: "Inbox" },
@@ -18,6 +24,24 @@ export const DELIVERY_LABELS: { [kind in Delivery["kind"]]: string } = {
   unsupported: "Can't lint yet",
   guidance: "Agent guidance",
 };
+
+export const EXAMPLE_ORIGIN_LABELS: { [origin in ExampleSet["origin"]]: string } = {
+  "oxlint-docs": "docs",
+  "rule-tester": "RuleTester cases",
+  "ast-grep-test": "ast-grep tests",
+  "bun-test": "fixture tests, sorted by assertions",
+};
+
+/** Reads `oxlint --rules` fix capabilities such as `conditional_dangerous_fix_or_suggestion`. */
+export function fixLabel(fix: string): string {
+  if (fix === "none") return "No auto-fix";
+  if (fix === "pending") return "Auto-fix planned";
+  const [, when, safety, what] =
+    /^(conditional|fixable)_(?:(safe|dangerous)_)?(fix_or_suggestion|fix|suggestion)$/.exec(fix) ??
+    [];
+  if (!what) return fix;
+  return `${what === "suggestion" ? "Suggested fix" : "Auto-fix"}${safety === "dangerous" ? ", unsafe" : ""}${when === "conditional" ? ", some cases" : ""}`;
+}
 
 export const KIND_LABELS: { [kind in ArtifactKind]: string } = {
   "ast-grep-rule": "ast-grep",

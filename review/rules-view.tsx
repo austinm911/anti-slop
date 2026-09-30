@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type {
+  ExampleSet,
   ReviewAction,
   ReviewRule,
   ReviewState,
@@ -9,7 +10,9 @@ import { CodeBlock, languageForPath } from "./highlight.tsx";
 import {
   DELIVERY_LABELS,
   ECOSYSTEM_LABELS,
+  EXAMPLE_ORIGIN_LABELS,
   facetCounts,
+  fixLabel,
   facetValues,
   GROUPINGS,
   KIND_LABELS,
@@ -26,6 +29,9 @@ type EvidenceFile = {
   content: string;
   available: boolean;
 };
+
+/** Upstream sets show a few cases each until the reviewer asks for the rest. */
+const EXAMPLE_PREVIEW = 3;
 
 /** Posts one write and adopts the returned state. Resolves false when the server rejected it. */
 export type Mutate = (path: string, body: object) => Promise<boolean>;
@@ -331,15 +337,22 @@ function Inspector({
   toggleProfile: (profile: string) => Promise<void>;
 }) {
   const [files, setFiles] = useState<EvidenceFile[]>();
+  const [examples, setExamples] = useState<ExampleSet[]>();
   const [tab, setTab] = useState(0);
 
   useEffect(() => {
     setFiles(undefined);
+    setExamples(undefined);
     setTab(0);
     const controller = new AbortController();
     void fetch(`/api/evidence?key=${encodeURIComponent(rule.key)}`, { signal: controller.signal })
-      .then((response) => response.json() as Promise<{ files: EvidenceFile[] }>)
-      .then(({ files: loaded }) => setFiles(loaded))
+      .then(
+        (response) => response.json() as Promise<{ files: EvidenceFile[]; examples: ExampleSet[] }>,
+      )
+      .then((evidence) => {
+        setFiles(evidence.files);
+        setExamples(evidence.examples);
+      })
       .catch(() => undefined);
     return () => controller.abort();
   }, [rule.key]);
@@ -361,14 +374,19 @@ function Inspector({
             {DELIVERY_LABELS[rule.delivery.kind]}
             {rule.delivery.kind === "native" ? ` · ${rule.delivery.ruleId}` : ""}
           </span>
+          {rule.delivery.kind === "native" ? (
+            <span className="stamp">{fixLabel(rule.delivery.fix)}</span>
+          ) : null}
           <span className="stamp">{ECOSYSTEM_LABELS[rule.ecosystem]}</span>
-          <span className={rule.testCoverage === "none" ? "stamp warn" : "stamp"}>
-            {rule.testCoverage === "dedicated"
-              ? "Dedicated tests"
-              : rule.testCoverage === "linked"
-                ? "Shared test suite"
-                : "No tests"}
-          </span>
+          {rule.delivery.kind === "native" ? null : (
+            <span className={rule.testCoverage === "none" ? "stamp warn" : "stamp"}>
+              {rule.testCoverage === "dedicated"
+                ? "Dedicated tests"
+                : rule.testCoverage === "linked"
+                  ? "Shared test suite"
+                  : "No tests"}
+            </span>
+          )}
           {(rule.projectSpecific ?? 0) > 0.5 ? (
             <span className="stamp warn">Likely repo-specific</span>
           ) : null}
@@ -386,6 +404,8 @@ function Inspector({
             </a>
           </p>
         ) : null}
+
+        <ExamplesPanel examples={examples} key={rule.key} rule={rule} />
 
         <section className="panel">
           <div className="section-title">
@@ -516,5 +536,78 @@ function Inspector({
         )}
       </div>
     </aside>
+  );
+}
+
+function ExamplesPanel({
+  examples,
+  rule,
+}: {
+  examples: ExampleSet[] | undefined;
+  rule: ReviewRule;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const truncated = examples?.some(
+    ({ breaks, passes }) => breaks.length > EXAMPLE_PREVIEW || passes.length > EXAMPLE_PREVIEW,
+  );
+  const fixes = examples?.flatMap(({ breaks }) => breaks).filter(({ fixed }) => fixed).length ?? 0;
+
+  return (
+    <section className="panel">
+      <div className="section-title">
+        <h3>Examples</h3>
+        <span>{fixes > 0 ? `${fixes} with recorded fix` : "from upstream"}</span>
+      </div>
+      {examples === undefined ? (
+        <div className="code-placeholder">Loading examples…</div>
+      ) : examples.length === 0 ? (
+        <p className="note">
+          {rule.delivery.kind === "guidance"
+            ? "Guidance is prose, so upstream has no examples. Write a breaking and a passing case if you keep it."
+            : "Upstream docs and tests have no extractable examples. Write a breaking and a passing case if you keep it."}
+        </p>
+      ) : (
+        examples.map((set) => (
+          <div className="example-set" key={set.url}>
+            <div className="example-source">
+              <a href={set.url} rel="noreferrer" target="_blank">
+                {set.label}
+              </a>
+              <span>{EXAMPLE_ORIGIN_LABELS[set.origin]}</span>
+            </div>
+            {(
+              [
+                ["breaks", "Breaks", set.breaks],
+                ["passes", "Passes", set.passes],
+              ] as const
+            ).map(([tone, title, cases]) =>
+              cases.length === 0 ? null : (
+                <div className={`example-group ${tone}`} key={tone}>
+                  <div className="example-label">
+                    {title} <b>{cases.length}</b>
+                  </div>
+                  {(expanded ? cases : cases.slice(0, EXAMPLE_PREVIEW)).map((example, index) => (
+                    <div className="example" key={index}>
+                      <CodeBlock code={example.code} lang="tsx" lineNumbers={false} />
+                      {example.fixed ? (
+                        <>
+                          <div className="example-label fixed">Fixes to</div>
+                          <CodeBlock code={example.fixed} lang="tsx" lineNumbers={false} />
+                        </>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ),
+            )}
+          </div>
+        ))
+      )}
+      {truncated ? (
+        <button className="action small" onClick={() => setExpanded(!expanded)}>
+          {expanded ? "Show fewer" : "Show all cases"}
+        </button>
+      ) : null}
+    </section>
   );
 }
