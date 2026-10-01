@@ -15,6 +15,7 @@
     "scripts/discovery/**/*.ts",
     "scripts/review/**/*.ts",
     "review/**/*.tsx",
-    "review/**/*.d.ts"
+    "review/**/*.d.ts",
+    "test/**/*.ts"
   ]
 }

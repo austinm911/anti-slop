@@ -74,12 +74,10 @@ async function findings(rule: ReviewRule, examples: AuthoredExamples) {
   try {
     const groups = {
       breaks: examples.breaks,
-      fixed: examples.breaks.map(
-        ({ fixed, filename }): RuleExample => ({
-          code: fixed ?? "",
-          ...(filename ? { filename } : {}),
-        }),
-      ),
+      fixed: examples.breaks.map(({ fixed, filename }): RuleExample => ({
+        code: fixed ?? "",
+        ...(filename ? { filename } : {}),
+      })),
       passes: examples.passes,
     };
     const written = await Promise.all(

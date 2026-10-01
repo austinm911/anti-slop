@@ -1,0 +1,9 @@
+{
+  "jsPlugins": ["./plugin.mjs"],
+  "categories": { "correctness": "off" },
+  "rules": {
+    "fixture/keyed-map": "error",
+    "fixture/control-flow": "error",
+    "no-var": "error"
+  }
+}

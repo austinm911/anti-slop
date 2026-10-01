@@ -1,22 +1,26 @@
 rule: rule:incompatible-library
 breaks:
-  - why: React Hook Form's `watch` returns values that change without a new reference, so the compiler cannot memoize around it and the rule reports the call.
+  - why: React Hook Form's `watch` returns values that change without a new reference, so the compiler cannot memoize around it.
     code: |
+      import { useForm } from "react-hook-form";
+
       function ShippingForm() {
         const { register, watch } = useForm<ShippingValues>();
         const country = watch("country");
-
         return <form><input {...register("country")} />{country === "US" && <StateSelect />}</form>;
       }
     fixed: |
+      import { useForm, useWatch } from "react-hook-form";
+
       function ShippingForm() {
         const { register, control } = useForm<ShippingValues>();
         const country = useWatch({ control, name: "country" });
-
         return <form><input {...register("country")} />{country === "US" && <StateSelect />}</form>;
       }
 passes:
   - code: |
+      import { useQuery } from "@tanstack/react-query";
+
       function ProjectList({ teamId }: { teamId: string }) {
         const { data: projects = [] } = useQuery({
           queryKey: ["projects", teamId],

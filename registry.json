@@ -8,7 +8,7 @@
       "type": "registry:item",
       "title": "No return local alias function",
       "description": "Install the local-alias return rule, its tests, and the ast-grep setup.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "devDependencies": ["@ast-grep/cli@0.45.3"],
       "files": [
         {
           "path": "ast-grep/sgconfig.yml",
@@ -37,7 +37,7 @@
       "type": "registry:item",
       "title": "No throw local alias function",
       "description": "Install the local-alias throw rule, its tests, and the ast-grep setup.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "devDependencies": ["@ast-grep/cli@0.45.3"],
       "files": [
         {
           "path": "ast-grep/sgconfig.yml",
@@ -66,7 +66,7 @@
       "type": "registry:item",
       "title": "No file-local generic record guard",
       "description": "Install the file-local isRecord guard rule, its tests, and the ast-grep setup.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "devDependencies": ["@ast-grep/cli@0.45.3"],
       "files": [
         {
           "path": "ast-grep/sgconfig.yml",
@@ -95,7 +95,7 @@
       "type": "registry:item",
       "title": "No Record string unknown",
       "description": "Install the Oxlint rule for Record<string, unknown>, its test, and the ast-grep supplement for comment-formatted instances.",
-      "devDependencies": ["oxlint@1.77.0", "@ast-grep/cli@0.45.0"],
+      "devDependencies": ["oxlint@1.86.0", "@ast-grep/cli@0.45.3"],
       "files": [
         {
           "path": "oxlint/.oxlintrc.json",
@@ -134,7 +134,7 @@
       "type": "registry:item",
       "title": "No mixed JSDoc line prefix",
       "description": "Install the mixed JSDoc line-prefix preference, its tests, and the ast-grep setup.",
-      "devDependencies": ["@ast-grep/cli@0.45.0"],
+      "devDependencies": ["@ast-grep/cli@0.45.3"],
       "files": [
         {
           "path": "ast-grep/sgconfig.preferences.yml",
@@ -189,6 +189,20 @@
       "title": "Anti-slop preferences",
       "description": "Install the recommended JSDoc preference.",
       "registryDependencies": ["austinm911/anti-slop/no-mixed-jsdoc-line-prefix"]
+    },
+    {
+      "name": "tsrx-oxc",
+      "type": "registry:item",
+      "title": "Oxlint and Oxfmt for TSRX",
+      "description": "Install @tsrx/oxc so oxlint, oxfmt, and Oxlint JavaScript plugins read .tsrx, with a check that catches a shadowing oxlint or a stale install.",
+      "devDependencies": ["@tsrx/oxc@0.20.0"],
+      "files": [
+        {
+          "path": "oxlint/check-tsrx-oxc.mjs",
+          "type": "registry:file",
+          "target": "~/tools/oxlint/check-tsrx-oxc.mjs"
+        }
+      ]
     },
     {
       "name": "omp-ttsr",

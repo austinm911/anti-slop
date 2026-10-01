@@ -1,10 +1,13 @@
 # Oxlint rules
 
-`anti-slop/no-record-string-unknown` configures Oxlint's native
-`typescript/no-restricted-types` rule to report normal and whitespace-formatted
-instances. Oxlint 1.77 does not normalize comments inside a restricted type.
-`ast-grep/rules/no-commented-record-string-unknown.yml` covers that local syntax
-shape without duplicating a native diagnostic.
+`no-record-string-unknown` configures Oxlint's native
+`typescript/no-restricted-types` rule, which reports `Record<string, unknown>`
+including whitespace-formatted forms. Oxlint 1.86 does not normalize a comment
+inside the type, so `ast-grep/rules/no-commented-record-string-unknown.yml`
+covers that shape without duplicating the native diagnostic.
 
-The rule has no fixer. A safe replacement requires the domain contract and the
-parser at the value's I/O boundary.
+The rule has no fixer: a safe replacement needs the domain type and its parser
+at the I/O boundary.
+
+`check-tsrx-oxc.mjs` ships with the `tsrx-oxc` item. See
+[docs/tsrx.md](../docs/tsrx.md).

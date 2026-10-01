@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { Lang, parse, type SgNode } from "@ast-grep/napi";
-import yaml from "js-yaml";
+import { load, loadAll } from "js-yaml";
 import { bareName, FIRST_PARTY_REPOSITORY } from "./rules.ts";
 import type { ExampleSet, ReviewRule, RuleExample, Sighting } from "./types.ts";
 
@@ -22,7 +22,7 @@ export function authoredPath(root: string, ruleKey: string): string {
 }
 
 export function parseAuthoredExamples(content: string, path: string): AuthoredExamples {
-  const parsed: unknown = yaml.load(content);
+  const parsed: unknown = load(content);
   const fail = (problem: string) => new Error(`${path}: ${problem}`);
   if (typeof parsed !== "object" || parsed === null) throw fail("expected a mapping");
   const field = (name: string): unknown => Reflect.get(parsed, name);
@@ -193,9 +193,9 @@ export function extractTestExamples(
  * whose ids never name the rule is a supplement the rule linked, so all of it applies.
  */
 function astGrepCases(ruleName: string, content: string): Cases {
-  const documents = yaml
-    .loadAll(content)
-    .filter((document): document is object => typeof document === "object" && document !== null);
+  const documents = loadAll(content).filter(
+    (document): document is object => typeof document === "object" && document !== null,
+  );
   const matching = documents.filter((document) => {
     const id = Reflect.get(document, "id");
     return typeof id === "string" && id.startsWith(ruleName);

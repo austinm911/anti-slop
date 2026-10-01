@@ -12,12 +12,16 @@ preferences tier, documented in
 | `no-commented-record-string-unknown` | ast-grep | recommended | warning  | The local supplement covers comment-formatted instances that native Oxlint does not normalize.                       |
 | `no-record-string-unknown`           | Oxlint   | recommended | warning  | The exact utility type erases an object's domain contract and lets unparsed values cross the I/O boundary.           |
 
-## `no-return-local-alias-function`
+## `no-return-local-alias-function` and `no-throw-local-alias-function`
 
-Return the initializer directly when an untyped `const` and its return are the
-complete function body. The rule does not match a typed local, a mutable local,
-a nested block, a local used by another statement, or an anonymous function or
-class initializer whose inferred name is observable.
+Return or throw the initializer directly when an untyped `const` and its return
+or throw are the complete function body. Neither rule matches a typed local, a
+mutable local, a nested block, a local used by another statement, or an
+anonymous function or class initializer whose inferred name is observable.
+
+Both rules are errors because every admitted shape has a semantics-preserving
+direct replacement. The initial scan of this repository found zero throw
+matches.
 
 ## `no-file-local-generic-record-guard`
 
@@ -33,16 +37,6 @@ layout is a downstream decision. The one guard a package keeps must be named in
 the rule's `ignores` list, so each sanctioned copy stays a declared decision and
 a new package cannot claim the exemption in silence.
 
-## `no-throw-local-alias-function`
-
-Throw the initializer directly when an untyped `const` and its throw are the
-complete function body. The rule does not match a typed local, a mutable local,
-a nested block, a local used by another statement, or an anonymous function or
-class initializer whose inferred name is observable.
-
-The initial scan of this repository found zero matches. The rule is an error
-because every admitted shape has a semantics-preserving direct replacement.
-
 ## `no-record-string-unknown`
 
 Report every exact `Record<string, unknown>` type. Convert each match to a
@@ -54,7 +48,7 @@ the boundary parser. Do not replace the type with an index signature, `object`,
 or `any`; those types preserve the same erasure.
 
 Oxlint's native `typescript/no-restricted-types` rule handles normal and
-whitespace-formatted expressions. Oxlint 1.77 does not normalize comments inside
+whitespace-formatted expressions. Oxlint 1.86 does not normalize comments inside
 a restricted type. The ast-grep supplement matches the local `generic_type`
 shape only when it has the same key and value types and contains a comment. The
 native and supplemental match sets do not overlap.
@@ -88,7 +82,7 @@ with the rule body. Oxlint and the ast-grep supplement remain authoritative.
 
 ## Native Oxlint coverage checked
 
-The following candidates are not implemented because Oxlint 1.77 already owns
+The following candidates are not implemented because Oxlint 1.86 already owns
 them:
 
 - nullish empty-object fallbacks in object spreads:

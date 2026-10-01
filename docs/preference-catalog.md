@@ -60,7 +60,7 @@ Write markdown lists with `-`. A `-` item survives both forms.
 ast-grep owns this rule because the defect is a local text shape inside one
 comment node.
 
-Oxlint 1.77 does not own it. The `jsdoc` plugin reports nothing on a mixed
+Oxlint 1.86 does not own it. The `jsdoc` plugin reports nothing on a mixed
 block under `--jsdoc-plugin -D all`. `eslint-plugin-jsdoc` owns the adjacent
 `require-asterisk-prefix` rule, but that rule picks one form and this rule does
 not.

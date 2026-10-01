@@ -1,33 +1,21 @@
 rule: rule:immutability
 breaks:
-  - why: The handler pushes into the existing state array and passes the same reference back, so React sees no change and the rule reports the mutation.
+  - why: Assigning to a field of the object `useState` returned edits state in place, so React never sees the change and the screen stays stale.
     code: |
-      function TagEditor() {
-        const [tags, setTags] = useState<string[]>([]);
-        const addTag = (tag: string) => {
-          tags.push(tag);
-          setTags(tags);
-        };
-        return <TagInput onAdd={addTag} tags={tags} />;
+      import { useState } from "react";
+
+      function ThemeSettings() {
+        const [settings] = useState({ theme: "light" });
+        settings.theme = "dark";
+        return <ThemePreview theme={settings.theme} />;
       }
     fixed: |
-      function TagEditor() {
-        const [tags, setTags] = useState<string[]>([]);
-        const addTag = (tag: string) => {
-          setTags([...tags, tag]);
-        };
-        return <TagInput onAdd={addTag} tags={tags} />;
-      }
-  - why: Sorting the `users` prop in place mutates data the parent owns during render.
-    code: |
-      function UserList({ users }: { users: User[] }) {
-        users.sort((a, b) => a.name.localeCompare(b.name));
-        return <ul>{users.map((user) => <li key={user.id}>{user.name}</li>)}</ul>;
-      }
-    fixed: |
-      function UserList({ users }: { users: User[] }) {
-        const sorted = users.toSorted((a, b) => a.name.localeCompare(b.name));
-        return <ul>{sorted.map((user) => <li key={user.id}>{user.name}</li>)}</ul>;
+      import { useState } from "react";
+
+      function ThemeSettings() {
+        const [settings, setSettings] = useState({ theme: "light" });
+        const enableDark = () => setSettings({ ...settings, theme: "dark" });
+        return <ThemePreview theme={settings.theme} onDark={enableDark} />;
       }
 passes:
   - code: |

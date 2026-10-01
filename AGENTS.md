@@ -1,15 +1,21 @@
 # Agent guidance
 
-## Rule admission standard
+Admit a rule only when it meets every condition in `docs/admission-standard.md`,
+including its ownership decision between ast-grep and Oxlint. When a candidate
+falls short, record why and keep the standard as written.
 
-Follow `docs/admission-standard.md`. Do not weaken the standard to admit a
-candidate rule.
+Write a check as an Oxlint JavaScript plugin when it must cover `.tsrx`, because
+ast-grep cannot parse that dialect. `docs/tsrx.md` has the toolchain details.
 
-Use ast-grep for local syntax shapes and codemods. Use Oxlint for checks that need
-scope, control-flow, configuration, or fixer logic. Do not duplicate a native
-Oxlint rule.
+`@tsrx/oxc` lives in its own package under `test/tsrx/` because its `oxlint` and
+`oxfmt` commands would replace the repository's own.
 
-Use Bun for package, test, build, and release commands.
+Pin dependencies exactly with `bun add -E`. Bun refuses a release younger than
+the configured minimum release age. Pass `--minimum-release-age=0` to take it.
+An Oxlint upgrade can turn upstream rules native, which runs their hand-written
+`review/examples/*.yml` against the real rule for the first time. Fix the
+examples that fail.
 
-Use `apply_patch` for hand-authored file changes. Preserve unrelated worktree
-changes. Run `bun run check` before each commit.
+Use Bun for package, test, build, and release commands. Make hand-authored
+edits with `apply_patch`. Preserve unrelated worktree changes. Run
+`bun run check` before each commit.

@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import yaml from "js-yaml";
+import { loadAll } from "js-yaml";
 import type { RuleCandidate } from "../discovery/types.ts";
 import type { Delivery, Sighting } from "./types.ts";
 
@@ -93,7 +93,7 @@ export async function loadFirstPartySightings(root: string): Promise<Sighting[]>
 }
 
 async function ruleMessage(path: string): Promise<string | undefined> {
-  const [parsed] = yaml.loadAll(await readFile(path, "utf8"));
+  const [parsed] = loadAll(await readFile(path, "utf8"));
   if (typeof parsed !== "object" || parsed === null) return undefined;
   const message = Reflect.get(parsed, "message");
   return typeof message === "string" ? message : undefined;

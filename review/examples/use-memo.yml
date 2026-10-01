@@ -1,22 +1,26 @@
 rule: rule:use-memo
 breaks:
-  - why: This `useMemo` callback returns nothing and only runs a side effect, so it is not memoizing a value and belongs in an effect.
+  - why: An async `useMemo` callback memoizes a promise rather than the report, so the component renders a pending promise.
     code: |
+      import { useMemo } from "react";
+
       function ReportPage({ reportId }: { reportId: string }) {
-        useMemo(() => {
-          analytics.track("report_viewed", { reportId });
+        const report = useMemo(async () => {
+          return await loadReport(reportId);
         }, [reportId]);
-        return <ReportView reportId={reportId} />;
+        return <ReportView report={report} />;
       }
     fixed: |
+      import { use, useMemo } from "react";
+
       function ReportPage({ reportId }: { reportId: string }) {
-        useEffect(() => {
-          analytics.track("report_viewed", { reportId });
-        }, [reportId]);
-        return <ReportView reportId={reportId} />;
+        const reportPromise = useMemo(() => loadReport(reportId), [reportId]);
+        return <ReportView report={use(reportPromise)} />;
       }
 passes:
   - code: |
+      import { useMemo } from "react";
+
       function RevenueChart({ orders }: { orders: Order[] }) {
         const series = useMemo(() => groupRevenueByMonth(orders), [orders]);
 
