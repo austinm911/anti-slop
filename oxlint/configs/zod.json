@@ -1,0 +1,128 @@
+{
+  "plugins": [
+    "eslint",
+    "oxc",
+    "typescript",
+    "unicorn"
+  ],
+  "jsPlugins": [
+    "../../dist/plugins/anti-slop.js",
+    "../../dist/plugins/rayhanadev.js"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "off",
+    "pedantic": "off",
+    "perf": "off",
+    "restriction": "off",
+    "style": "off",
+    "nursery": "off"
+  },
+  "rules": {
+    "anti-slop/no-array-filter-map": "warn",
+    "anti-slop/no-chained-type-assertions": "warn",
+    "anti-slop/no-conditional-empty-object-spread": "warn",
+    "anti-slop/no-known-value-widening": "warn",
+    "anti-slop/no-object-parameters": "warn",
+    "anti-slop/no-reduce-accumulator-copy": "warn",
+    "anti-slop/no-reflect-apply": "warn",
+    "anti-slop/no-reflect-get": "warn",
+    "anti-slop/no-runtime-typeof": "warn",
+    "anti-slop/no-shape-in-symbol-names": "warn",
+    "anti-slop/no-unknown-parameters": "warn",
+    "anti-slop/no-unknown-returns": "warn",
+    "anti-slop/no-unknown-type-aliases": "warn",
+    "anti-slop/no-unsafe-dictionary-type": "warn",
+    "anti-slop/no-widen-then-assert": "warn",
+    "anti-slop/require-safety-comment-for-type-assertion": "warn",
+    "array-callback-return": "warn",
+    "eqeqeq": [
+      "warn",
+      "always",
+      {
+        "null": "ignore"
+      }
+    ],
+    "no-array-constructor": "warn",
+    "no-case-declarations": "warn",
+    "no-console": "warn",
+    "no-empty": "warn",
+    "no-extra-bind": "error",
+    "no-fallthrough": "warn",
+    "no-implied-eval": "error",
+    "no-new-wrappers": "warn",
+    "no-prototype-builtins": "warn",
+    "no-regex-spaces": "warn",
+    "no-self-compare": "warn",
+    "no-throw-literal": "warn",
+    "no-unexpected-multiline": "error",
+    "no-var": "warn",
+    "no-warning-comments": [
+      "warn",
+      {
+        "terms": [
+          "@nocommit"
+        ]
+      }
+    ],
+    "oxc/approx-constant": "error",
+    "oxc/bad-bitwise-operator": "warn",
+    "oxc/misrefactored-assign-op": "error",
+    "preserve-caught-error": "error",
+    "rayhanadev/complex-file-header": "warn",
+    "rayhanadev/cross-field-issue-without-path": "error",
+    "rayhanadev/filename-match-export": "warn",
+    "rayhanadev/json-parse-argument-of-safeparse": "error",
+    "rayhanadev/no-json-parse-stringify-codec": "error",
+    "rayhanadev/no-type-erasure": "warn",
+    "rayhanadev/no-zod-type-erasure": "error",
+    "rayhanadev/number-int-method": "error",
+    "rayhanadev/object-strict-method": "error",
+    "rayhanadev/optional-default-redundant": "error",
+    "rayhanadev/record-string-unknown": "error",
+    "rayhanadev/shape-spread-drops-refinements": "error",
+    "rayhanadev/throwing-zod-refine": "error",
+    "rayhanadev/tool-input-integer-as-number": "error",
+    "rayhanadev/tool-input-not-strict": "error",
+    "rayhanadev/trim-after-string-constraint": "error",
+    "rayhanadev/union-of-literals-to-literal-array": "error",
+    "rayhanadev/zinfer-instead-of-zoutput": "error",
+    "rayhanadev/zod3-string-format-method": "error",
+    "rayhanadev/zodtype-annotation-instead-of-satisfies": "error",
+    "rayhanadev/zodtype-t-generic-helper": "error",
+    "typescript/no-empty-object-type": "warn",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-asserted-nullish-coalescing": "warn",
+    "typescript/no-require-imports": "warn",
+    "typescript/no-restricted-types": [
+      "warn",
+      {
+        "types": {
+          "Record<string, unknown>": "Replace it with a strongly typed domain type. Parse the value as early as possible and as close as possible to the I/O boundary where it originated."
+        }
+      }
+    ],
+    "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/no-unsafe-function-type": "warn",
+    "unicorn/consistent-empty-array-spread": "warn",
+    "unicorn/consistent-function-scoping": "error",
+    "unicorn/no-abusive-eslint-disable": "warn",
+    "unicorn/no-hex-escape": "warn",
+    "unicorn/no-magic-array-flat-depth": "warn",
+    "unicorn/no-typeof-undefined": "warn",
+    "unicorn/no-unnecessary-slice-end": "warn",
+    "unicorn/no-useless-promise-resolve-reject": "warn",
+    "unicorn/prefer-array-flat-map": "warn",
+    "unicorn/prefer-array-some": "warn",
+    "unicorn/prefer-at": "warn",
+    "unicorn/prefer-dom-node-append": "warn",
+    "unicorn/prefer-import-meta-properties": "warn",
+    "unicorn/prefer-native-coercion-functions": "warn",
+    "unicorn/prefer-node-protocol": "warn",
+    "unicorn/prefer-number-properties": "warn",
+    "unicorn/prefer-single-call": "warn",
+    "unicorn/prefer-string-replace-all": "warn",
+    "unicorn/prefer-string-slice": "warn",
+    "unicorn/prefer-top-level-await": "warn"
+  }
+}

@@ -67,6 +67,8 @@ export type RuleCandidate = {
     sourceRuleName?: string;
     implementationPaths: string[];
     testPaths: string[];
+    /** For configured rules: the options the source passes after the severity. */
+    options?: unknown[];
   };
   fingerprint: string;
   analysis?: CandidateAnalysis;

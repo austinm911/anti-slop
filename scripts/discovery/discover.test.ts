@@ -94,6 +94,40 @@ describe("repository discovery", () => {
     expect(candidates.some(({ name }) => name === "not-oxlint-policy")).toBeFalse();
   });
 
+  test("records literal options from base configs and ignores overrides and computed values", async () => {
+    const root = await fixture({
+      "oxlint.config.ts": `const limit = 3;
+      export default {
+        overrides: [{ files: ['**/*.ts'], rules: { 'max-depth': ['warn', { max: 9 }] } }],
+        rules: {
+          eqeqeq: ['error', 'always', { null: 'ignore' }],
+          'max-params': ['warn', { max: limit }],
+          'no-warning-comments': ['warn', { terms: ['@nocommit'], offset: -1 }],
+          curly: 'error',
+          quotes: ['warn', 'single', { avoidEscape: 'a\\nb' }],
+        },
+      };`,
+      ".oxlintrc.json": JSON.stringify({
+        overrides: [{ files: ["*.ts"], rules: { "no-console": ["warn", { allow: ["log"] }] } }],
+        rules: { "no-console": ["error", { allow: ["warn"] }] },
+      }),
+    });
+
+    const candidates = await discoverDirectory(root, { repo: "fixture/repo", ref: "main" });
+    const options = Object.fromEntries(
+      candidates.map(({ name, artifact }) => [name, artifact.options]),
+    );
+    expect(options).toEqual({
+      curly: [],
+      eqeqeq: ["always", { null: "ignore" }],
+      "max-depth": undefined,
+      "max-params": undefined,
+      "no-console": [{ allow: ["warn"] }],
+      "no-warning-comments": [{ terms: ["@nocommit"], offset: -1 }],
+      quotes: ["single", { avoidEscape: "a\nb" }],
+    });
+  });
+
   test("merges the same policy from multiple configs without losing evidence", async () => {
     const root = await fixture({
       "oxlint.config.ts": `export default { rules: { 'no-console': 'error' } };`,

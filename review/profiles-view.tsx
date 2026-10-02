@@ -13,7 +13,7 @@ const PREVIEWS = ["oxlint", "install", "ast-grep"] as const;
 type Preview = (typeof PREVIEWS)[number];
 
 const PREVIEW_LABELS: { [preview in Preview]: string } = {
-  oxlint: ".oxlintrc.json",
+  oxlint: "Oxlint config",
   install: "Install",
   "ast-grep": "ast-grep",
 };
@@ -75,9 +75,23 @@ export function ProfilesView({
               <div className="kicker">What a consumer installs</div>
               <h2>{profile.name}</h2>
               <p className="lede">
-                Generated from <code>profiles/{profile.name}.json</code>. The registry build will
-                publish this same output.
+                Generated from <code>profiles/{profile.name}.json</code>. <code>bun run build</code>{" "}
+                writes it to <code>oxlint/configs/{profile.name}.json</code>, which the npm package
+                publishes.
               </p>
+              <ul className="source-counts">
+                {profile.sources.map(({ source, rules }) => (
+                  <li key={source}>
+                    <b>{rules}</b> {source}
+                  </li>
+                ))}
+                {profile.extends.length > 0 ? (
+                  <li>
+                    <b>{Object.keys(profile.own).length}</b> own, on top of{" "}
+                    {profile.extends.join(", ")}
+                  </li>
+                ) : null}
+              </ul>
               <div className="file-tabs">
                 {PREVIEWS.map((id) => (
                   <button
@@ -99,7 +113,7 @@ export function ProfilesView({
                 </>
               ) : profile.astGrepRules.length > 0 ? (
                 <CodeBlock
-                  code={`# tools/ast-grep/sgconfig.yml loads these rule files\n${profile.astGrepRules.map((path) => `- ${path}`).join("\n")}\n`}
+                  code={`# ${profile.astGrepConfigs.join(", ")} runs these rule files\n${profile.astGrepRules.map((path) => `- ${path}`).join("\n")}\n`}
                   lang="yaml"
                 />
               ) : (

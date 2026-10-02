@@ -16,7 +16,7 @@ bun remove oxlint oxfmt
 The item adds `@tsrx/oxc@0.20.0` and `tools/oxlint/check-tsrx-oxc.mjs`.
 
 Remove the direct `oxlint` and `oxfmt` dependencies, including the `oxlint` that
-the `oxlint`, `recommended`, and `no-record-string-unknown` items declare. A
+the `oxlint` and `no-record-string-unknown` items declare. A
 project that depends on either one keeps that command, and it skips every
 `.tsrx` file:
 

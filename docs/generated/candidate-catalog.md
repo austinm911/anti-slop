@@ -4,7 +4,7 @@
 
 Generated from pinned repository commits. A candidate is not an admitted anti-slop rule. Promotion still requires every condition in [the admission standard](../admission-standard.md).
 
-- Generated: 2026-09-30T17:08:27.891Z
+- Generated: 2026-10-02T19:08:52.009Z
 - Sources: 5
 - Candidates: 401
 - Correctness candidates: 0
@@ -17,13 +17,13 @@ Generated from pinned repository commits. A candidate is not an admitted anti-sl
 
 ## Sources
 
-| Repository                                                                                                                | Ref    | Pinned commit  | Refresh status              |
-| ------------------------------------------------------------------------------------------------------------------------- | ------ | -------------- | --------------------------- |
-| [astahmer/nixfiles](https://github.com/astahmer/nixfiles/tree/ee8d0c29d8c73b0e93f7b9d87460543505378206)                   | `main` | `ee8d0c29d8c7` | updated from `72b74d3e9c34` |
-| [rayhanadev/oxray](https://github.com/rayhanadev/oxray/tree/f393992422759448352367fb8ce556f1b1b00ae3)                     | `main` | `f39399242275` | updated from `f2a184d2bd4c` |
-| [typeonce-dev/ai-automation](https://github.com/typeonce-dev/ai-automation/tree/0bca096fe6fe9878cd15303a623dd2cd85915ddd) | `main` | `0bca096fe6fe` | unchanged                   |
-| [dmmulroy/anti-slop](https://github.com/dmmulroy/anti-slop/tree/c44ef22ca116d0ba62a3ff663a0bd13a3f3fa40b)                 | `main` | `c44ef22ca116` | updated from `c76ee37c8ec4` |
-| [nkzw-tech/oxlint-config](https://github.com/nkzw-tech/oxlint-config/tree/cb48b60893ebf3d6ec0655b295fce70fb51c376a)       | `main` | `cb48b60893eb` | new                         |
+| Repository                                                                                                                | Ref    | Pinned commit  | Refresh status |
+| ------------------------------------------------------------------------------------------------------------------------- | ------ | -------------- | -------------- |
+| [astahmer/nixfiles](https://github.com/astahmer/nixfiles/tree/ee8d0c29d8c73b0e93f7b9d87460543505378206)                   | `main` | `ee8d0c29d8c7` | unchanged      |
+| [rayhanadev/oxray](https://github.com/rayhanadev/oxray/tree/f393992422759448352367fb8ce556f1b1b00ae3)                     | `main` | `f39399242275` | unchanged      |
+| [typeonce-dev/ai-automation](https://github.com/typeonce-dev/ai-automation/tree/0bca096fe6fe9878cd15303a623dd2cd85915ddd) | `main` | `0bca096fe6fe` | unchanged      |
+| [dmmulroy/anti-slop](https://github.com/dmmulroy/anti-slop/tree/c44ef22ca116d0ba62a3ff663a0bd13a3f3fa40b)                 | `main` | `c44ef22ca116` | unchanged      |
+| [nkzw-tech/oxlint-config](https://github.com/nkzw-tech/oxlint-config/tree/cb48b60893ebf3d6ec0655b295fce70fb51c376a)       | `main` | `cb48b60893eb` | unchanged      |
 
 ## Configured Oxlint policy
 

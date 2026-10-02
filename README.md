@@ -1,7 +1,8 @@
 # anti-slop
 
 Correctness rules and conventions for code written by people and coding agents,
-distributed as a [shadcn](https://ui.shadcn.com/docs/registry) source registry.
+distributed as Oxlint profiles on npm and as a
+[shadcn](https://ui.shadcn.com/docs/registry) source registry of single rules.
 
 Each check uses the cheapest tool that can own it: a native Oxlint rule when one
 exists, ast-grep for a local syntax shape, and a custom Oxlint rule when the
@@ -28,63 +29,78 @@ Rules come in two tiers:
 the comment-formatted cases Oxlint misses. The [rule catalog](docs/rule-catalog.md)
 and [preference catalog](docs/preference-catalog.md) give each rule's rationale.
 
-## Install
+## Install a profile
 
-The shadcn CLI copies an item into your repository and installs its declared
-dev dependencies. It needs a `components.json` and a `tsconfig.json`, which
-configure the CLI only. This registry adds no UI components.
+A profile is one Oxlint config that combines native Oxlint rules, upstream
+plugin rules, and this repository's rules. Profiles ship in the npm package:
 
 ```bash
-bunx --bun shadcn@latest add austinm911/anti-slop/recommended
+bun add -D -E oxlint @austinm911/anti-slop
 ```
 
-| Item          | Installs                                                    |
-| ------------- | ----------------------------------------------------------- |
-| `recommended` | Every correctness rule (`ast-grep` plus `oxlint`)           |
-| `preferences` | Every preference rule                                       |
-| `ast-grep`    | The three ast-grep correctness rules                        |
-| `oxlint`      | The `no-record-string-unknown` Oxlint configuration         |
-| `<rule name>` | One rule from the table above                               |
-| `tsrx-oxc`    | Oxlint and Oxfmt for `.tsrx` files (see [TSRX](#tsrx))      |
-| `omp-ttsr`    | An optional OMP stream guard (see [OMP](#omp-stream-guard)) |
-
-Items land under `tools/ast-grep` and `tools/oxlint`. Add scripts that scan your
-own source roots:
+Extend a profile from `.oxlintrc.json`. Oxlint resolves `extends` from a file
+path, not a package name, so the entry names the installed folder. Rules you
+list after it override the profile:
 
 ```json
 {
-  "scripts": {
-    "lint:ast": "ast-grep scan --config tools/ast-grep/sgconfig.yml src",
-    "lint:ast:test": "ast-grep test --config tools/ast-grep/sgconfig.yml --skip-snapshot-tests",
-    "lint:oxlint": "oxlint --config tools/oxlint/.oxlintrc.json src",
-    "lint:ast:preferences": "ast-grep scan --config tools/ast-grep/sgconfig.preferences.yml src"
+  "extends": ["./node_modules/@austinm911/anti-slop/oxlint/configs/recommended.json"],
+  "rules": {
+    "rayhanadev/require-jsdoc-comments": "off"
   }
 }
 ```
 
-Run `lint:ast` and `lint:oxlint` in your blocking check. Run
-`lint:ast:preferences` separately if preferences are advisory in your
-repository.
+| Profile       | Contains                                                                                                                         |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `recommended` | Oxlint correctness, nkzw's stricter native picks, this repository's rules, and portable TypeScript rules from dmmulroy and oxray |
+| `effect`      | `recommended` plus dmmulroy's Effect rules                                                                                       |
+| `react`       | `recommended` plus nkzw's React, accessibility, and React Compiler picks                                                         |
+| `result`      | `recommended` plus oxray's better-result rules                                                                                   |
+| `zod`         | `recommended` plus oxray's Zod 4 rules                                                                                           |
+| `preferences` | Hint-level conventions to keep out of blocking checks                                                                            |
 
-Bun can defer the `@ast-grep/cli` platform binary. Trust it once:
+A profile keeps the options its upstream source sets. For example,
+`no-warning-comments` reports only `@nocommit`, as nkzw configures it. The
+package bundles dmmulroy's plugin and depends on `@rayhanadev/ox`, so upgrading
+the package upgrades every rule.
 
-```bash
-bun pm trust @ast-grep/cli
+The ast-grep rules run from the package as well:
+
+```json
+{
+  "scripts": {
+    "lint": "oxlint .",
+    "lint:ast": "ast-grep scan --config node_modules/@austinm911/anti-slop/ast-grep/sgconfig.yml src"
+  }
+}
 ```
 
-## Update installed items
+Install `@ast-grep/cli` for `lint:ast`. Bun can defer its platform binary, so
+trust it once with `bun pm trust @ast-grep/cli`.
 
-You own the installed copies, and the registry never changes them for you.
-Re-run the same address to fetch the latest default branch, previewing first:
+## Copy single rules
+
+To own a rule's files instead, the shadcn CLI copies a registry item into your
+repository and installs its declared dev dependencies. It needs a
+`components.json` and a `tsconfig.json`, which configure the CLI only.
 
 ```bash
-bunx --bun shadcn@latest add austinm911/anti-slop/recommended --dry-run
-bunx --bun shadcn@latest add austinm911/anti-slop/recommended --diff tools/ast-grep/rules/no-return-local-alias-function.yml
-bunx --bun shadcn@latest add austinm911/anti-slop/recommended --overwrite
+bunx --bun shadcn@latest add austinm911/anti-slop/no-return-local-alias-function
 ```
 
-`--overwrite` replaces your local edits. Append a release tag, such as
-`recommended#v0.1.0`, to stay on that release.
+| Item          | Installs                                                    |
+| ------------- | ----------------------------------------------------------- |
+| `<rule name>` | One rule from the table above                               |
+| `ast-grep`    | The three ast-grep correctness rules                        |
+| `oxlint`      | The `no-record-string-unknown` Oxlint configuration         |
+| `tsrx-oxc`    | Oxlint and Oxfmt for `.tsrx` files (see [TSRX](#tsrx))      |
+| `omp-ttsr`    | An optional OMP stream guard (see [OMP](#omp-stream-guard)) |
+
+Items land under `tools/ast-grep` and `tools/oxlint`. The registry never changes
+your copies. Re-run the address to fetch the latest default branch, adding
+`--dry-run` or `--diff <file>` to preview and `--overwrite` to replace local
+edits. Append a release tag, such as `#v0.1.0`, to stay on that release.
 
 ## TSRX
 

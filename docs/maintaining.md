@@ -75,9 +75,19 @@ under test for the first time. Fix the examples that fail.
 
 `profiles/*.json` define the presets to publish. A profile can `extend` another
 and enable whole Oxlint `categories`. `recommended`, for example, turns on every
-correctness rule without listing them. The Profiles tab previews each profile's
-`.oxlintrc.json`, ast-grep rules, install commands, and the gaps that block
-publishing.
+correctness rule without listing them. A rule's value is a severity, which takes
+the options upstream configures when every source agrees, or an Oxlint
+`["warn", { ... }]` tuple that sets them.
 
-Native rules ship as configuration. Every other rule must be vendored into this
-repository with its tests before its profile can publish.
+`bun run build` writes each profile to `oxlint/configs/<profile>.json` and each
+plugin to `dist/plugins/`, then lints a sample file with every config so a rule
+that fails to load stops the build. `bun run check` fails when a committed
+config is stale. The Profiles tab previews the same output, the rule count from
+each source, and the gaps that keep a rule out of the config.
+
+Native rules ship as configuration. Plugin rules ship through the sources in
+`scripts/review/plugins.ts`: `@rayhanadev/ox` as a dependency, and
+dmmulroy/anti-slop vendored under `vendor/dmmulroy-anti-slop` at the commit in
+its `UPSTREAM.json`. Another upstream plugin must be added there, or vendored,
+before its rules can ship. A source without a license, such as
+typeonce-dev/ai-automation, cannot be redistributed, so its rules stay gaps.

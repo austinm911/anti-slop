@@ -19,6 +19,7 @@ export const STATUS_FILTERS: Array<{ id: ReviewStatus | "all"; label: string; ke
 export const DELIVERY_LABELS: { [kind in Delivery["kind"]]: string } = {
   "first-party": "Ships from this repo",
   native: "Native Oxlint",
+  plugin: "Oxlint plugin rule",
   "vendor-oxlint": "Vendor Oxlint rule",
   "vendor-ast-grep": "Vendor ast-grep rule",
   unsupported: "Can't lint yet",

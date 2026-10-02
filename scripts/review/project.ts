@@ -1,7 +1,9 @@
-import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import { load } from "js-yaml";
 import type { CandidateCatalog } from "../discovery/types.ts";
-import { compileProfiles, loadProfiles } from "./profiles.ts";
+import { loadPlugins, type LoadedPlugin } from "./plugins.ts";
+import { compileProfiles, loadProfiles, type AstGrepConfig } from "./profiles.ts";
 import {
   bareName,
   chooseDelivery,
@@ -51,16 +53,33 @@ export function reviewPaths(root: string): ReviewPaths {
   };
 }
 
-let nativeRulesPromise: Promise<Map<string, NativeRule>> | undefined;
+const nativeRulesCache = new Map<string, Promise<Map<string, NativeRule>>>();
+const pluginsCache = new Map<string, Promise<LoadedPlugin[]>>();
+
+/** Caches a load per key and forgets a failure, so a fixed file loads on the next request. */
+function cached<Value>(
+  cache: Map<string, Promise<Value>>,
+  key: string,
+  load: () => Promise<Value>,
+): Promise<Value> {
+  const existing = cache.get(key);
+  if (existing) return existing;
+  const loading = load().catch((error: unknown) => {
+    cache.delete(key);
+    throw error;
+  });
+  cache.set(key, loading);
+  return loading;
+}
 
 export async function loadRules(
   paths: ReviewPaths,
 ): Promise<{ catalog: CandidateCatalog; rules: ReviewRule[] }> {
-  nativeRulesPromise ??= loadNativeRules(paths.oxlintBinary);
-  const [catalog, firstParty, nativeRules, oxlintRules] = await Promise.all([
+  const [catalog, firstParty, nativeRules, plugins, oxlintRules] = await Promise.all([
     readJson<CandidateCatalog>(paths.catalogPath),
     loadFirstPartySightings(paths.root),
-    nativeRulesPromise,
+    cached(nativeRulesCache, paths.oxlintBinary, () => loadNativeRules(paths.oxlintBinary)),
+    cached(pluginsCache, paths.root, () => loadPlugins(paths.root)),
     readJson<{ rules: { [ruleId: string]: unknown } }>(join(paths.root, "oxlint/.oxlintrc.json")),
   ]);
   const groups = new Map<string, Sighting[]>();
@@ -72,17 +91,18 @@ export async function loadRules(
     groups.set(key, [...(groups.get(key) ?? []), sighting]);
   }
   const rules = [...groups].map(([key, sightings]) =>
-    groupRule(key, sightings, chooseDelivery(sightings, nativeRules, oxlintRules.rules)),
+    groupRule(key, sightings, chooseDelivery(sightings, nativeRules, oxlintRules.rules, plugins)),
   );
   return { catalog, rules };
 }
 
 export async function loadReviewState(paths: ReviewPaths): Promise<ReviewState> {
-  const [{ catalog, rules }, events, classification, profiles] = await Promise.all([
+  const [{ catalog, rules }, events, classification, profiles, astGrepConfigs] = await Promise.all([
     loadRules(paths),
     loadEvents(paths.eventsPath),
     readJson<ClassificationCache>(paths.classificationPath).catch(() => undefined),
     loadProfiles(paths.profilesDirectory),
+    loadAstGrepConfigs(paths.root),
   ]);
   const latest = new Map<string, ReviewEvent>();
   for (const event of events) latest.set(event.ruleKey, event);
@@ -95,7 +115,7 @@ export async function loadReviewState(paths: ReviewPaths): Promise<ReviewState> 
       review: projectReview(rule, latest.get(rule.key)),
     };
   });
-  const compiled = compileProfiles(profiles, projected);
+  const compiled = compileProfiles(profiles, projected, astGrepConfigs);
   for (const rule of projected) {
     rule.profiles = compiled
       .filter((profile) => rule.key in profile.resolved)
@@ -124,6 +144,26 @@ export async function loadReviewState(paths: ReviewPaths): Promise<ReviewState> 
       shipped: count("shipped"),
     },
   };
+}
+
+/** The published ast-grep configs. Each scans the rule directories its `ruleDirs` names. */
+const AST_GREP_CONFIGS = ["ast-grep/sgconfig.yml", "ast-grep/sgconfig.preferences.yml"];
+
+async function loadAstGrepConfigs(root: string): Promise<AstGrepConfig[]> {
+  return Promise.all(
+    AST_GREP_CONFIGS.map(async (config) => {
+      const parsed = load(await readFile(join(root, config), "utf8")) as { ruleDirs: string[] };
+      const directories = parsed.ruleDirs.map((directory) => join(dirname(config), directory));
+      const rules = await Promise.all(
+        directories.map(async (directory) =>
+          (await readdir(join(root, directory)))
+            .filter((file) => file.endsWith(".yml"))
+            .map((file) => `${directory}/${file}`),
+        ),
+      );
+      return { config, rules: rules.flat().sort() };
+    }),
+  );
 }
 
 function groupRule(

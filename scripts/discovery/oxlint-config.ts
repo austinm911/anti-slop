@@ -1,5 +1,6 @@
 import { Lang, parse, type SgNode } from "@ast-grep/napi";
 import { readFile } from "node:fs/promises";
+import { literalString } from "./literal.ts";
 import { dirname, extname, join, normalize } from "node:path";
 
 const SOURCE_EXTENSIONS = [".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".mts", ".cts"];
@@ -26,10 +27,17 @@ type Binding =
   | { expression: SgNode; moduleSpecifier?: never; importedName?: never }
   | { expression?: never; moduleSpecifier: string; importedName: string };
 
+/**
+ * Configured rule names mapped to the options their base config passes after the severity. `[]`
+ * means the source runs the defaults. `undefined` means only overrides set the rule, or its setting
+ * is not a literal.
+ */
+export type ConfiguredRules = Map<string, unknown[] | undefined>;
+
 export type OxlintPolicyEvidence = {
   content: string;
   paths: string[];
-  ruleNames: string[];
+  rules: ConfiguredRules;
 };
 
 export async function readOxlintPolicyEvidence(
@@ -40,15 +48,15 @@ export async function readOxlintPolicyEvidence(
   const context: ModuleContext = { availablePaths, root };
   const modules = new Map<string, ParsedModule>();
   const visitedExports = new Set<string>();
-  const ruleNames = new Set<string>();
+  const rules: ConfiguredRules = new Map();
 
-  await collectExportedConfig(entryPath, "default", context, modules, visitedExports, ruleNames);
+  await collectExportedConfig(entryPath, "default", context, modules, visitedExports, rules, true);
 
   const paths = [...modules.keys()];
   return {
     paths,
     content: paths.map((path) => `// ${path}\n${modules.get(path)?.content ?? ""}`).join("\n"),
-    ruleNames: [...ruleNames].sort(),
+    rules,
   };
 }
 
@@ -58,9 +66,10 @@ async function collectExportedConfig(
   context: ModuleContext,
   modules: Map<string, ParsedModule>,
   visitedExports: Set<string>,
-  ruleNames: Set<string>,
+  rules: ConfiguredRules,
+  base: boolean,
 ): Promise<void> {
-  const visitKey = `${path}:${exportName}`;
+  const visitKey = `${path}:${exportName}:${base}`;
   if (visitedExports.has(visitKey)) return;
   visitedExports.add(visitKey);
 
@@ -77,14 +86,23 @@ async function collectExportedConfig(
         context,
         modules,
         visitedExports,
-        ruleNames,
+        rules,
+        base,
       );
     }
     return;
   }
 
   if (exported.expression) {
-    await collectExpression(exported.expression, path, context, modules, visitedExports, ruleNames);
+    await collectExpression(
+      exported.expression,
+      path,
+      context,
+      modules,
+      visitedExports,
+      rules,
+      base,
+    );
   }
 }
 
@@ -94,7 +112,8 @@ async function collectExpression(
   context: ModuleContext,
   modules: Map<string, ParsedModule>,
   visitedExports: Set<string>,
-  ruleNames: Set<string>,
+  rules: ConfiguredRules,
+  base: boolean,
 ): Promise<void> {
   const unwrapped = unwrapExpression(expression);
 
@@ -104,14 +123,16 @@ async function collectExpression(
         const name = propertyName(property.field("key"));
         const value = property.field("value");
         if (!value) continue;
-        if (name === "rules") collectRuleKeys(value, ruleNames);
+        if (name === "rules") collectRuleKeys(value, rules, base);
         else if (name && NESTED_CONFIG_PROPERTIES.has(name)) {
-          await collectExpression(value, path, context, modules, visitedExports, ruleNames);
+          // Override blocks retune rules for some files, so only base configs supply options.
+          const nestedBase = base && name !== "overrides";
+          await collectExpression(value, path, context, modules, visitedExports, rules, nestedBase);
         }
       } else if (property.kind() === "spread_element") {
         const spread = namedChildren(property)[0];
         if (spread) {
-          await collectExpression(spread, path, context, modules, visitedExports, ruleNames);
+          await collectExpression(spread, path, context, modules, visitedExports, rules, base);
         }
       }
     }
@@ -120,7 +141,7 @@ async function collectExpression(
 
   if (unwrapped.kind() === "array") {
     for (const element of namedChildren(unwrapped)) {
-      await collectExpression(element, path, context, modules, visitedExports, ruleNames);
+      await collectExpression(element, path, context, modules, visitedExports, rules, base);
     }
     return;
   }
@@ -129,7 +150,7 @@ async function collectExpression(
     const argumentsNode = unwrapped.field("arguments");
     if (!argumentsNode) return;
     for (const argument of namedChildren(argumentsNode)) {
-      await collectExpression(argument, path, context, modules, visitedExports, ruleNames);
+      await collectExpression(argument, path, context, modules, visitedExports, rules, base);
     }
     return;
   }
@@ -141,7 +162,7 @@ async function collectExpression(
   if (!local) return;
 
   if (local.expression) {
-    await collectExpression(local.expression, path, context, modules, visitedExports, ruleNames);
+    await collectExpression(local.expression, path, context, modules, visitedExports, rules, base);
     return;
   }
 
@@ -153,19 +174,82 @@ async function collectExpression(
       context,
       modules,
       visitedExports,
-      ruleNames,
+      rules,
+      base,
     );
   }
 }
 
-function collectRuleKeys(expression: SgNode, ruleNames: Set<string>): void {
+function collectRuleKeys(expression: SgNode, rules: ConfiguredRules, base: boolean): void {
   const unwrapped = unwrapExpression(expression);
   if (unwrapped.kind() !== "object") return;
   for (const property of namedChildren(unwrapped)) {
     if (property.kind() !== "pair" && property.kind() !== "method_definition") continue;
     const name = propertyName(property.field("key") ?? namedChildren(property)[0]);
-    if (name) ruleNames.add(name);
+    if (!name) continue;
+    const value = property.kind() === "pair" ? property.field("value") : null;
+    recordRule(rules, name, base && value ? settingOptions(literalValue(value)) : undefined);
   }
+}
+
+/**
+ * The options after the severity: `[]` for a bare severity, which runs the rule's defaults, and
+ * `undefined` for a setting that is not a literal.
+ */
+export function settingOptions(setting: unknown): unknown[] | undefined {
+  if (typeof setting === "string" || typeof setting === "number") return [];
+  return Array.isArray(setting) ? setting.slice(1) : undefined;
+}
+
+/** Records a configured rule. A later known setting replaces an earlier one. */
+export function recordRule(
+  rules: ConfiguredRules,
+  name: string,
+  options: unknown[] | undefined,
+): void {
+  if (options || !rules.has(name)) rules.set(name, options ?? rules.get(name));
+}
+
+const NOT_LITERAL = Symbol("not literal");
+
+/** Evaluates JSON-shaped literals. Anything computed returns `undefined`. */
+function literalValue(node: SgNode): unknown {
+  const value = evaluateLiteral(node);
+  return value === NOT_LITERAL ? undefined : value;
+}
+
+function evaluateLiteral(node: SgNode): unknown {
+  const unwrapped = unwrapExpression(node);
+  const kind = unwrapped.kind();
+  if (kind === "string" || kind === "template_string") {
+    return literalString(unwrapped) ?? NOT_LITERAL;
+  }
+  if (kind === "number") return Number(unwrapped.text());
+  if (kind === "true") return true;
+  if (kind === "false") return false;
+  if (kind === "null") return null;
+  if (kind === "unary_expression" && unwrapped.text().startsWith("-")) {
+    const operand = evaluateLiteral(namedChildren(unwrapped)[0] ?? unwrapped);
+    return typeof operand === "number" ? -operand : NOT_LITERAL;
+  }
+  if (kind === "array") {
+    const items = namedChildren(unwrapped).map(evaluateLiteral);
+    return items.includes(NOT_LITERAL) ? NOT_LITERAL : items;
+  }
+  if (kind === "object") {
+    const entries: Array<[string, unknown]> = [];
+    for (const property of namedChildren(unwrapped)) {
+      if (property.kind() !== "pair") return NOT_LITERAL;
+      const key = propertyName(property.field("key"));
+      const value = property.field("value");
+      if (!key || !value) return NOT_LITERAL;
+      const evaluated = evaluateLiteral(value);
+      if (evaluated === NOT_LITERAL) return NOT_LITERAL;
+      entries.push([key, evaluated]);
+    }
+    return Object.fromEntries(entries);
+  }
+  return NOT_LITERAL;
 }
 
 function findExport(root: SgNode, exportName: string): Binding | undefined {

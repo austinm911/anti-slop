@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { loadAll } from "js-yaml";
 import type { RuleCandidate } from "../discovery/types.ts";
+import { findPlugin, pluginSpecifier, type LoadedPlugin } from "./plugins.ts";
 import type { Delivery, Sighting } from "./types.ts";
 
 export const FIRST_PARTY_REPOSITORY = "austinm911/anti-slop";
@@ -136,13 +137,15 @@ export function nativeConfigPlugin(rule: NativeRule): string {
 
 /**
  * Chooses how a grouped rule ships. First-party rules keep their files. A native Oxlint rule is
- * configuration. Anything else must be vendored into this repository, preferring the
- * implementation with the most tests.
+ * configuration. A rule in a plugin this package loads ships through `jsPlugins`. Anything else
+ * must be vendored into this repository, preferring the implementation with the most tests, and
+ * only a licensed implementation can be.
  */
 export function chooseDelivery(
   sightings: Sighting[],
   nativeRules: Map<string, NativeRule>,
   oxlintRules: { [ruleId: string]: unknown },
+  plugins: LoadedPlugin[],
 ): Delivery {
   const firstParty = sightings.find(({ origin }) => origin === "first-party");
   if (firstParty) {
@@ -181,9 +184,35 @@ export function chooseDelivery(
   const byTests = [...sightings].sort(
     (left, right) => right.artifact.testPaths.length - left.artifact.testPaths.length,
   );
-  const oxlint = byTests.find(({ artifact }) => artifact.kind === "oxlint-plugin-rule");
+  for (const sighting of byTests) {
+    if (sighting.artifact.kind !== "oxlint-plugin-rule") continue;
+    const name = bareName(sighting.artifact.sourceRuleName ?? sighting.name);
+    const path = sighting.artifact.implementationPaths[0] ?? "";
+    const plugin = findPlugin(plugins, sighting.source.repository, path, name);
+    if (plugin) {
+      return {
+        kind: "plugin",
+        ruleId: `${plugin.name}/${name}`,
+        specifier: pluginSpecifier(plugin.source),
+        candidateId: sighting.id,
+      };
+    }
+  }
+  const isImplementation = ({ artifact }: Sighting) =>
+    artifact.kind === "oxlint-plugin-rule" || artifact.kind === "ast-grep-rule";
+  const licensed = byTests.filter(({ source }) => source.license);
+  const unlicensed = byTests.find(
+    (sighting) => isImplementation(sighting) && !sighting.source.license,
+  );
+  if (unlicensed && !licensed.some(isImplementation)) {
+    return {
+      kind: "unsupported",
+      reason: `${unlicensed.source.repository} has no license, so its implementation can't be redistributed.`,
+    };
+  }
+  const oxlint = licensed.find(({ artifact }) => artifact.kind === "oxlint-plugin-rule");
   if (oxlint) return { kind: "vendor-oxlint", candidateId: oxlint.id };
-  const astGrep = byTests.find(({ artifact }) => artifact.kind === "ast-grep-rule");
+  const astGrep = licensed.find(({ artifact }) => artifact.kind === "ast-grep-rule");
   if (astGrep) return { kind: "vendor-ast-grep", candidateId: astGrep.id };
   if (sightings.some(({ artifact }) => artifact.kind === "oxlint-policy")) {
     return {

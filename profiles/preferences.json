@@ -1,6 +1,9 @@
 {
   "description": "Hint-level conventions. Keep out of blocking checks.",
   "rules": {
-    "rule:no-mixed-jsdoc-line-prefix": "warn"
+    "rule:no-exported-function-expressions": "warn",
+    "rule:no-mixed-jsdoc-line-prefix": "warn",
+    "rule:require-jsdoc-comments": "warn",
+    "rule:require-readable-spacing": "warn"
   }
 }

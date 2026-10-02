@@ -10,6 +10,9 @@ export type ReviewStatus = (typeof REVIEW_STATUSES)[number];
 export const SEVERITIES = ["error", "warn"] as const;
 export type Severity = (typeof SEVERITIES)[number];
 
+/** A profile's setting for one rule, in Oxlint's shape: a severity, or a severity and options. */
+export type RuleSetting = Severity | [Severity, ...unknown[]];
+
 export type Ecosystem = keyof typeof ECOSYSTEMS;
 
 export type TaxonomyPath = {
@@ -36,6 +39,8 @@ export type Delivery =
     }
   /** `fix` is the `oxlint --rules` fix capability, such as `fixable_fix` or `none`. */
   | { kind: "native"; ruleId: string; plugin: string; docsUrl: string; fix: string }
+  /** A JavaScript plugin rule this package loads through `jsPlugins`. */
+  | { kind: "plugin"; ruleId: string; specifier: string; candidateId: string }
   | { kind: "vendor-oxlint"; candidateId: string }
   | { kind: "vendor-ast-grep"; candidateId: string }
   | { kind: "unsupported"; reason: string }
@@ -118,7 +123,11 @@ export type ProfileFile = {
   extends?: string[];
   /** Whole Oxlint categories to enable, on top of the listed rules. */
   categories?: ProfileCategories;
-  rules: { [ruleKey: string]: Severity };
+  /**
+   * A bare severity takes the options upstream configures, when every source agrees. A tuple
+   * sets the options explicitly.
+   */
+  rules: { [ruleKey: string]: RuleSetting };
 };
 
 export type ProfileGap = { ruleKey: string; reason: string };
@@ -133,7 +142,11 @@ export type CompiledProfile = {
   resolved: { [ruleKey: string]: Severity };
   /** Enabled Oxlint categories after resolving `extends`. */
   categories: ProfileCategories;
+  /** How many shipped rules each source contributes: a repository or `Oxlint native`. */
+  sources: Array<{ source: string; rules: number }>;
   oxlintConfig: string;
+  /** The ast-grep config that runs this profile's ast-grep rules, relative to the package. */
+  astGrepConfigs: string[];
   astGrepRules: string[];
   install: { commands: string; scripts: string };
   gaps: ProfileGap[];

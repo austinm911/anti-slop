@@ -23,7 +23,6 @@
     "rule:no-empty": "warn",
     "rule:no-empty-object-type": "warn",
     "rule:no-explicit-any": "warn",
-    "rule:no-exported-function-expressions": "warn",
     "rule:no-extra-bind": "error",
     "rule:no-fallthrough": "warn",
     "rule:no-file-local-generic-record-guard": "error",
@@ -36,7 +35,6 @@
     "rule:no-object-parameters": "warn",
     "rule:no-prototype-builtins": "warn",
     "rule:no-record-string-unknown": "warn",
-    "rule:no-redeclare": "warn",
     "rule:no-reduce-accumulator-copy": "warn",
     "rule:no-reflect-apply": "warn",
     "rule:no-reflect-get": "warn",
@@ -49,7 +47,6 @@
     "rule:no-throw-literal": "warn",
     "rule:no-throw-local-alias-function": "error",
     "rule:no-type-erasure": "warn",
-    "rule:no-typeof": "warn",
     "rule:no-typeof-undefined": "warn",
     "rule:no-unexpected-multiline": "error",
     "rule:no-unknown-parameters": "warn",
@@ -76,8 +73,6 @@
     "rule:prefer-string-slice": "warn",
     "rule:prefer-top-level-await": "warn",
     "rule:preserve-caught-error": "error",
-    "rule:require-jsdoc-comments": "warn",
-    "rule:require-readable-spacing": "warn",
     "rule:require-safety-comment-for-type-assertion": "warn"
   }
 }

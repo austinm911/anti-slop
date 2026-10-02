@@ -2,7 +2,12 @@ import { createHash } from "node:crypto";
 import { readdir, readFile, rm, stat } from "node:fs/promises";
 import { basename, extname, join, relative } from "node:path";
 import { load as parseYaml } from "js-yaml";
-import { readOxlintPolicyEvidence } from "./oxlint-config.ts";
+import {
+  readOxlintPolicyEvidence,
+  recordRule,
+  settingOptions,
+  type ConfiguredRules,
+} from "./oxlint-config.ts";
 import type {
   ArtifactKind,
   CandidateCatalog,
@@ -52,6 +57,7 @@ type CandidateInput = {
   testPaths: string[];
   content: string;
   classification?: Classification;
+  options?: unknown[];
 };
 
 type TestEvidence = {
@@ -258,18 +264,16 @@ async function discoverCheckout(checkout: Checkout): Promise<RuleCandidate[]> {
       const content = await readText(absolutePath);
       const parsed = parseStructuredConfig(path, content);
       if (parsed) {
-        const ruleNames = new Set<string>();
-        collectRuleNames(parsed, ruleNames);
-        candidates.push(...discoverOxlintPolicy([path], content, [...ruleNames]));
+        const rules: ConfiguredRules = new Map();
+        collectRuleNames(parsed, rules, true);
+        candidates.push(...discoverOxlintPolicy([path], content, rules));
       } else {
         const evidence = await readOxlintPolicyEvidence(
           checkout.directory,
           path,
           new Set(checkout.files),
         );
-        candidates.push(
-          ...discoverOxlintPolicy(evidence.paths, evidence.content, evidence.ruleNames),
-        );
+        candidates.push(...discoverOxlintPolicy(evidence.paths, evidence.content, evidence.rules));
       }
       continue;
     }
@@ -322,9 +326,9 @@ async function discoverCheckout(checkout: Checkout): Promise<RuleCandidate[]> {
 function discoverOxlintPolicy(
   paths: string[],
   content: string,
-  ruleNames: Iterable<string>,
+  rules: ConfiguredRules,
 ): CandidateInput[] {
-  return [...ruleNames].sort().map((name) => ({
+  return [...rules.keys()].sort().map((name) => ({
     name,
     description: `Oxlint configuration enables or configures ${name}`,
     kind: "oxlint-policy",
@@ -333,6 +337,7 @@ function discoverOxlintPolicy(
     testPaths: [],
     content: `${name}\n${content}`,
     classification: "native-policy",
+    options: rules.get(name),
   }));
 }
 
@@ -427,6 +432,7 @@ function makeCandidate(checkout: Checkout, input: CandidateInput): RuleCandidate
       ...(input.sourceRuleName ? { sourceRuleName: input.sourceRuleName } : {}),
       implementationPaths: input.implementationPaths,
       testPaths: input.testPaths,
+      ...(input.options ? { options: input.options } : {}),
     },
     fingerprint: hash(normalizeSource(input.content)),
     admission: {
@@ -510,7 +516,13 @@ function mergePolicyCandidates(current: RuleCandidate, candidate: RuleCandidate)
       ...current.source,
       paths: [...new Set([...current.source.paths, ...candidate.source.paths])].sort(),
     },
-    artifact: { ...current.artifact, implementationPaths },
+    artifact: {
+      ...current.artifact,
+      implementationPaths,
+      ...(current.artifact.options || !candidate.artifact.options
+        ? {}
+        : { options: candidate.artifact.options }),
+    },
     fingerprint: hash([current.fingerprint, candidate.fingerprint].sort().join("\n")),
   };
 }
@@ -616,17 +628,20 @@ function parseStructuredConfig(path: string, content: string): unknown | undefin
   return parseJsonConfig(content);
 }
 
-function collectRuleNames(value: unknown, names: Set<string>): void {
+/** Override blocks retune rules for some files, so only base configs supply options. */
+function collectRuleNames(value: unknown, rules: ConfiguredRules, base: boolean): void {
   if (Array.isArray(value)) {
-    for (const item of value) collectRuleNames(item, names);
+    for (const item of value) collectRuleNames(item, rules, base);
     return;
   }
   if (!isObjectValue(value)) return;
   for (const [key, child] of Object.entries(value)) {
     if (key === "rules" && isObjectValue(child)) {
-      for (const name of Object.keys(child)) names.add(name);
+      for (const [name, setting] of Object.entries(child)) {
+        recordRule(rules, name, base ? settingOptions(setting) : undefined);
+      }
     } else {
-      collectRuleNames(child, names);
+      collectRuleNames(child, rules, base && key !== "overrides");
     }
   }
 }

@@ -1,0 +1,21 @@
+{
+  "plugins": [],
+  "jsPlugins": [
+    "../../dist/plugins/anti-slop.js",
+    "../../dist/plugins/rayhanadev.js"
+  ],
+  "categories": {
+    "correctness": "off",
+    "suspicious": "off",
+    "pedantic": "off",
+    "perf": "off",
+    "restriction": "off",
+    "style": "off",
+    "nursery": "off"
+  },
+  "rules": {
+    "anti-slop/require-readable-spacing": "warn",
+    "rayhanadev/no-exported-function-expressions": "warn",
+    "rayhanadev/require-jsdoc-comments": "warn"
+  }
+}

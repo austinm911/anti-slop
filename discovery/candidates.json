@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-30T17:08:27.891Z",
+  "generatedAt": "2026-10-02T19:08:52.009Z",
   "sources": [
     {
       "repository": "astahmer/nixfiles",
       "ref": "main",
       "commit": "ee8d0c29d8c73b0e93f7b9d87460543505378206",
       "previousCommit": "72b74d3e9c344af8392ccc6176444ec846a38231",
-      "updateStatus": "updated"
+      "updateStatus": "unchanged"
     },
     {
       "repository": "rayhanadev/oxray",
       "ref": "main",
       "commit": "f393992422759448352367fb8ce556f1b1b00ae3",
       "previousCommit": "f2a184d2bd4c9700c024dd12d330f8bccb6288ad",
-      "updateStatus": "updated"
+      "updateStatus": "unchanged"
     },
     {
       "repository": "typeonce-dev/ai-automation",
@@ -27,13 +27,13 @@
       "ref": "main",
       "commit": "c44ef22ca116d0ba62a3ff663a0bd13a3f3fa40b",
       "previousCommit": "c76ee37c8ec43cd91afeb7cb89f32701b4d11eca",
-      "updateStatus": "updated"
+      "updateStatus": "unchanged"
     },
     {
       "repository": "nkzw-tech/oxlint-config",
       "ref": "main",
       "commit": "cb48b60893ebf3d6ec0655b295fce70fb51c376a",
-      "updateStatus": "new"
+      "updateStatus": "unchanged"
     }
   ],
   "candidates": [
@@ -1050,7 +1050,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/no-accumulating-spread",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6a8f92914e5692fdb165bd27891e50de021d8fe41e39f7d3e1253452927d9c50",
       "admission": {
@@ -1216,7 +1217,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@nkzw/ensure-relay-types",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0c0c2bc1659fbc9f3c2becc700715e3e47505aebd4191945dfaab2d7a4293520",
       "admission": {
@@ -1246,7 +1248,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@nkzw/no-instanceof",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ad53739a5ac4c94fbd020032481748600100d06bb6d7884c07faecdf49c3db00",
       "admission": {
@@ -1276,7 +1279,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@nkzw/require-use-effect-arguments",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "725522278e6b477126533c5475b7bf7f52f3f5c495d0c03f8db658bcc9fe826c",
       "admission": {
@@ -1306,7 +1310,12 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/array-type",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "default": "generic"
+          }
+        ]
       },
       "fingerprint": "5042bc9be7e764324768343165951ffb653f382cd54829c974eef4894e250f9e",
       "admission": {
@@ -1336,7 +1345,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-duplicate-enum-values",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "851c27de25ffd6bfab257a9ac5438d49386c04bb845950a3f48741a8c3ae40f2",
       "admission": {
@@ -1366,7 +1376,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-empty-object-type",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "9b59b022d8ef844f089ae9460b59206e64cb3ca9209de3217a8d48471bb756b6",
       "admission": {
@@ -1396,7 +1407,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-explicit-any",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "1598ff2f1c5de1c85a21515c78e6bc21e16b1353e25f8b400dc8ea293e95305c",
       "admission": {
@@ -1426,7 +1438,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-extra-non-null-assertion",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c082a89e7e49e1e12b66331d037b826a5c50ca08fd219ad0c38bc30e4c7db7ed",
       "admission": {
@@ -1456,7 +1469,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-misused-new",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "1eb2b416e9e6abf63859cacab3f3df82c2d4537ddabd628bf885581a02c16dad",
       "admission": {
@@ -1486,7 +1500,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-non-null-asserted-nullish-coalescing",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "91e97fcfc5ff00f153644bf54575821e41045fcab2ba9689d69b40136f79da45",
       "admission": {
@@ -1516,7 +1531,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-non-null-asserted-optional-chain",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "abbd6eb9911b53a31e3d73490ddc1cbf0c00551d7f7c2ea4d2368df753d74ae9",
       "admission": {
@@ -1546,7 +1562,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-require-imports",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3b7a7030be01f844b26303441649cada8e85b5594ad7a5bb988aa706607fb0af",
       "admission": {
@@ -1576,7 +1593,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-unnecessary-parameter-property-assignment",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3e605bb4d888e01cd66aff335d01437d6fe3dd05e2dd93b54dfda99b6761f85d",
       "admission": {
@@ -1606,7 +1624,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-unnecessary-type-constraint",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "99d129abeb8ecfed79114fda20624810041bffc847e6b21bd3565eddf9918302",
       "admission": {
@@ -1636,7 +1655,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-unsafe-declaration-merging",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3c3a0d106ebe61168d61329dc96d0bf192e41cf8c0d17855be5f8d773ad661e9",
       "admission": {
@@ -1666,7 +1686,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-unsafe-function-type",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "080a7c5eda52a99675bb39c07123d8c8c426ab14b8a81df2f09fb7eb6daa7233",
       "admission": {
@@ -1696,7 +1717,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/no-wrapper-object-types",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f54cd3701dc1e0f844309c31d42ac99900cc749e8d675f550151ddd9527e1e6f",
       "admission": {
@@ -1726,7 +1748,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/prefer-as-const",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "dfb129067564d7ba27aab8b0dee1b4c8c7ab8c2fef97ff3036de87d1df5ca61a",
       "admission": {
@@ -1756,7 +1779,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/prefer-namespace-keyword",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7b7b883ce00df419034fc20592847200c147fbd9ca6453d08f6413fe029c1f32",
       "admission": {
@@ -1786,7 +1810,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "@typescript-eslint/triple-slash-reference",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f98d50bfab7b832ee30ef88578a9b01979d6a0e953ce6b8ae7e44c83bb3b8f31",
       "admission": {
@@ -1816,7 +1841,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "array-callback-return",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "01b0ae2dc2741ed674dfe1cdff95ce1230ef394533230532dccb39d1b46137bc",
       "admission": {
@@ -1846,7 +1872,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "constructor-super",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "edb1df8c94f7acad1587344fc1c34b3bac09fa36f8c9ca4c2b259664e157e4f1",
       "admission": {
@@ -1876,7 +1903,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "curly",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8d4b7663e9c9086cace2030a1d8aa37c124b8494a9bb82691a0c35cba3ed7b85",
       "admission": {
@@ -1906,7 +1934,13 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "eqeqeq",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          "always",
+          {
+            "null": "ignore"
+          }
+        ]
       },
       "fingerprint": "c522ac122b9c25f3f5e7f0e8420e072b3e2e8291bc9f630e545677900bf9ab82",
       "admission": {
@@ -1936,7 +1970,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "for-direction",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "abd6f3fbcea01190be0d966c3f51cab60023ffc3ad8060d5db5fd46697cffbc3",
       "admission": {
@@ -1966,7 +2001,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "getter-return",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "82d1fcd71d928fe1357871296ccf1ce76e82f01b4fb4a261f3109f37c33475bd",
       "admission": {
@@ -1996,7 +2032,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "import-x/export",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a470ca8accee2e9ea8e930b5973deac7234c346da1b8d8ff1715b0ff81eca928",
       "admission": {
@@ -2026,7 +2063,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "import-x/no-namespace",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0785d225e7c636b2f2c65ea14fbc54c29aff1268a2f4c905c203d32a48e47f2f",
       "admission": {
@@ -2056,7 +2094,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-array-constructor",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a51a7a85bdd50229381d7e67f33d1c1d77866e800100fcf5c3fee35f6e16a7de",
       "admission": {
@@ -2086,7 +2125,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-async-promise-executor",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d1afb15ea67d47a463c710790f0a8d536e06dc0fe9873c9e3f549bbc1b309672",
       "admission": {
@@ -2116,7 +2156,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-case-declarations",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "fdc41922785c54519de636db80b56acfe42d2688a4971c6843a33e6a6be6e7a9",
       "admission": {
@@ -2146,7 +2187,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-class-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a66396ace6c6d9f79ca3862774be16710d3296e3c755e1c698918b97f7bd4a7c",
       "admission": {
@@ -2176,7 +2218,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-compare-neg-zero",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "4e32615677f01be2464a0b975a10823e1cfb4d1c73d2a964f00827b3c5eefa0a",
       "admission": {
@@ -2206,7 +2249,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-cond-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "141f7ced09f3915644f1d58f447c2fdb13b3697275285ae37de900c9f3613d41",
       "admission": {
@@ -2236,7 +2280,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-console",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b4ed425e6bbfe8c800faab319a05898f1e794d76ec43b8ca97b109f5641f4cb1",
       "admission": {
@@ -2269,7 +2314,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-const-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ec0fc90da9a4899a22cd59a17a6bfc40abc452d625b19e5d72d447acdd3d380f",
       "admission": {
@@ -2299,7 +2345,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-constant-binary-expression",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d27f6ab732ae72f92e2af7d5bf0d2c6d3b59a6a3f65057027ab3a7886ab9fbb4",
       "admission": {
@@ -2329,7 +2376,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-constant-condition",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5e8d9933cbc172d5ad00268cc0455a578c337af46cfbc23003a8c95d14c8f99e",
       "admission": {
@@ -2359,7 +2407,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-control-regex",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "4c09ebd378a7ed5ad11ff587d04869a43a613ce0c7b99ef8798656141c2aa588",
       "admission": {
@@ -2389,7 +2438,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-debugger",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6b790dfb76ee7b9b8f9a27e3fd6c2ea4b1f98d8a809f3bfb6097d6d423116b62",
       "admission": {
@@ -2419,7 +2469,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-delete-var",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d79284f51f3663302d72847c953b03b7f436f6d432b0d11e8126e0d43cb64d35",
       "admission": {
@@ -2449,7 +2500,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-dupe-class-members",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3efd6c9c1255150058943edca674ef43823f6705963ce10741390427fd9f2e19",
       "admission": {
@@ -2479,7 +2531,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-dupe-else-if",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ffa1f943281888b74c8ec1e3b11c1aa8f7b5a91437e8952001a2ea05a00fb1c8",
       "admission": {
@@ -2509,7 +2562,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-dupe-keys",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b39181c853ecf5ed55d8a9b174eb82a7faeea6409fabd0a10dac06e428f51fb4",
       "admission": {
@@ -2539,7 +2593,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-duplicate-case",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b0b520acf6cb6982bde6c01559bdbc31c5a16296d65dde6da9ce1b8e6f7ae0b4",
       "admission": {
@@ -2569,7 +2624,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "aec62034b15e53378b4dfac69e5464b68b288403bb9624892ad96058b3b38363",
       "admission": {
@@ -2602,7 +2658,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty-character-class",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a02285515141468b90d54600ec83cbd472cbfcc4c2bfcae7b121222e0460ac20",
       "admission": {
@@ -2632,7 +2689,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty-pattern",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8b00094e5677056b965b83280c8da42869677965f0d71b7839d443be7bf3be5b",
       "admission": {
@@ -2662,7 +2720,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty-static-block",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "edc9bcec05d21a0dfcb6e8df7f5475fa0411727530f5efd5e1e617b464d26bea",
       "admission": {
@@ -2692,7 +2751,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-ex-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8cde4bb1fd52acc8bb5bd90161fea97efd7d2616244e4c1ae2082396c12833b8",
       "admission": {
@@ -2722,7 +2782,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-extra-bind",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6757d408f288919353e9282b5afac0a43b935b23c7d06e347fd71d07222bf653",
       "admission": {
@@ -2752,7 +2813,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-extra-boolean-cast",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6a4150af0b57beb3557516012f90808ad42b70aab28946bc3b68f7e16e12f18c",
       "admission": {
@@ -2782,7 +2844,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-fallthrough",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "73f3378864e09543ea58e1318f020020d0b9f9b61e03c4ad854418f740704a37",
       "admission": {
@@ -2812,7 +2875,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-func-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "322cd645f5926a9bb9b41be0463ab8601f2474a2a665560088b16e432318c0a3",
       "admission": {
@@ -2842,7 +2906,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-global-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8171139a8bf7a7d739b073634cb2b88365824f6eecbd9571b3b862c4df0ec7a0",
       "admission": {
@@ -2872,7 +2937,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-implied-eval",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7bfeea55e138b7fd57172114192d9ab89bc06edf16aaab6452c0f6a662b903c1",
       "admission": {
@@ -2902,7 +2968,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-import-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "400d1066ad79c05c1157d9d0312512af89fc7c19bd5a199ed77f0e8e658c69bd",
       "admission": {
@@ -2932,7 +2999,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-invalid-regexp",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c936de4d2dd3423a096e259e1c0c6b9914a65d84f67e6ed7995ac845cc562202",
       "admission": {
@@ -2962,7 +3030,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-irregular-whitespace",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "9b4257eac11384bdaff4c61b77da180b729b93a29ef1f392c644c0cf70e5118a",
       "admission": {
@@ -2992,7 +3061,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-loss-of-precision",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a754f714370405ab77042e207ed0c2db227b01f5e84e42fbfb13baae3bb6ffaf",
       "admission": {
@@ -3022,7 +3092,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-misleading-character-class",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ada415c024cf64d2462a3e928b7e4cea8e0f461513714da4ba72be411bafa660",
       "admission": {
@@ -3052,7 +3123,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-new-native-nonconstructor",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "15cbfdc56d81c843bc15c87b900eff4544234e5746030768d437ae6d3337edd9",
       "admission": {
@@ -3082,7 +3154,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-new-wrappers",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a29a8b3b2c7c5ab89c2fbbcad5b4c75cbe3878103ef860b3d835bc014081259b",
       "admission": {
@@ -3112,7 +3185,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-nonoctal-decimal-escape",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2de631be0c33a983603fa2756ad2315efe5d33a960127643b082427f8c2b06de",
       "admission": {
@@ -3142,7 +3216,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-obj-calls",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c8ca94c1865592d127d4dc10433c217d002bc8dbcf873f719279cd16e24782da",
       "admission": {
@@ -3172,7 +3247,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-only-tests/no-only-tests",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6a3d29559615e2e3fae29de7d7fda561985744d9022e84ff87ee5692dfc85bbd",
       "admission": {
@@ -3202,7 +3278,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-prototype-builtins",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c97cc912d1a2b6d207d559b7882441b5da330c4520d418f7c291622b71c45858",
       "admission": {
@@ -3232,7 +3309,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-redeclare",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5771d167ec5dceefa1e70be55ff4ab4573fd13ceec9bd338a713ede89a6f6659",
       "admission": {
@@ -3262,7 +3340,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-regex-spaces",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6fdd13a94ebc7770dcfdfae6b80c3b5213317fd930a8f6ef74f3e7b2d056f838",
       "admission": {
@@ -3292,7 +3371,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-self-assign",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3b394461ca1b688f85ee95e4266c7026105510f40725d17a09c6ed742c675c33",
       "admission": {
@@ -3322,7 +3402,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-self-compare",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "527eaceb98467a1cb140a21d1c2c5cef3b4cda5ae09b65017e6cc45eb6f84068",
       "admission": {
@@ -3352,7 +3433,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-setter-return",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7190ad23d9930575914aecab617e0630411c40392f17b9c2bc981765337d01cd",
       "admission": {
@@ -3382,7 +3464,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-shadow-restricted-names",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "09b399d47445dc9bba827531dfc6ebc1ead62e1f2353a2fb99cb8800f672e044",
       "admission": {
@@ -3412,7 +3495,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-sparse-arrays",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "74cc26178a8b66f6f51cca57fc8fb9180bf85d11800d31d004389cb1722a288e",
       "admission": {
@@ -3442,7 +3526,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-this-before-super",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d1c74ea65a269e681d636610edd85c0262ac096468596ca4423853e67afd0708",
       "admission": {
@@ -3472,7 +3557,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-throw-literal",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e2fed2b800021c7812e1d0883b567ffa6ce209ad127a1b8d16773d1a4157475a",
       "admission": {
@@ -3502,7 +3588,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-undef",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e9a76da3b5ce5fb5e9bcb2ad44779b9240271f443b9d5795fc826c163a69f94a",
       "admission": {
@@ -3532,7 +3619,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unexpected-multiline",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b4052fb50359aea4010d9cc84e80a80eddd9bc2682623ff3bcba75741979f79f",
       "admission": {
@@ -3562,7 +3650,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unreachable",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0a80140da0bb1490a77cda1291795702bfc80bdee29f07e494b9f8f729709e3a",
       "admission": {
@@ -3592,7 +3681,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unsafe-finally",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "388a3de358b44e75072a8468c086804d37ea010c6afe2b46c930221620cae4fb",
       "admission": {
@@ -3622,7 +3712,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unsafe-negation",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0b3d22985c61a1c9bf4e459c30c741db3d03a1870a6d91d81ef2eac62a2fef13",
       "admission": {
@@ -3652,7 +3743,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unsafe-optional-chaining",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8e2dbf65d1c62aec841e53e3b5e3269a0abb2ff4a832b62199339beaa61b7733",
       "admission": {
@@ -3682,7 +3774,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unused-expressions",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3ee33ecd4d4571693f0ea37663b412caf9d79e52f4b3f08da6f82d3f72ca92ca",
       "admission": {
@@ -3712,7 +3805,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unused-labels",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "86f6aee23f8e288e0ef82274e2b79073aeb98b29dbb0220cc4cc56182a3ea4f4",
       "admission": {
@@ -3742,7 +3836,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unused-private-class-members",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e1ee589ad635cdb3bfac30980aa63b6979220337c4f8d3b5be2b807fbe439d5b",
       "admission": {
@@ -3772,7 +3867,17 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unused-vars",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "args": "none",
+            "fix": {
+              "imports": "safe-fix",
+              "variables": "off"
+            },
+            "varsIgnorePattern": "^_"
+          }
+        ]
       },
       "fingerprint": "0d766faa442fb4035f6f50d3cf495d5e99b7a11d0f8d31f3eb1494551b7b8151",
       "admission": {
@@ -3805,7 +3910,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-useless-backreference",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b1004696958a71130290a1a317b0e12502c7662cb4cde8e129329703ecec677e",
       "admission": {
@@ -3835,7 +3941,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-useless-catch",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6b777da45659e89a394b99088856473ed63257a1de2a58df8f2a3d0f8665e179",
       "admission": {
@@ -3865,7 +3972,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-useless-escape",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5669004c670e0fa27eef7ec0f9ebc8b60640c534dfbc089259949c648cc2a140",
       "admission": {
@@ -3895,7 +4003,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-useless-rename",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e704dcc813b90f4aedf1e08e7720fe0bb7410eb839809c64b3e29c5d4db39712",
       "admission": {
@@ -3925,7 +4034,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-var",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d14c7ba0173d2d582b49c03c03b0d304a501efd5df873ea73ffba8ffaf3a5e48",
       "admission": {
@@ -3955,7 +4065,12 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-warning-comments",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "terms": ["@nocommit"]
+          }
+        ]
       },
       "fingerprint": "472f72cb7178c220cfa8852220fb533f3b066daf7a7d4776e8d75b2cffde649c",
       "admission": {
@@ -3985,7 +4100,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-with",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "faab4363c437347f2b51d8edef400ada1668f2b30f6a19694bdc2aa55c2ce966",
       "admission": {
@@ -4015,7 +4131,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "object-shorthand",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c356d064f1cb5a66b96c3d827905d75a6d116f95884b46b7cbd8391053fa60ef",
       "admission": {
@@ -4045,7 +4162,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/approx-constant",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0ac1c81ecddb3f93c543bd5f6a5b1d530edaa65836ffcfb0ea39d6442fe3ede6",
       "admission": {
@@ -4075,7 +4193,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-bitwise-operator",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "33e9fb887fc8664fcbe692a5227fd6e958db90b9f6bc87835dbfbc02eb84d97e",
       "admission": {
@@ -4105,7 +4224,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-char-at-comparison",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "397e19ce12f7c9e1ce852170bd935a1c76de47073273e429ab03c4be36a032bc",
       "admission": {
@@ -4135,7 +4255,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-comparison-sequence",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6dd2177a8816c29fe16da04278292df85a25cbd6d15f5fe43b289643db1aac98",
       "admission": {
@@ -4165,7 +4286,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-min-max-func",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e2f649d41a2a6955fff36e033e29708bb2029e64b0a1b3b86b3778c8ff4913bc",
       "admission": {
@@ -4195,7 +4317,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-object-literal-comparison",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "801413ed6784457d54c69d6faf7e2d2393606cfdd3313bbca01785ec753c2565",
       "admission": {
@@ -4225,7 +4348,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/bad-replace-all-arg",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d963b4c11b038e545e9571e9e8bc292f7e4faf0a050a2a2fa9291d89d82a64d8",
       "admission": {
@@ -4255,7 +4379,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/const-comparisons",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "32287e1a42a27e7535f0c3731490ce616a4a756665a0ff36ac1916758b853366",
       "admission": {
@@ -4285,7 +4410,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/double-comparisons",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "4185285c7f00e58845727e2060182375f7b640877ed903716f06290f87c5f76d",
       "admission": {
@@ -4315,7 +4441,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/misrefactored-assign-op",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "474309d00271f948d8d548baa982a2fa2f80f6b3ab5f6a37282eb06f32024319",
       "admission": {
@@ -4345,7 +4472,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/missing-throw",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6ff7cc8bf3d05b229d098b311ffe6b53d488e6322ec4a4abab593eb03366b22f",
       "admission": {
@@ -4375,7 +4503,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/number-arg-out-of-range",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "24f6e71a5930f520bdaaa33ac598dc203c52a2d3ea115b15d07588155fc426f2",
       "admission": {
@@ -4405,7 +4534,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "oxc/uninvoked-array-callback",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "bea60d5c9703ab998e3feecd47a1cdfb3ce5eb463c29c7764c107db99427d7ed",
       "admission": {
@@ -4435,7 +4565,13 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-enums",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "partitionByComment": true,
+            "sortByValue": "always"
+          }
+        ]
       },
       "fingerprint": "f0d96c37bb051b2cb1a6f3e03ab5698367ab957cf341ce93942bb11de011699c",
       "admission": {
@@ -4465,7 +4601,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-heritage-clauses",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3106ab9afdff7a9947501dd13c9a574b13b27426db25a68f4b0b047e0fea5577",
       "admission": {
@@ -4495,7 +4632,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-interfaces",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3b27275ee5da495020434c684dd4abeceba6c6c0791ca7c0470484f985cca2d6",
       "admission": {
@@ -4525,7 +4663,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-jsx-props",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8eeac93ec41c0699520e0aca8ed56e280b3a491c39574a6765c31ec28f4e4f09",
       "admission": {
@@ -4555,7 +4694,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-object-types",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8415332edae398f452e624999fe278f817cb789e976b40633e96b908df3c31bc",
       "admission": {
@@ -4585,7 +4725,12 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "perfectionist/sort-objects",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "partitionByComment": true
+          }
+        ]
       },
       "fingerprint": "6d0089ee4969db32eb220ee56ae95aa1cacf12f7304336138e0a1e99d3fec55f",
       "admission": {
@@ -4615,7 +4760,12 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "prefer-arrow-callback",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": [
+          {
+            "allowNamedFunctions": true
+          }
+        ]
       },
       "fingerprint": "18a18121fb4c2cd5eb2a889b6a31c8f6241024b0677e6cd55f107ca34a9c3680",
       "admission": {
@@ -4645,7 +4795,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "prefer-const",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "67b69b9531d7d750ed006495246e0e78c87609a374340e8d0f74ec48fbad26c0",
       "admission": {
@@ -4675,7 +4826,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "prefer-object-has-own",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7173ec892173eb4f97fdeb651ec94ec2a66d60d14efcd28671c1efc4488684e1",
       "admission": {
@@ -4765,7 +4917,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "preserve-caught-error",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f1796ae6bdf875bde785ca1c42196dcf50a28b509842bc66e52bf7895fbd7fa4",
       "admission": {
@@ -4795,7 +4948,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/button-has-type",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d0afe489e96204e5e5a099f07c7f18a7e3a0e37ab4ee90f180adcfe49ea77092",
       "admission": {
@@ -4825,7 +4979,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/checked-requires-onchange-or-readonly",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ae6e1fec730a8bc062865a1f18611d6b360481d6232dec01380e9551f7ed5fd0",
       "admission": {
@@ -4855,7 +5010,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/display-name",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e619c6030d74c1aed979f51dfa794302eb07d4bd983fa6deb1e2aefdd95809d6",
       "admission": {
@@ -4885,7 +5041,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/error-boundaries",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ffc955eac4998ca63d3ad18d139574753e7c332d4c4819b95a5cd25509ef3185",
       "admission": {
@@ -4915,7 +5072,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/exhaustive-deps",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e20f119461f7e85070a42f4ec9d5fd609d690ba2444bf10bb61043ed3543c727",
       "admission": {
@@ -4945,7 +5103,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/globals",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ee24fc39d2a9145d7cce6ffb39e17a22fde3e94fa7542a05be526362b79f4e2d",
       "admission": {
@@ -4975,7 +5134,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/immutability",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2e4cbcf41aa45f7fdb3fba3791c18a9636eb06ba699f5d728a64393339457987",
       "admission": {
@@ -5005,7 +5165,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/incompatible-library",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "db87807dbf877899ec2502735f29c7b309c2ee325b50fc57dc791e67c11233f9",
       "admission": {
@@ -5035,7 +5196,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-key",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e76f410c929345f00fa757adad47364d8ba8d75b9ac4dd2ea02f769c3774afc5",
       "admission": {
@@ -5065,7 +5227,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-no-comment-textnodes",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a293450936af606a07c2646bfff592c388518908e3fa033f7f285241782b2e63",
       "admission": {
@@ -5095,7 +5258,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-no-duplicate-props",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "eac0fedc97c977f0f59d40cd0c213074018f4c180625cce74e48d1132654da3e",
       "admission": {
@@ -5125,7 +5289,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-no-script-url",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "940f37565642e8fcf973a866b5737e3a10c69cb8c1d80214ba38571f840418c9",
       "admission": {
@@ -5155,7 +5320,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-no-target-blank",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a654b09042f28a099be455c7b8a93b0bdc58b4abe1f2fc68a6a7ce668db9d2d6",
       "admission": {
@@ -5185,7 +5351,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-no-undef",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f4b7c1289e095027d374b2d848201d133d94023459d1fe32d3acda501c37023d",
       "admission": {
@@ -5215,7 +5382,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/jsx-props-no-spread-multi",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "36b35f012b3d9b4f9ab5f53e2f126a97b44deb8760d558ab6a1b76a84d8d7c4e",
       "admission": {
@@ -5245,7 +5413,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-children-prop",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7355008852f63ec4d02c4b75f29bbd4d697a761fbec66436e99cc36804419638",
       "admission": {
@@ -5275,7 +5444,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-danger-with-children",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ea8dfc3166ce123a37956aae002526f41ce3ef02ab13772998af162676149c62",
       "admission": {
@@ -5305,7 +5475,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-direct-mutation-state",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "da63d8e30e7790dabd0de71a4ddbeb02b20d68b3a17684f73c9d692caac32e5f",
       "admission": {
@@ -5335,7 +5506,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-find-dom-node",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "05a5d9dea44839d1d5bf2020752359a099975e48c739e288b271f2c81a801ad8",
       "admission": {
@@ -5365,7 +5537,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-is-mounted",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "deb4cba14b61e4615ee552f035aee811a7b2a424a9038fc13066a5607add5bb3",
       "admission": {
@@ -5395,7 +5568,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-render-return-value",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "bb2ee2375c9e1a3d39b7f8c9507fe4a992951cc32f1908a5ee454968dd0b2cd8",
       "admission": {
@@ -5425,7 +5599,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-string-refs",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8ad363f733c21c1ebad11f33cac46d466ad6f4acf1a1d3ae7247a15f200990a9",
       "admission": {
@@ -5455,7 +5630,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-unescaped-entities",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "012af1124c398a9d4c4d2187639db454f4e8b1c12d0659198e8c2329dce330c5",
       "admission": {
@@ -5485,7 +5661,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/no-unknown-property",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0fc153d1f98dae8a344de2ba5a1b39624f745603bb3fa84905611ccb289e4a04",
       "admission": {
@@ -5515,7 +5692,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/preserve-manual-memoization",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2066dddee27914e9663e5039ec4aeb0af2a0dd27bc3afa962f81977e01aaddd6",
       "admission": {
@@ -5545,7 +5723,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/purity",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "56621d60d7366c0de795d8b06d7e79caa125e8b310865dbfcbc2f98fd41698cb",
       "admission": {
@@ -5575,7 +5754,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/refs",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "fbed68e0fc969b0e2dc87929fb61bb591782c769a1459e01b0407c735b5e85d2",
       "admission": {
@@ -5605,7 +5785,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/require-render-return",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "deab3643e061a843108968499b13b68d64f1b60d6764bc15f6ea374322802e43",
       "admission": {
@@ -5635,7 +5816,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/rules-of-hooks",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "771a016fb9586a6815576aae99fb647de00602b6ac3a64268530785e712ba7dc",
       "admission": {
@@ -5665,7 +5847,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/set-state-in-effect",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5f627a5127a48b67d8ca7a8f3575932233c575d72bc57bc5568b91ae9420f650",
       "admission": {
@@ -5695,7 +5878,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/set-state-in-render",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "726916838cb004838aa05fa3b6bbbb780fbde2d056d4221a12bc4815f8f772f1",
       "admission": {
@@ -5725,7 +5909,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/static-components",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "42c7b5aa5ceea885da76280addec61f507f129383066cd71f83c2e7021403aa7",
       "admission": {
@@ -5755,7 +5940,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/unsupported-syntax",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "97d3851680afaa59adb035d6cc1ee9de2ef26818dd07680b0e047b6ff2930eec",
       "admission": {
@@ -5785,7 +5971,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/use-memo",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3f1d9c12135ac3e692c7746d3eb6e69e562ad18c6102edf5ad73fc555cac2c8d",
       "admission": {
@@ -5815,7 +6002,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react/void-dom-elements-no-children",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "22408dcb836c12aa9f87f83f6990734a820ba3e7783e3ed2bfdb769e016d1c6a",
       "admission": {
@@ -5845,7 +6033,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "require-yield",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "01a24c5f7c6d11b83de5b14cc43ec9db501a30d802d19c7e76da2b1d896a4ae9",
       "admission": {
@@ -5878,7 +6067,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/catch-error-name",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "04fe704ba562d195fabf4bc5e1768054ee7061d13f9ae1ceeaded53d43664e34",
       "admission": {
@@ -5908,7 +6098,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/consistent-empty-array-spread",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c7927da7979524d593672cb64d123a7b85892b089a3070eb5040ea2c503a8c66",
       "admission": {
@@ -5938,7 +6129,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/consistent-function-scoping",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f389d80734cca20762ff7ac47f37f0ced7f38ea5c24923758544a53b3412fa38",
       "admission": {
@@ -5968,7 +6160,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-abusive-eslint-disable",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3417bc46effc83abee375f1513208544e8028ebcc53cf36fcee69043be4df2f7",
       "admission": {
@@ -5998,7 +6191,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-hex-escape",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3ebcb3a1346648d4ef533bdc326b3c73f0d13e42b6f4af4c2a18ee4d96679bb1",
       "admission": {
@@ -6028,7 +6222,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-invalid-fetch-options",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a20405c935331ade4c40a78fb48f47d1de005332e928e2978b955260b7306ea1",
       "admission": {
@@ -6058,7 +6253,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-magic-array-flat-depth",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "301cfad9077130c74b170187e0e14f2814c452612e925a5fe13304c552f66c94",
       "admission": {
@@ -6088,7 +6284,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-typeof-undefined",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8356586c51b45ce1d8307057ff8317491c70491ba58a8699aed9ffa1514732d1",
       "admission": {
@@ -6118,7 +6315,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-unnecessary-slice-end",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "1ff29046e441d44be5f4b0e8c3025c8e958dd2a7a87213a715b2d332c903449b",
       "admission": {
@@ -6148,7 +6346,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-useless-promise-resolve-reject",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f634819888f1b033bf58fd0a34a3fbfba45db606815c5c0686576dc1e15150e3",
       "admission": {
@@ -6178,7 +6377,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/no-useless-spread",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "07dd504efe800d9daf0edd45a5ba41fd96557bb44430fb0c1ac95aa8fe511fdf",
       "admission": {
@@ -6208,7 +6408,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/numeric-separators-style",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a4195a28cb775f52311e8d567d16a1acbf016507245bd5b3f349d9be5290738b",
       "admission": {
@@ -6238,7 +6439,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-array-flat-map",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "cbc62463219fbf0307bd93055845fe933c823788e9be1593c07c3251149c4951",
       "admission": {
@@ -6268,7 +6470,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-array-index-of",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "87bd4838d407478bf93505a91af6439f1cd645682d3e6631127154ae3a2a8cde",
       "admission": {
@@ -6298,7 +6501,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-array-some",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "edf1f5f1b6a9193d23bf35e62970466341c6b16e033f9882c15ee4a1698bc587",
       "admission": {
@@ -6328,7 +6532,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-at",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "73e54114c5f437bd5312d077aca10717233361ef653d77ce8d2d2efe8fa537ec",
       "admission": {
@@ -6358,7 +6563,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-dom-node-append",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a698257f7c7aa5469a6d9252fde26d81a353074c5e881754553f8a13c29b69c0",
       "admission": {
@@ -6388,7 +6594,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-import-meta-properties",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5a0f72c14ff83be3c1664a8b35f9bc45bfe3dc61589bbe0351cce60d15c0836b",
       "admission": {
@@ -6418,7 +6625,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-native-coercion-functions",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2f8fee7fbeae07a8eb95bfc37d8807ee8a9856d81cca1135ea9f8e216cd718b6",
       "admission": {
@@ -6448,7 +6656,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-node-protocol",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "22c0d7b85f7aec1d30a9eee2c62374179bd723ad8f71cbdab0c33bdd13690c46",
       "admission": {
@@ -6478,7 +6687,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-number-properties",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a611b29d916d6968d584130ee6559bf3d3c593b8e0b404234c662474bd4a23cb",
       "admission": {
@@ -6508,7 +6718,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-optional-catch-binding",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d174d18bf4c2855699a9bb4ec20f4fd97fdb68377179b18b510be6d2bc22c47d",
       "admission": {
@@ -6538,7 +6749,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-set-size",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ddd20bae7ac377fbcd05feddcbd64b7139bdbf00a2b4dd27cf889af582efab72",
       "admission": {
@@ -6568,7 +6780,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-single-call",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "fd4b78a9ac7d92444553b078d71020df60f7525a7219ed331e71b90634de7957",
       "admission": {
@@ -6598,7 +6811,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-string-raw",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e5a75ac49b2e0f7b5185de0559025aeef4d56b0cb28fc9e5ecf9eb10cb37fffb",
       "admission": {
@@ -6628,7 +6842,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-string-replace-all",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "17363586c01897c9733efceb59b2d37f49e48e244f996e821aef37a5ec454ea6",
       "admission": {
@@ -6658,7 +6873,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-string-slice",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5925a21cc96d5650e8e885437b3380fe4f535333c2b33a78e2af425972487138",
       "admission": {
@@ -6688,7 +6904,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-structured-clone",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "fa28ffc4f3ee1e4ab0a4b3c7af1c48c9299e7b61d052c65d9f9b2c1712b8042a",
       "admission": {
@@ -6718,7 +6935,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/prefer-top-level-await",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "afcd41240727e457e3df1df2bf86f395a1595e6d9c3fea0c054d791c9e14f280",
       "admission": {
@@ -6748,7 +6966,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/text-encoding-identifier-case",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "810b1bd93e3b935cf7007410535d8f6c62b8ded92b969daa8c696e1528a8545c",
       "admission": {
@@ -6778,7 +6997,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "use-isnan",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5177f8e641c8fedb9f8d146d3a0de463b9e8ce30515c420d38099284a2a6bb72",
       "admission": {
@@ -6808,7 +7028,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "valid-typeof",
         "implementationPaths": ["oxlint.config.ts", "index.js"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ce852c481892d94f20757ed707d31d687a1b7b1e5283cbeccd7c91e6d33e2b70",
       "admission": {
@@ -8046,7 +8267,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/comment-explains-why",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "28715af97f83249c70a245d7fef8f0478fde54efbb6d97178099bc8dfa6eb65c",
       "admission": {
@@ -8076,7 +8298,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/comment-ste100",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "5c5c7374015da2831285163fdb535aa865bfcd8887a5a6866d0838c18639a8ae",
       "admission": {
@@ -8106,7 +8329,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/comment-ste100-heuristics",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6e0b10e82acef8d4129e1a73137ba873d9ff8b10138e86f18872d45b271f8f13",
       "admission": {
@@ -8136,7 +8360,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/commented-out-code-requires-reason",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "59f8e676d2a72e82d065545b022fdf9193bda7b08f26734cd3a6683e2c0aef8a",
       "admission": {
@@ -8166,7 +8391,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/complex-file-header",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e1058418e7b49e64fde9370ccefb86a794bfc2f9649ee76b34d0b1e6b953d5aa",
       "admission": {
@@ -8196,7 +8422,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/constants-file-organization",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6d0a8f19c7c07b7977d0add7ecf32c4609dac31cea5263a59848bfc99a7afc04",
       "admission": {
@@ -8226,7 +8453,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/cross-field-issue-without-path",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8c1e1bdcc4550e0247b76dcb5f79bd71b65fe131ccd86e0c631442d0431f75e0",
       "admission": {
@@ -8256,7 +8484,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/domain-knowledge-in-agents",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8973e11eb87361a948bbdb23e626f807c50c6475f018241271062517e472c861",
       "admission": {
@@ -8286,7 +8515,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/enum-file-organization",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "87692253865b585b94205b0079a72bb55b407dc59f31e8781b9d7303fc9c9fc5",
       "admission": {
@@ -8316,7 +8546,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/errors-file-organization",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "394181421f87d21bf799b5f7b04053f42d7e49b1e92fcc57bfe7d150a2369dfb",
       "admission": {
@@ -8346,7 +8577,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/filename-match-export",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "945aab8a54fa2c97dc4161d3b48f08be24b7e485708a8c500f466132af15f0db",
       "admission": {
@@ -8376,7 +8608,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/json-parse-argument-of-safeparse",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ec0f37ff11be6da93bb800c5afee3b61e4fe2c5df4849d099fe13fc53617004b",
       "admission": {
@@ -8406,7 +8639,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/lint-suppression-requires-reason",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d8ba52c03d639a8e09d8df22a2c4d691b1a0aa480834c2b68972938b71472565",
       "admission": {
@@ -8436,7 +8670,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-chained-type-assertions",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "652295f1d929260e422a23b48aadd75aea0b74c89e2a3ce348c720541ab48e03",
       "admission": {
@@ -8469,7 +8704,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-conditional-empty-object-spread",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "faba8f470a67c1ea4d3b331fe184661d993ce29a3e2621804a4856eb6cbed886",
       "admission": {
@@ -8502,7 +8738,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-exported-function-expressions",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "d938e2644a98ccd5c458177da574d177d05548b2fa754c8becc1a4d991732535",
       "admission": {
@@ -8532,7 +8769,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-json-parse-stringify-codec",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "1a34bbecbaacc87fc552bfa49f3e5ce56123ca60ff818d56779e671f67168b40",
       "admission": {
@@ -8562,7 +8800,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-known-value-widening",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "87346389b5984fa1303c850d3ab3cf33c9ca82bc008c37cd4c310c35a6b7299c",
       "admission": {
@@ -8595,7 +8834,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-type-erasure",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "495d9d23161dd246bb6b050fd5803046c9a77b7220c3b81af7902c6e6a0e1465",
       "admission": {
@@ -8625,7 +8865,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-typeof",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "3b7c9937fd7afb2632bdb21f7986bc89e8d37eb61d02cb8f63d2b690140aaeea",
       "admission": {
@@ -8655,7 +8896,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-unknown-type-aliases",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "566e063eea2a01b203386fcb0c7481258736061a5ce2668129e7a9c8a150b42a",
       "admission": {
@@ -8688,7 +8930,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-unsafe-dictionary-type",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "e6c96586036c54a5848f0cc6f1cffb4c0718d25fdf1d0c2636cde94bb0412e2f",
       "admission": {
@@ -8721,7 +8964,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-widen-then-assert",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2b152341de889b302281ee39748731ba352c1fab17306123704f99c14fa90432",
       "admission": {
@@ -8754,7 +8998,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/no-zod-type-erasure",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2573a50df3a4ac48c987d68ad25bdaaec55ee40acd2e0bb08ef89749a10284d1",
       "admission": {
@@ -8784,7 +9029,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/number-int-method",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a4b6531d710afca3ac2c849ad7e09a6f6cc9ce4e22398d804db9cffde10a65c4",
       "admission": {
@@ -8814,7 +9060,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/object-strict-method",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f0620611ea406436156af4d50297f8da3c64d73ecd86bcee23dd8b89e8e30dc0",
       "admission": {
@@ -8844,7 +9091,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/optional-default-redundant",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "b4bd952f8bbcca2ce68da3bde0a8c01e4607e3dc479422f94447cae50badcfa1",
       "admission": {
@@ -8874,7 +9122,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/record-string-unknown",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "202fd484580e7455b23c830bf2b2dbb4c652b65fc979a6875e5b3a1b2edbe45c",
       "admission": {
@@ -8904,7 +9153,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/require-jsdoc-comments",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ce4ca7ee757d0d41e3901439366d3b1bff52b9a4bd59b97ff4d5ed9ba2372744",
       "admission": {
@@ -8934,7 +9184,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/schemas-file-organization",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "0d5dd981c692d88a273e4b7d2fcc11154502e1939dfe03e4ed26e9680d2209ec",
       "admission": {
@@ -8964,7 +9215,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/shape-spread-drops-refinements",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "6321b4a75d5c723f33f474d3236491e7a9a90b219d9672ff37d4a8f8fd8c6254",
       "admission": {
@@ -8994,7 +9246,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/throwing-zod-refine",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "be440ec281f9549a764bfefe0724e9173d01df276dda9523ad24fd4d4b2c6efc",
       "admission": {
@@ -9024,7 +9277,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/tool-input-integer-as-number",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "36d3131eda9b8ff6174629452c4e8a50d2cea1d678fb577f88ae7cb8ef48de0c",
       "admission": {
@@ -9054,7 +9308,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/tool-input-not-strict",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "12efaf6cf7bc1a45e6fcb22da56ad03e5c7de4b098607ff98c77587079fd2c5f",
       "admission": {
@@ -9084,7 +9339,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/trim-after-string-constraint",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "61d02c1be6f9a8641c9b11947bed3998328bb151a43244bb312f7db342acc985",
       "admission": {
@@ -9114,7 +9370,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/types-file-organization",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a7c2c3f9775ab123d18223ce505b5581a8d42b07a98a4560954b78a62db03844",
       "admission": {
@@ -9144,7 +9401,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/union-of-literals-to-literal-array",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c797a8ccf78d3f7f32787b89a6bfb667bc32315b02a0ca4a14e7903d36cd3f4c",
       "admission": {
@@ -9174,7 +9432,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/zinfer-instead-of-zoutput",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "1b7d7432eeaac0b63033dd401226727c939ba3606e1bf7bcd8057f59a3cfdf42",
       "admission": {
@@ -9204,7 +9463,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/zod3-string-format-method",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "9fe89d5d001656ff4d97eae6f677ecc23ef4d904fca223ac26a53b5ac67b52e1",
       "admission": {
@@ -9234,7 +9494,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/zodtype-annotation-instead-of-satisfies",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ca317f50ca9bc625e432bf463cbd765c4ea1265a37092d90bac6f80d099de2a9",
       "admission": {
@@ -9264,7 +9525,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "rayhanadev/zodtype-t-generic-helper",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "c5e66eb2232f35be6cc6b7ed5ee72f4e08a554f97981683d16a4e82b5b7088cf",
       "admission": {
@@ -9749,7 +10011,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "automation/no-sql-type-parameter",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "952498317299d008eed1ab07d48bdbd2bf5d5fb69a0ae518936b2205509e93a1",
       "admission": {
@@ -9964,7 +10227,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "exhaustive-deps",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2ec984df3ad0879e6789b2ebf0a6203b5e834e6f3c34c0cf8001e1115ae90e54",
       "admission": {
@@ -10191,7 +10455,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-console",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "f0e13109b4ad6b2550128a1b0886204abcfe05fdeb69872e7dea2e6a30510239",
       "admission": {
@@ -10488,7 +10753,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "7edfeddbe3d663eab165766b44726f9349e7ba48f677186ec209c59164f866c3",
       "admission": {
@@ -10554,7 +10820,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-empty-function",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "fc98c26578929811a9df33b94f637914c2d6002ee3dbcde9e185609aa550e1dd",
       "admission": {
@@ -10614,7 +10881,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-eq-null",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "ef74dc7011ad85e1e3786e1df7d187e0dd1dce9578a8ccc241f2965d6c7f70eb",
       "admission": {
@@ -10777,7 +11045,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-img-element",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "8d33f896afae70a7b8dced1a1078f02f67015389992a9a8750e713e8a20448e8",
       "admission": {
@@ -11305,7 +11574,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-shadow",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "a864529066c7449f5a951cb8c2aa4838396a14c760c1b1e0bdbd4ddbc7ab7cc8",
       "admission": {
@@ -11771,7 +12041,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-underscore-dangle",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "001ba852a6a79d094beab86e8728e9844c3bc95f9e780bb4f7619d67631077c5",
       "admission": {
@@ -11831,7 +12102,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "no-unused-vars",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "2e7bf3f4247afba54c95998a877093260e564b1e1a1bf36903494319ea61f10e",
       "admission": {
@@ -12143,7 +12415,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "react-in-jsx-scope",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "9793d0a45812406a014d2c60ae0680fc19a9055fc341674957476cb9239ddb34",
       "admission": {
@@ -12370,7 +12643,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "require-yield",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "669aab3ed8f1bf7b040dd6e3aba3c9e27d21fec386d56ace5796d65afd2433f3",
       "admission": {
@@ -12436,7 +12710,8 @@
         "kind": "oxlint-policy",
         "sourceRuleName": "unicorn/filename-case",
         "implementationPaths": [".oxlintrc.json"],
-        "testPaths": []
+        "testPaths": [],
+        "options": []
       },
       "fingerprint": "25ef19d1a4babdacf7cea1ed8ed972dcac07eb12d178127235ae33f5d05864b1",
       "admission": {

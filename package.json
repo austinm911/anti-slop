@@ -9,30 +9,48 @@
     "type": "git",
     "url": "git+https://github.com/austinm911/anti-slop.git"
   },
+  "files": [
+    "oxlint/configs",
+    "dist/plugins",
+    "ast-grep/sgconfig.yml",
+    "ast-grep/sgconfig.preferences.yml",
+    "ast-grep/rules",
+    "ast-grep/preferences",
+    "THIRD_PARTY_NOTICES.md"
+  ],
   "type": "module",
+  "exports": {
+    "./oxlint/configs/*": "./oxlint/configs/*",
+    "./plugins/*": "./dist/plugins/*",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "check": "bun run format:check && bun run rules:test && bun run tsrx:test && bun run typecheck && bun run discovery:test && bun run review:test && bun run registry:check",
+    "check": "bun run format:check && bun run rules:test && bun run tsrx:test && bun run typecheck && bun run discovery:test && bun run review:test && bun run registry:check && bun run build:check",
+    "build": "bun scripts/build.ts",
+    "build:check": "bun scripts/build.ts --check",
     "discovery:discover": "bun scripts/discovery/cli.ts discover",
-    "discovery:report": "bun scripts/discovery/cli.ts report",
     "discovery:refresh": "bun scripts/discovery/cli.ts refresh",
+    "discovery:report": "bun scripts/discovery/cli.ts report",
     "discovery:test": "bun test scripts/discovery",
     "discovery:triage": "bun scripts/discovery/cli.ts triage",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
+    "prepack": "bun scripts/build.ts",
     "registry:check": "shadcn registry validate registry.json",
     "review": "portless --force anti-slop -- bun scripts/review/server.ts",
+    "review:classify": "bun scripts/review/classify.ts",
     "review:test": "bun test scripts/review",
     "rules:test": "ast-grep test --config ast-grep/sgconfig.yml --skip-snapshot-tests && ast-grep test --config ast-grep/sgconfig.preferences.yml --skip-snapshot-tests && node oxlint/test.mjs",
     "tsrx:test": "bun install --cwd test/tsrx --frozen-lockfile && bun test test/tsrx",
-    "typecheck": "tsc -p tsconfig.discovery.json",
-    "review:classify": "bun scripts/review/classify.ts"
+    "typecheck": "tsc -p tsconfig.discovery.json"
   },
   "dependencies": {
-    "@ast-grep/cli": "0.45.3",
-    "oxlint": "1.86.0"
+    "@rayhanadev/ox": "0.4.0"
   },
   "devDependencies": {
+    "@ast-grep/cli": "0.45.3",
     "@ast-grep/napi": "0.45.3",
+    "@oxlint/plugins": "1.86.0",
     "@tanstack/highlight": "0.1.0",
     "@types/bun": "1.4.2",
     "@types/react": "19.3.0",
@@ -40,10 +58,23 @@
     "@typesafe-ai/sdk": "0.6.0",
     "js-yaml": "5.4.2",
     "oxfmt": "0.71.0",
+    "oxlint": "1.86.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "shadcn": "4.21.0",
     "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "@ast-grep/cli": ">=0.45.3",
+    "oxlint": ">=1.83.0"
+  },
+  "peerDependenciesMeta": {
+    "@ast-grep/cli": {
+      "optional": true
+    },
+    "oxlint": {
+      "optional": true
+    }
   },
   "trustedDependencies": [
     "@ast-grep/cli"

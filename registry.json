@@ -177,20 +177,6 @@
       "registryDependencies": ["austinm911/anti-slop/no-record-string-unknown"]
     },
     {
-      "name": "recommended",
-      "type": "registry:item",
-      "title": "Recommended anti-slop rules",
-      "description": "Install the recommended ast-grep and Oxlint rules.",
-      "registryDependencies": ["austinm911/anti-slop/ast-grep", "austinm911/anti-slop/oxlint"]
-    },
-    {
-      "name": "preferences",
-      "type": "registry:item",
-      "title": "Anti-slop preferences",
-      "description": "Install the recommended JSDoc preference.",
-      "registryDependencies": ["austinm911/anti-slop/no-mixed-jsdoc-line-prefix"]
-    },
-    {
       "name": "tsrx-oxc",
       "type": "registry:item",
       "title": "Oxlint and Oxfmt for TSRX",

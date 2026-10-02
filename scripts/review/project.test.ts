@@ -178,13 +178,20 @@ describe("profiles", () => {
       "rule:no-effect-gen-arrow",
     ]);
     expect(config.plugins).toEqual(["oxc", "typescript"]);
-    expect(config.jsPlugins).toEqual(["./plugins/anti-slop.js"]);
+    expect(config.jsPlugins).toBeUndefined();
     expect(config.rules["oxc/no-accumulating-spread"]).toBe("warn");
-    expect(config.rules["anti-slop/no-effect-gen-arrow"]).toBe("warn");
+    // A rule that still needs vendoring stays out of the config so the config always loads.
+    expect(config.rules["anti-slop/no-effect-gen-arrow"]).toBeUndefined();
     expect(config.rules["typescript/no-restricted-types"][0]).toBe("error");
     expect(effect?.astGrepRules).toEqual(["ast-grep/rules/no-commented-record-string-unknown.yml"]);
-    expect(effect?.gaps.map(({ ruleKey }) => ruleKey)).toEqual(["rule:no-effect-gen-arrow"]);
-    expect(effect?.install.commands).toContain("austinm911/anti-slop/effect");
+    expect(effect?.astGrepConfigs).toEqual(["ast-grep/sgconfig.yml"]);
+    expect(effect?.gaps.map(({ ruleKey }) => ruleKey)).toEqual([
+      "rule:no-effect-gen-arrow",
+      "ast-grep:ast-grep/sgconfig.yml",
+    ]);
+    expect(effect?.install.commands).toContain(
+      "./node_modules/@austinm911/anti-slop/oxlint/configs/effect.json",
+    );
     expect(
       state.rules.find(({ key }) => key === "rule:no-record-string-unknown")?.profiles,
     ).toEqual(["base", "effect"]);
@@ -197,7 +204,102 @@ describe("profiles", () => {
     const statePath = join(dirname(paths.catalogPath), "state.json");
     const summaryPath = join(dirname(paths.catalogPath), "summary.md");
     await generateReviewOutputs(await loadReviewState(paths), statePath, summaryPath);
-    expect(await readFile(summaryPath, "utf8")).toContain("`effect`: 2 rules, 0 gaps.");
+    expect(await readFile(summaryPath, "utf8")).toContain("`effect`: 2 rules, 1 gaps.");
+  });
+
+  test("loads plugin rules through jsPlugins and carries the options upstream configures", async () => {
+    const paths = await fixture([
+      makeCandidate({ repository: "rayhanadev/oxray", name: "no-typeof" }),
+      makeCandidate(
+        { repository: "dmmulroy/anti-slop", name: "prefer-effect-match" },
+        "src/effect/rules/prefer-effect-match.ts",
+      ),
+      makeCandidate({ repository: "unlicensed/repo", name: "no-switch" }, undefined, null),
+      {
+        ...makeCandidate({
+          repository: "one/repo",
+          name: "no-warning-comments",
+          kind: "oxlint-policy",
+        }),
+        artifact: {
+          kind: "oxlint-policy",
+          sourceRuleName: "no-warning-comments",
+          implementationPaths: [".oxlintrc.json"],
+          testPaths: [],
+          options: [{ terms: ["@nocommit"] }],
+        },
+      },
+      {
+        ...makeCandidate({ repository: "one/repo", name: "eqeqeq", kind: "oxlint-policy" }),
+        artifact: {
+          kind: "oxlint-policy",
+          sourceRuleName: "eqeqeq",
+          implementationPaths: [".oxlintrc.json"],
+          testPaths: [],
+          options: ["always"],
+        },
+      },
+      {
+        ...makeCandidate({ repository: "two/repo", name: "eqeqeq", kind: "oxlint-policy" }),
+        artifact: {
+          kind: "oxlint-policy",
+          sourceRuleName: "eqeqeq",
+          implementationPaths: [".oxlintrc.json"],
+          testPaths: [],
+          options: ["smart"],
+        },
+      },
+    ]);
+    await mkdir(paths.profilesDirectory, { recursive: true });
+    await writeFile(
+      join(paths.profilesDirectory, "base.json"),
+      JSON.stringify({
+        description: "",
+        rules: {
+          "rule:no-typeof": "error",
+          "rule:prefer-effect-match": "warn",
+          "rule:no-switch": "error",
+          "rule:no-warning-comments": "warn",
+          "rule:eqeqeq": "error",
+          "rule:no-console": ["warn", { allow: ["error"] }],
+        },
+      }),
+    );
+    const state = await loadReviewState(paths);
+    const base = state.profiles.find(({ name }) => name === "base");
+    const config = JSON.parse(base?.oxlintConfig ?? "{}");
+
+    expect(config.jsPlugins).toEqual([
+      "../../dist/plugins/anti-slop-effect.js",
+      "../../dist/plugins/rayhanadev.js",
+    ]);
+    expect(config.rules).toEqual({
+      eqeqeq: "error",
+      "anti-slop-effect/prefer-effect-match": "warn",
+      "no-warning-comments": ["warn", { terms: ["@nocommit"] }],
+      "rayhanadev/no-typeof": "error",
+    });
+    expect(base?.gaps).toEqual([
+      {
+        ruleKey: "rule:no-switch",
+        reason: "unlicensed/repo has no license, so its implementation can't be redistributed.",
+      },
+      {
+        ruleKey: "rule:eqeqeq",
+        reason:
+          "Sources configure different options (one/repo vs two/repo). Set them in the profile.",
+      },
+      { ruleKey: "rule:no-console", reason: "No longer in the discovery catalog." },
+    ]);
+    expect(base?.resolved["rule:no-console"]).toBe("warn");
+
+    await setProfileRule(paths.profilesDirectory, {
+      profile: "base",
+      ruleKey: "rule:no-console",
+      severity: "error",
+    });
+    const saved = JSON.parse(await readFile(join(paths.profilesDirectory, "base.json"), "utf8"));
+    expect(saved.rules["rule:no-console"]).toEqual(["error", { allow: ["error"] }]);
   });
 
   test("inherits Oxlint categories and keeps the default plugins they need", async () => {
@@ -271,18 +373,30 @@ async function writeCatalog(path: string, candidates: RuleCandidate[]): Promise<
   await writeFile(path, `${JSON.stringify(catalog, null, 2)}\n`);
 }
 
-function makeCandidate(input: {
-  repository: string;
-  name: string;
-  kind?: RuleCandidate["artifact"]["kind"];
-}): RuleCandidate {
+function makeCandidate(
+  input: {
+    repository: string;
+    name: string;
+    kind?: RuleCandidate["artifact"]["kind"];
+  },
+  implementationPath?: string,
+  license: string | null = "MIT",
+): RuleCandidate {
   const kind = input.kind ?? "oxlint-plugin-rule";
-  const path = kind === "oxlint-policy" ? ".oxlintrc.json" : `src/rules/${input.name}.ts`;
+  const path =
+    implementationPath ??
+    (kind === "oxlint-policy" ? ".oxlintrc.json" : `src/rules/${input.name}.ts`);
   return {
     id: `${input.repository.replace("/", "--")}:${input.name}:abc123`,
     name: input.name,
     description: `Fixture rule ${input.name}.`,
-    source: { repository: input.repository, ref: "main", commit: "abc1234def", paths: [path] },
+    source: {
+      repository: input.repository,
+      ref: "main",
+      commit: "abc1234def",
+      paths: [path],
+      ...(license ? { license } : {}),
+    },
     artifact: {
       kind,
       sourceRuleName: input.name,
