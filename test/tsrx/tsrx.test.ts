@@ -11,12 +11,15 @@ const check = join(repository, "oxlint/check-tsrx-oxc.mjs");
 type Finding = { code: string; line: number; column: number };
 
 /** Lints with the harness's @tsrx/oxc and returns each diagnostic at its authored position. */
-async function lint(config: string, file: string): Promise<Finding[]> {
-  const process = Bun.spawn([oxlint, "--config", config, "--format=json", file], {
-    cwd: harness,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
+async function lint(config: string, file: string, typeAware = false): Promise<Finding[]> {
+  const process = Bun.spawn(
+    [oxlint, "--config", config, "--format=json", ...(typeAware ? ["--type-aware"] : []), file],
+    {
+      cwd: harness,
+      stdout: "pipe",
+      stderr: "pipe",
+    },
+  );
   const output = await new Response(process.stdout).text();
   await process.exited;
   const report = JSON.parse(output) as {
@@ -30,6 +33,15 @@ async function lint(config: string, file: string): Promise<Finding[]> {
 }
 
 describe("@tsrx/oxc", () => {
+  test("reports authored inconsistent returns without reporting component placeholders", async () => {
+    const findings = await lint(
+      join(harness, "fixtures/consistent-return.oxlintrc.json"),
+      join(harness, "fixtures/consistent-return.tsrx"),
+      true,
+    );
+    expect(findings).toEqual([{ code: "typescript(consistent-return)", line: 10, column: 1 }]);
+  });
+
   test("runs native rules and JavaScript plugins on .tsrx at authored positions", async () => {
     const findings = await lint(
       join(harness, "fixtures/plugin.oxlintrc.json"),

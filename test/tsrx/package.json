@@ -4,6 +4,6 @@
   "description": "Isolated @tsrx/oxc install. Its oxlint and oxfmt commands would replace the repository's own if installed at the root.",
   "type": "module",
   "devDependencies": {
-    "@tsrx/oxc": "0.20.0"
+    "@tsrx/oxc": "0.24.0"
   }
 }

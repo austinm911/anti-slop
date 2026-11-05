@@ -181,7 +181,7 @@
       "type": "registry:item",
       "title": "Oxlint and Oxfmt for TSRX",
       "description": "Install @tsrx/oxc so oxlint, oxfmt, and Oxlint JavaScript plugins read .tsrx, with a check that catches a shadowing oxlint or a stale install.",
-      "devDependencies": ["@tsrx/oxc@0.20.0"],
+      "devDependencies": ["@tsrx/oxc@0.24.0"],
       "files": [
         {
           "path": "oxlint/check-tsrx-oxc.mjs",

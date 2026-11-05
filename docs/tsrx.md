@@ -4,7 +4,7 @@
 read `.tsrx` alongside `.js`, `.ts`, `.jsx`, and `.tsx`. Native Oxlint rules and
 Oxlint JavaScript plugins both run on `.tsrx`, so this registry's Oxlint
 configuration works unchanged. `bun run tsrx:test` checks the behavior on this
-page against `@tsrx/oxc` 0.20.0.
+page against `@tsrx/oxc` 0.24.0.
 
 ## Install
 
@@ -13,7 +13,7 @@ bunx --bun shadcn@latest add austinm911/anti-slop/tsrx-oxc
 bun remove oxlint oxfmt
 ```
 
-The item adds `@tsrx/oxc@0.20.0` and `tools/oxlint/check-tsrx-oxc.mjs`.
+The item adds `@tsrx/oxc@0.24.0` and `tools/oxlint/check-tsrx-oxc.mjs`.
 
 Remove the direct `oxlint` and `oxfmt` dependencies, including the `oxlint` that
 the `oxlint` and `no-record-string-unknown` items declare. A
